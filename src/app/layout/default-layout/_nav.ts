@@ -258,22 +258,22 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'Login',
-        url: '/Default/login',
+        url: '/login',
         icon: 'nav-icon-bullet'
       },
       {
         name: 'Register',
-        url: '/Default/register',
+        url: '/register',
         icon: 'nav-icon-bullet'
       },
       {
         name: 'Error 404',
-        url: '/Default/404',
+        url: '/404',
         icon: 'nav-icon-bullet'
       },
       {
         name: 'Error 500',
-        url: '/Default/500',
+        url: '/500',
         icon: 'nav-icon-bullet'
       }
     ]
