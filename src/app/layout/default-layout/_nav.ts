@@ -12,6 +12,21 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
+    name: 'Artisanry'
+  },
+  {
+    name: 'Craftsperson',
+    url: '/Default/artisanry/craftsperson',
+    iconComponent: { name: 'cil-group' }
+  },
+  {
+    name: 'Product',
+    url: '/Default/artisanry/product',
+    linkProps: { fragment: 'headings' },
+    iconComponent: { name: 'cil-fingerprint' }
+  },
+  {
+    title: true,
     name: 'Theme'
   },
   {
