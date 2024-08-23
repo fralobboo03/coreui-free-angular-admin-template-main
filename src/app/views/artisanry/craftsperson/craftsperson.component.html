@@ -1,99 +1,84 @@
-<c-card class="mb-4">
-  <c-card-header class="header-card">
-    Craftperson search
-  </c-card-header>
-  <c-card-body>
-    <c-row>
-      <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-        <label for="craftsperson_name">Craftsperson Name:</label>
-        <div class="row">
-          <div class="col-8">
-            <div class="form-group">
-              <input
-                id="craftsperson_name"
-                formControlName="craftsperson_name"
-                type="text"
-                class="form-control"
-              />
+<div class="container">
+  <c-card class="mb-4">
+    <c-card-header class="header-card">
+      <strong>Craftperson</strong>
+    </c-card-header>
+    <c-card-body>
+      <div class="row mb-3">
+        <div class="row justify-content-between">
+          <div class="col row">
+            <div class="col-auto">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 180px;display: inline-block;">
+              <button type="button" class="btn btn-primary me-1 text-white" style="padding: 2px 9px;height: 36px;margin-top: -6px;width: 110px;">
+                <span>Search</span>
+              </button>
             </div>
           </div>
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary">Search</button>
+          <div class="col" style="text-align: end;">
+            <button type="button" class="btn btn-success me-1 text-white">
+              <span>Add</span>
+            </button>
           </div>
         </div>
-      </form>
-    </c-row>
-  </c-card-body>
-</c-card>
-
-<c-card class="mb-4">
-  <c-card-header class="header-card">
-    Craftperson list
-  </c-card-header>
-  <c-card-body>
-    <c-row>
-      <div class="container">
-        <table cTable>
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Address</th>
-              <th scope="col">Contact</th>
-              <th scope="col">History</th>
-              <th scope="col">Description</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let ds of craftspersonModel; let i = index">
-              <th scope="row">{{ i + 1 }}</th>
-              <td>{{ds.craftsperson_name}}</td>
-              <td>{{ds.address}}</td>
-              <td>{{ds.contact}}</td>
-              <td>{{ds.history}}</td>
-              <td>{{ds.description}}</td>
-              <td>
-                <!-- <button class="btn btn-outline-primary btn-sm me-2"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal">
-                  <i class="cil-pencil"></i>
-                </button>
-                <button class="btn btn-outline-danger btn-sm">
-                  <i class="cil-trash"></i>
-                </button> -->
-                <button type="button" class="btn btn-info me-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><svg cIcon class="text-white" name="cil-pen"></svg></button>
-                <button type="button" class="btn btn-danger"><svg cIcon class="text-white" name="cil-trash"></svg></button>
-              </td>
-
-            </tr>
-          </tbody>
-        </table>
-        <div>
-          <c-pagination aria-label="Page navigation example" [size]="'sm'">
-            <c-page-item >
-              <a cPageLink [routerLink]="[]">Previous</a>
-            </c-page-item>
-            <c-page-item [active]="true">
-              <a cPageLink [routerLink]="[]">1</a>
-            </c-page-item>
-            <c-page-item>
-              <a cPageLink [routerLink]="[]">2</a>
-            </c-page-item>
-            <c-page-item>
-              <a cPageLink [routerLink]="[]">3</a>
-            </c-page-item>
-            <c-page-item>
-              <a cPageLink [routerLink]="[]">Next</a>
-            </c-page-item>
-          </c-pagination>
-        </div>
-
       </div>
-    </c-row>
-  </c-card-body>
-</c-card>
+      <table cTable>
+        <thead>
+          <tr>
+            <th scope="col" class="text-center" >#</th>
+            <th scope="col" class="text-center" >Name</th>
+            <th scope="col" class="text-center" >Address</th>
+            <th scope="col" class="text-center" >Contact</th>
+            <th scope="col" class="text-center" >History</th>
+            <th scope="col" class="text-center" >Description</th>
+            <th scope="col" class="text-center" >Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ds of craftspersonModel; let i = index">
+            <th scope="row" class="text-center">{{ i + 1 }}</th>
+            <td class="text-center">{{ds.craftsperson_name}}</td>
+            <td class="text-center">{{ds.address}}</td>
+            <td class="text-center">{{ds.contact}}</td>
+            <td class="text-center">{{ds.history}}</td>
+            <td class="text-center">{{ds.description}}</td>
+            <td class="text-center">
+              <!-- <button class="btn btn-outline-primary btn-sm me-2"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                <i class="cil-pencil"></i>
+              </button>
+              <button class="btn btn-outline-danger btn-sm">
+                <i class="cil-trash"></i>
+              </button> -->
+              <button type="button" class="btn btn-info me-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><svg cIcon class="text-white" name="cil-pen"></svg></button>
+              <button type="button" class="btn btn-danger"><svg cIcon class="text-white" name="cil-trash"></svg></button>
+            </td>
 
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <c-pagination aria-label="Page navigation example" [size]="'sm'">
+          <c-page-item >
+            <a cPageLink [routerLink]="[]">Previous</a>
+          </c-page-item>
+          <c-page-item [active]="true">
+            <a cPageLink [routerLink]="[]">1</a>
+          </c-page-item>
+          <c-page-item>
+            <a cPageLink [routerLink]="[]">2</a>
+          </c-page-item>
+          <c-page-item>
+            <a cPageLink [routerLink]="[]">3</a>
+          </c-page-item>
+          <c-page-item>
+            <a cPageLink [routerLink]="[]">Next</a>
+          </c-page-item>
+        </c-pagination>
+      </div>
+    </c-card-body>
+  </c-card>
+</div>
 <!-- Modal HTML -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
