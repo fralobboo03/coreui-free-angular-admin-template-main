@@ -3,7 +3,7 @@ import { CardBodyComponent, CardComponent, CardHeaderComponent, ColComponent, Ro
 import { RouterLink } from '@angular/router';
 import { CraftspersonModel, CriteriaRequest } from '../../../model/common.model'
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule  } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators  } from '@angular/forms';
 @Component({
   selector: 'app-craftsperson',
   standalone: true,
@@ -35,6 +35,14 @@ export class CraftspersonComponent {
     craftsperson_name: ['']
   });
 
+  craftspersonForm = this.fb.group({
+    craftsperson_name: ['', Validators.required],
+    address: [''],
+    contact: [''],
+    history: [''],
+    description: ['']
+  });
+
   criteriaReq: CriteriaRequest = {
     craftsperson_name: '',
     nameprodcut: ''
@@ -63,5 +71,9 @@ export class CraftspersonComponent {
 
   onSubmit(){
     console.log(this.searchForm.value);
+  }
+
+  onSaveCraftsperson(){
+    console.log(this.craftspersonForm.value);
   }
 }

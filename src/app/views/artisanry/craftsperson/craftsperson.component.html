@@ -54,7 +54,9 @@
               <td>{{ds.history}}</td>
               <td>{{ds.description}}</td>
               <td>
-                <button class="btn btn-outline-primary btn-sm me-2">
+                <button class="btn btn-outline-primary btn-sm me-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal">
                   <i class="cil-pencil"></i>
                 </button>
                 <button class="btn btn-outline-danger btn-sm">
@@ -86,3 +88,73 @@
     </c-row>
   </c-card-body>
 </c-card>
+
+<!-- Modal HTML -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Craftsperson Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="craftspersonForm" (ngSubmit)="onSaveCraftsperson()">
+        <div class="modal-body">
+          <div class="form-group mb-3">
+            <label for="craftsperson_name">Craftsperson Name:</label>
+            <input
+              id="craftsperson_name"
+              formControlName="craftsperson_name"
+              type="text"
+              class="form-control"
+              placeholder="Enter craftsperson name"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="address">Address:</label>
+            <input
+              id="address"
+              formControlName="address"
+              type="text"
+              class="form-control"
+              placeholder="Enter address"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="contact">Contact:</label>
+            <input
+              id="contact"
+              formControlName="contact"
+              type="text"
+              class="form-control"
+              placeholder="Enter contact number"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="history">History:</label>
+            <textarea
+              id="history"
+              formControlName="history"
+              class="form-control"
+              placeholder="Enter history"
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="form-group mb-3">
+            <label for="description">Description:</label>
+            <textarea
+              id="description"
+              formControlName="description"
+              class="form-control"
+              placeholder="Enter description"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
