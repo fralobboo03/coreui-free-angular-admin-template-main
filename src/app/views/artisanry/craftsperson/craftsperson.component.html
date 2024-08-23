@@ -1,5 +1,5 @@
 <c-card class="mb-4">
-  <c-card-header>
+  <c-card-header class="header-card">
     Craftperson search
   </c-card-header>
   <c-card-body>
@@ -27,13 +27,13 @@
 </c-card>
 
 <c-card class="mb-4">
-  <c-card-header>
+  <c-card-header class="header-card">
     Craftperson list
   </c-card-header>
   <c-card-body>
     <c-row>
       <div class="container">
-        <table class="rounded-table mt-2" [hover]="true" [striped]="true" cTable>
+        <table cTable>
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -54,36 +54,41 @@
               <td>{{ds.history}}</td>
               <td>{{ds.description}}</td>
               <td>
-                <button class="btn btn-outline-primary btn-sm me-2"
+                <!-- <button class="btn btn-outline-primary btn-sm me-2"
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal">
                   <i class="cil-pencil"></i>
                 </button>
                 <button class="btn btn-outline-danger btn-sm">
                   <i class="cil-trash"></i>
-                </button>
+                </button> -->
+                <button type="button" class="btn btn-info me-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><svg cIcon class="text-white" name="cil-pen"></svg></button>
+                <button type="button" class="btn btn-danger"><svg cIcon class="text-white" name="cil-trash"></svg></button>
               </td>
+
             </tr>
           </tbody>
         </table>
+        <div>
+          <c-pagination aria-label="Page navigation example" [size]="'sm'">
+            <c-page-item >
+              <a cPageLink [routerLink]="[]">Previous</a>
+            </c-page-item>
+            <c-page-item [active]="true">
+              <a cPageLink [routerLink]="[]">1</a>
+            </c-page-item>
+            <c-page-item>
+              <a cPageLink [routerLink]="[]">2</a>
+            </c-page-item>
+            <c-page-item>
+              <a cPageLink [routerLink]="[]">3</a>
+            </c-page-item>
+            <c-page-item>
+              <a cPageLink [routerLink]="[]">Next</a>
+            </c-page-item>
+          </c-pagination>
+        </div>
 
-        <c-pagination align="end" aria-label="Page navigation example">
-          <li cPageItem>
-            <a cPageLink aria-label="Previous" [routerLink]><span aria-hidden="true">&laquo;</span></a>
-          </li>
-          <li cPageItem>
-            <a cPageLink [routerLink]>1</a>
-          </li>
-          <li cPageItem>
-            <a cPageLink [routerLink]>2</a>
-          </li>
-          <li cPageItem>
-            <a cPageLink [routerLink]>3</a>
-          </li>
-          <li cPageItem>
-            <a cPageLink aria-label="Next" [routerLink]><span aria-hidden="true">&raquo;</span></a>
-          </li>
-        </c-pagination>
       </div>
     </c-row>
   </c-card-body>
