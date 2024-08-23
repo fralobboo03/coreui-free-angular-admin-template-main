@@ -22,7 +22,6 @@ export const navItems: INavData[] = [
   {
     name: 'Product',
     url: '/Default/artisanry/product',
-    linkProps: { fragment: 'headings' },
     iconComponent: { name: 'cil-fingerprint' }
   },
   {
