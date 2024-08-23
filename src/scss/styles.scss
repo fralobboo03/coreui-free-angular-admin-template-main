@@ -26,3 +26,17 @@
   background-color: #323a49;
   color: white;
 }
+.rounded-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  border: 1px solid #ccc;
+
+  // th, td {
+  //   border: 1px solid #ddd;
+  //   padding: 8px;
+  // }
+}
+
