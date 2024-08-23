@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective } from '@coreui/angular';
+import { ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, RowComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
 
 @Component({
@@ -24,7 +25,10 @@ import { IconDirective } from '@coreui/icons-angular';
     ModalTitleDirective,
     ThemeDirective,
     ButtonCloseDirective,
-    ModalBodyComponent,ModalFooterComponent
+    ModalBodyComponent,
+    ModalFooterComponent,
+    RowComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'

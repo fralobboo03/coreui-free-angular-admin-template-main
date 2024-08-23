@@ -5,10 +5,20 @@
     </c-card-header>
     <c-card-body>
       <div class="row mb-3">
-        <div>
-          <button type="button" class="btn btn-success me-1 text-white" (click)="openModalAddProduct()" style="padding: 2px 9px;height: 32px;">
-            <span>Add</span>
-          </button>
+        <div class="row justify-content-between">
+          <div class="col row">
+            <div class="col-auto">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 180px;display: inline-block;">
+              <button type="button" class="btn btn-primary me-1 text-white" (click)="openModalAddProduct()" style="padding: 2px 9px;height: 36px;margin-top: -6px;width: 110px;">
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+          <div class="col" style="text-align: end;">
+            <button type="button" class="btn btn-success me-1 text-white" (click)="openModalAddProduct()" style="padding: 2px 9px;height: 32px;">
+              <span>Add</span>
+            </button>
+          </div>
         </div>
       </div>
       <table cTable>
@@ -97,7 +107,16 @@
     <h5 cModalTitle>Add product</h5>
     <button (click)="toggleLiveDemo()" cButtonClose></button>
   </c-modal-header>
-  <c-modal-body>Woohoo, you are reading this text in a modal!</c-modal-body>
+  <c-modal-body>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+  </c-modal-body>
   <c-modal-footer>
     <button (click)="toggleLiveDemo()" cButton color="secondary">
       Close
