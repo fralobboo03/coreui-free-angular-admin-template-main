@@ -62,26 +62,12 @@ export class CraftspersonComponent {
   constructor(private fb: FormBuilder, private commonHttpService: CommonHttpService) { }
 
   ngOnInit() {
-    this.initCraftspersonModel();
     this.commonHttpService.getCraftperson().subscribe(res => {
       console.log("res", res);
+      this.craftspersonModel = res;
     })
   }
 
-  initCraftspersonModel(){
-    for (let i = 0; i < 5; i++) {
-      const newCraftsperson: CraftspersonModel = {
-        craftsperson_id: i + 1,
-        craftsperson_name: `Craftsperson ${i + 1}`,
-        address: `Address ${i + 1}`,
-        contact: `Contact ${i + 1}`,
-        history: `History ${i + 1}`,
-        description: `Description ${i + 1}`
-      };
-
-      this.craftspersonModel.push(newCraftsperson);
-    }
-  }
 
   onSubmit(){
     console.log(this.searchForm.value);

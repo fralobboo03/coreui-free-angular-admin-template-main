@@ -1,6 +1,6 @@
 export interface CraftspersonModel {
-  craftsperson_id: number;  // generated field, so it is optional
-  craftsperson_name: string;
+  craftspersonId: number;  // generated field, so it is optional
+  craftspersonName: string;
   address?: string;
   contact?: string;
   history?: string;
