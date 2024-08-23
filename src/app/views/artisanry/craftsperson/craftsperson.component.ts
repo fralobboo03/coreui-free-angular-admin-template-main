@@ -5,6 +5,8 @@ import { CraftspersonModel, CriteriaRequest } from '../../../model/common.model'
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators  } from '@angular/forms';
 import { IconDirective } from '@coreui/icons-angular';
+import { CommonHttpService } from '../../../service/common-http.service'
+// import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-craftsperson',
   standalone: true,
@@ -57,10 +59,13 @@ export class CraftspersonComponent {
     nameprodcut: ''
   };
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private commonHttpService: CommonHttpService) { }
 
   ngOnInit() {
     this.initCraftspersonModel();
+    this.commonHttpService.getCraftperson().subscribe(res => {
+      console.log("res", res);
+    })
   }
 
   initCraftspersonModel(){
