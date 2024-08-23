@@ -1,3 +1,3 @@
 export const environment = {
-  urlService: 'http://localhost:8080',
+  urlService: 'https://lab-v3research003-8080.dev2go.online',
 }
