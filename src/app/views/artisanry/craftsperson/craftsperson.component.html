@@ -15,7 +15,7 @@
             </div>
           </div>
           <div class="col" style="text-align: end;">
-            <button type="button" class="btn btn-success me-1 text-white">
+            <button type="button" class="btn btn-success me-1 text-white" (click)="openModalAddProduct()">
               <span>Add</span>
             </button>
           </div>
@@ -42,15 +42,7 @@
             <td class="text-center">{{ds.history}}</td>
             <td class="text-center">{{ds.description}}</td>
             <td class="text-center">
-              <!-- <button class="btn btn-outline-primary btn-sm me-2"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-                <i class="cil-pencil"></i>
-              </button>
-              <button class="btn btn-outline-danger btn-sm">
-                <i class="cil-trash"></i>
-              </button> -->
-              <button type="button" class="btn btn-info me-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><svg cIcon class="text-white" name="cil-pen"></svg></button>
+              <button type="button" class="btn btn-info me-1" (click)="onEdit(ds.craftspersonId)"><svg cIcon class="text-white" name="cil-pen"></svg></button>
               <button type="button" class="btn btn-danger"><svg cIcon class="text-white" name="cil-trash"></svg></button>
             </td>
 
@@ -79,72 +71,38 @@
     </c-card-body>
   </c-card>
 </div>
-<!-- Modal HTML -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Craftsperson Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+<c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Add Craftsperson</h5>
+    <button (click)="toggleLiveDemo()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <form [formGroup]="craftspersonForm" (ngSubmit)="onSaveCraftsperson()">
+      <div class="mb-3">
+        <label for="craftsperson_name" class="form-label">Craftsperson Name</label>
+        <input type="text" class="form-control" id="craftspersonName" formControlName="craftspersonName" placeholder="Enter name">
       </div>
-      <form [formGroup]="craftspersonForm" (ngSubmit)="onSaveCraftsperson()">
-        <div class="modal-body">
-          <div class="form-group mb-3">
-            <label for="craftsperson_name">Craftsperson Name:</label>
-            <input
-              id="craftsperson_name"
-              formControlName="craftsperson_name"
-              type="text"
-              class="form-control"
-              placeholder="Enter craftsperson name"
-            />
-          </div>
-          <div class="form-group mb-3">
-            <label for="address">Address:</label>
-            <input
-              id="address"
-              formControlName="address"
-              type="text"
-              class="form-control"
-              placeholder="Enter address"
-            />
-          </div>
-          <div class="form-group mb-3">
-            <label for="contact">Contact:</label>
-            <input
-              id="contact"
-              formControlName="contact"
-              type="text"
-              class="form-control"
-              placeholder="Enter contact number"
-            />
-          </div>
-          <div class="form-group mb-3">
-            <label for="history">History:</label>
-            <textarea
-              id="history"
-              formControlName="history"
-              class="form-control"
-              placeholder="Enter history"
-              rows="3"
-            ></textarea>
-          </div>
-          <div class="form-group mb-3">
-            <label for="description">Description:</label>
-            <textarea
-              id="description"
-              formControlName="description"
-              class="form-control"
-              placeholder="Enter description"
-              rows="3"
-            ></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <input type="text" class="form-control" id="address" formControlName="address" placeholder="Enter address">
+      </div>
+      <div class="mb-3">
+        <label for="contact" class="form-label">Contact</label>
+        <input type="text" class="form-control" id="contact" formControlName="contact" placeholder="Enter contact number">
+      </div>
+      <div class="mb-3">
+        <label for="history" class="form-label">History</label>
+        <textarea class="form-control" id="history" formControlName="history" rows="3" placeholder="Enter history"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" formControlName="description" rows="3" placeholder="Enter description"></textarea>
+      </div>
+    </form>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleLiveDemo()" cButton color="secondary">Close</button>
+    <button type="submit" cButton color="primary" (click)="onSaveCraftsperson()">Save changes</button>
+  </c-modal-footer>
+</c-modal>

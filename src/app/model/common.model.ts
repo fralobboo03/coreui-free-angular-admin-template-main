@@ -1,14 +1,14 @@
 export interface CraftspersonModel {
-  craftspersonId: number;  // generated field, so it is optional
-  craftspersonName: string;
-  address?: string;
-  contact?: string;
-  history?: string;
-  description?: string;
+  craftspersonId: number | null;  // generated field, so it is optional
+  craftspersonName: string | null;
+  address: string | null;
+  contact: string | null;
+  history: string | null;
+  description: string | null;
 }
 
 
 export interface CriteriaRequest {
-  craftsperson_name: string,
+  craftspersonName: string,
   nameprodcut: string
 }

@@ -3,7 +3,7 @@ import { BorderDirective, AlignDirective, ColComponent, RowComponent, ButtonClos
 import { RouterLink } from '@angular/router';
 import { CraftspersonModel, CriteriaRequest } from '../../../model/common.model'
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators  } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators  } from '@angular/forms';
 import { IconDirective } from '@coreui/icons-angular';
 import { CommonHttpService } from '../../../service/common-http.service'
 // import { HttpClientModule } from '@angular/common/http';
@@ -46,34 +46,87 @@ export class CraftspersonComponent {
     craftsperson_name: ['']
   });
 
-  craftspersonForm = this.fb.group({
-    craftsperson_name: ['', Validators.required],
-    address: [''],
-    contact: [''],
-    history: [''],
-    description: ['']
+  craftspersonForm = new FormGroup({
+    craftspersonId: new FormControl<number | null>(null),
+    craftspersonName: new FormControl<string | null>(null),
+    address: new FormControl<string | null>(null),
+    contact: new FormControl<string | null>(null),
+    history: new FormControl<string | null>(null),
+    description: new FormControl<string | null>(null)
   });
 
   criteriaReq: CriteriaRequest = {
-    craftsperson_name: '',
+    craftspersonName: '',
     nameprodcut: ''
   };
+
+  visible = false;
+  isInsert = true;
 
   constructor(private fb: FormBuilder, private commonHttpService: CommonHttpService) { }
 
   ngOnInit() {
+    this.initCraftperson();
+  }
+
+  initCraftperson(){
     this.commonHttpService.getCraftperson().subscribe(res => {
-      console.log("res", res);
       this.craftspersonModel = res;
     })
   }
 
-
-  onSubmit(){
-    console.log(this.searchForm.value);
+  onEdit(id: any){
+    this.isInsert = false;
+    this.visible = !this.visible;
+    const selected_craftpersonModel = this.craftspersonModel.find(item => item.craftspersonId == id);
+    if(selected_craftpersonModel){
+      this.craftspersonForm.patchValue({
+        craftspersonId: selected_craftpersonModel.craftspersonId,
+        craftspersonName: selected_craftpersonModel.craftspersonName,
+        address: selected_craftpersonModel.address,
+        contact: selected_craftpersonModel.contact,
+        history: selected_craftpersonModel.history,
+        description: selected_craftpersonModel.description
+      });
+    }
   }
 
   onSaveCraftsperson(){
-    console.log(this.craftspersonForm.value);
+    const formCtl = this.craftspersonForm.value;
+    const updatedCraftspersonReq: CraftspersonModel = {
+      craftspersonId: formCtl.craftspersonId ?? null, // ตั้งค่าเริ่มต้นถ้าเป็น null
+      craftspersonName: formCtl.craftspersonName ?? '',
+      address: formCtl.address ?? '',
+      contact: formCtl.contact ?? '',
+      history: formCtl.history ?? '',
+      description: formCtl.description ?? ''
+    };
+
+    if(this.isInsert){
+      //insert
+      console.log("insert", updatedCraftspersonReq)
+      this.commonHttpService.createCraftsperson(updatedCraftspersonReq).subscribe(res => {
+        console.log("insert res", res)
+        this.initCraftperson()
+      })
+
+    }else{
+      //update
+      console.log("update", updatedCraftspersonReq)
+    }
+  }
+
+  toggleLiveDemo() {
+    this.visible = !this.visible;
+  }
+
+  openModalAddProduct() {
+    this.isInsert = true;
+    this.craftspersonForm.reset();
+    this.visible = true
+  }
+
+  handleLiveDemoChange(event: any) {
+    this.visible = event;
   }
 }
