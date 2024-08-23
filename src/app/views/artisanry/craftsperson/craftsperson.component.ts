@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { CardBodyComponent, CardComponent, CardHeaderComponent, ColComponent, RowComponent, TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective, PaginationComponent, PageItemComponent, PageLinkDirective } from '@coreui/angular';
+import { BorderDirective, AlignDirective, ColComponent, RowComponent, ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective } from '@coreui/angular';
 import { RouterLink } from '@angular/router';
 import { CraftspersonModel, CriteriaRequest } from '../../../model/common.model'
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators  } from '@angular/forms';
+import { IconDirective } from '@coreui/icons-angular';
 @Component({
   selector: 'app-craftsperson',
   standalone: true,
@@ -23,7 +24,15 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators  } from '@angul
     PageItemComponent,
     PageLinkDirective,
     RouterLink,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ButtonCloseDirective,
+    ButtonDirective,
+    ModalBodyComponent,
+    ModalComponent,
+    ModalFooterComponent,
+    ModalHeaderComponent,
+    ModalTitleDirective,
+    IconDirective
   ],
   templateUrl: './craftsperson.component.html',
   styleUrl: './craftsperson.component.scss'
