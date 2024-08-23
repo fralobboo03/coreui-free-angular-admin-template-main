@@ -4,7 +4,24 @@
   </c-card-header>
   <c-card-body>
     <c-row>
-
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <label for="craftsperson_name">Craftsperson Name:</label>
+        <div class="row">
+          <div class="col-8">
+            <div class="form-group">
+              <input
+                id="craftsperson_name"
+                formControlName="craftsperson_name"
+                type="text"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </div>
+      </form>
     </c-row>
   </c-card-body>
 </c-card>

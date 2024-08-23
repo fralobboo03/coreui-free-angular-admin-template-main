@@ -6,3 +6,9 @@ export interface CraftspersonModel {
   history?: string;
   description?: string;
 }
+
+
+export interface CriteriaRequest {
+  craftsperson_name: string,
+  nameprodcut: string
+}

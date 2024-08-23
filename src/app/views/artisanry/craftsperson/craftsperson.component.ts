@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, ColComponent, RowComponent, TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective, PaginationComponent, PageItemComponent, PageLinkDirective } from '@coreui/angular';
 import { RouterLink } from '@angular/router';
-import { CraftspersonModel } from '../../../model/common.model'
+import { CraftspersonModel, CriteriaRequest } from '../../../model/common.model'
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule  } from '@angular/forms';
 @Component({
   selector: 'app-craftsperson',
   standalone: true,
@@ -21,15 +22,25 @@ import { CommonModule } from '@angular/common';
     PaginationComponent,
     PageItemComponent,
     PageLinkDirective,
-    RouterLink
+    RouterLink,
+    ReactiveFormsModule
   ],
   templateUrl: './craftsperson.component.html',
   styleUrl: './craftsperson.component.scss'
 })
 export class CraftspersonComponent {
-  craftspersonModel : CraftspersonModel[] = [];
+  craftspersonModel: CraftspersonModel[] = [];
 
-  constructor() { }
+  searchForm: FormGroup = this.fb.group({
+    craftsperson_name: ['']
+  });
+
+  criteriaReq: CriteriaRequest = {
+    craftsperson_name: '',
+    nameprodcut: ''
+  };
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.initCraftspersonModel();
@@ -48,5 +59,9 @@ export class CraftspersonComponent {
 
       this.craftspersonModel.push(newCraftsperson);
     }
+  }
+
+  onSubmit(){
+    console.log(this.searchForm.value);
   }
 }
