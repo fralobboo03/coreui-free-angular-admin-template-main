@@ -29,6 +29,10 @@ export class CommonHttpService {
   }
 
   getProducts(){
-    return this.http.get<any>(this.apiurl + "/craftspeople/find-all");
+    return this.http.get<any>(this.apiurl + "/products/find-all");
+  }
+
+  saveProduct(req: any){
+    return this.http.post<any>(this.apiurl + "/products/save",req);
   }
 }
