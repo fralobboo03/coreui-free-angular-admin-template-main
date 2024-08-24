@@ -18,7 +18,6 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes,
-
       withRouterConfig({
         onSameUrlNavigation: 'reload'
       }),
@@ -29,12 +28,11 @@ export const appConfig: ApplicationConfig = {
       withEnabledBlockingInitialNavigation(),
       withViewTransitions()
     ),
-    importProvidersFrom(SidebarModule, DropdownModule,),
+    importProvidersFrom(SidebarModule, DropdownModule),
     IconSetService,
     CommonHttpService,
     // HttpClient,
     provideAnimations(),
     provideHttpClient(),
-
-  ]
+  ],
 };

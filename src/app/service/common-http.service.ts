@@ -27,4 +27,8 @@ export class CommonHttpService {
   deleteCraftsperson(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiurl}/craftspeople/del-by-id/${id}`);
   }
+
+  getProducts(){
+    return this.http.get<any>(this.apiurl + "/craftspeople/find-all");
+  }
 }
