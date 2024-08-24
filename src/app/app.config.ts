@@ -13,8 +13,8 @@ import { DropdownModule, SidebarModule } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { routes } from './app.routes';
 import { CommonHttpService } from './service/common-http.service';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
-
+import { provideHttpClient } from '@angular/common/http';
+// import { CraftspersonComponent } from './views/artisanry/craftsperson/craftsperson.component';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes,
