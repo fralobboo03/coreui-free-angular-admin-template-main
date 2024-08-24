@@ -26,6 +26,7 @@
           <tr>
             <th scope="col" class="text-center">#</th>
             <th scope="col" class="text-center">name</th>
+            <th scope="col" class="text-center">image</th>
             <th scope="col" class="text-center">description</th>
             <th scope="col" class="text-center">amount</th>
             <th scope="col" class="text-center">costPrice</th>
@@ -38,6 +39,7 @@
           <tr>
             <th scope="row" class="text-center">1</th>
             <td class="text-center" >productName</td>
+            <td class="text-center" >image</td>
             <td class="text-center" >description</td>
             <td class="text-center" >amount</td>
             <td class="text-center" >costPrice</td>
@@ -45,32 +47,6 @@
             <td class="text-center" >otherDetails</td>
             <td class="text-center" >
               <button type="button" class="btn btn-info me-1" (click)="toggleLiveDemo()"><svg cIcon class="text-white" name="cil-pen"></svg></button>
-              <button type="button" class="btn btn-danger"><svg cIcon class="text-white" name="cil-trash"></svg></button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-center">2</th>
-            <td class="text-center" >productName</td>
-            <td class="text-center" >description</td>
-            <td class="text-center" >amount</td>
-            <td class="text-center" >costPrice</td>
-            <td class="text-center" >salePrice</td>
-            <td class="text-center" >otherDetails</td>
-            <td class="text-center" >
-              <button type="button" class="btn btn-info me-1"><svg cIcon class="text-white" name="cil-pen"></svg></button>
-              <button type="button" class="btn btn-danger"><svg cIcon class="text-white" name="cil-trash"></svg></button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-center">3</th>
-            <td class="text-center" >productName</td>
-            <td class="text-center" >description</td>
-            <td class="text-center" >amount</td>
-            <td class="text-center" >costPrice</td>
-            <td class="text-center" >salePrice</td>
-            <td class="text-center" >otherDetails</td>
-            <td class="text-center" >
-              <button type="button" class="btn btn-info me-1"><svg cIcon class="text-white" name="cil-pen"></svg></button>
               <button type="button" class="btn btn-danger"><svg cIcon class="text-white" name="cil-trash"></svg></button>
             </td>
           </tr>
@@ -109,12 +85,28 @@
   </c-modal-header>
   <c-modal-body>
     <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+      <label class="form-label">name</label>
+      <input type="text" class="form-control" placeholder="name">
     </div>
     <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <label class="form-label">description</label>
+      <textarea class="form-control" placeholder="description"></textarea>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">amount</label>
+      <input type="text" class="form-control" placeholder="amount">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">costPrice</label>
+      <input type="text" class="form-control" placeholder="costPrice">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">salePrice</label>
+      <input type="text" class="form-control" placeholder="salePrice">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">otherDetails</label>
+      <input type="text" class="form-control" placeholder="otherDetails">
     </div>
   </c-modal-body>
   <c-modal-footer>

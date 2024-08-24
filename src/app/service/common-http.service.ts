@@ -44,4 +44,7 @@ export class CommonHttpService {
     return this.http.delete<void>(`${this.apiurl}/materials/del-mt-by-id/${id}`);
   }
 
+  getProducts(){
+    return this.http.get<any>(this.apiurl + "/craftspeople/find-all");
+  }
 }

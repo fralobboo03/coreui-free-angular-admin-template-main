@@ -28,12 +28,11 @@ export const appConfig: ApplicationConfig = {
       withEnabledBlockingInitialNavigation(),
       withViewTransitions()
     ),
-    importProvidersFrom(SidebarModule, DropdownModule,),
+    importProvidersFrom(SidebarModule, DropdownModule),
     IconSetService,
     CommonHttpService,
     // HttpClient,
     provideAnimations(),
     provideHttpClient(),
-
-  ]
+  ],
 };
