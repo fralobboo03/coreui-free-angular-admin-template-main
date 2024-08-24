@@ -24,6 +24,11 @@ export const navItems: INavData[] = [
     url: '/Default/artisanry/product',
     iconComponent: { name: 'cil-fingerprint' }
   },
+  {
+    name: 'Materials',
+    url: '/Default/artisanry/materials',
+    iconComponent: { name: 'cil-color-fill' }
+  },
 
   //template menu
   // {
