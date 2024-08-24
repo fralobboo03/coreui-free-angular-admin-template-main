@@ -6,6 +6,7 @@ import { BorderDirective, AlignDirective, ColComponent, RowComponent, ButtonClos
 import { RouterLink } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators  } from '@angular/forms';
 import { IconDirective } from '@coreui/icons-angular';
+import { AlertModalComponent } from '../components/alert-modal/alert-modal.component'
 // import { CraftspersonComponent } from './views/artisanry/craftsperson/craftsperson.component';
 
 export const SHARED_DEPENDENCIES = [
@@ -39,6 +40,6 @@ export const SHARED_DEPENDENCIES = [
   CarouselItemComponent,
   CarouselControlComponent,
   CarouselIndicatorsComponent,
-  CarouselCaptionComponent
-
+  CarouselCaptionComponent,
+  AlertModalComponent
 ];
