@@ -23,4 +23,8 @@ export class CommonHttpService {
   updateCraftsperson(id: number, craftsperson: CraftspersonModel): Observable<CraftspersonModel> {
     return this.http.put<CraftspersonModel>(`${this.apiurl}/craftspeople/update/${id}`, craftsperson);
   }
+
+  deleteCraftsperson(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiurl}/craftspeople/del-by-id/${id}`);
+  }
 }

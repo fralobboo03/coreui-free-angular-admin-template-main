@@ -62,6 +62,8 @@ export class CraftspersonComponent {
 
   visible = false;
   isInsert = true;
+  alertModalvisible = false;
+  alertMessage: string = '';
 
   constructor(private fb: FormBuilder, private commonHttpService: CommonHttpService) { }
 
@@ -91,6 +93,19 @@ export class CraftspersonComponent {
     }
   }
 
+  onDelete(id: any){
+    if(id != null){
+      this.commonHttpService.deleteCraftsperson(id).subscribe(res => {
+        // console.log("delete res", res);
+        this.showSuccessMessage('ลบข้อมูล สำเร็จ');
+        this.initCraftperson()
+      }, error => {
+
+      })
+
+    }
+  }
+
   onSaveCraftsperson(){
     const formCtl = this.craftspersonForm.value;
     const updatedCraftspersonReq: CraftspersonModel = {
@@ -106,14 +121,26 @@ export class CraftspersonComponent {
       //insert
       console.log("insert", updatedCraftspersonReq)
       this.commonHttpService.createCraftsperson(updatedCraftspersonReq).subscribe(res => {
-        console.log("insert res", res)
-        this.initCraftperson()
+        // console.log("insert res", res)
+        this.beforeSaveSuccess();
       })
 
     }else{
       //update
       console.log("update", updatedCraftspersonReq)
+      if(formCtl.craftspersonId != null){
+        this.commonHttpService.updateCraftsperson(formCtl.craftspersonId, updatedCraftspersonReq).subscribe(res => {
+          // console.log("insert res", res)
+          this.beforeSaveSuccess();
+        })
+      }
     }
+  }
+
+  beforeSaveSuccess(){
+    this.toggleLiveDemo();
+    this.craftspersonForm.reset();
+    this.initCraftperson()
   }
 
   toggleLiveDemo() {
@@ -128,5 +155,19 @@ export class CraftspersonComponent {
 
   handleLiveDemoChange(event: any) {
     this.visible = event;
+  }
+
+  showSuccessMessage(message: string) {
+    this.alertMessage = message;
+    this.alertModalvisible = true;
+
+    // Hide alert after a few seconds
+    setTimeout(() => {
+      this.alertModalvisible = false;
+    }, 3000); // Hide after 3 seconds
+  }
+
+  toggleSuccessAlert() {
+    this.alertModalvisible = !this.alertModalvisible;
   }
 }

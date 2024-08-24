@@ -43,7 +43,7 @@
             <td class="text-center">{{ds.description}}</td>
             <td class="text-center">
               <button type="button" class="btn btn-info me-1" (click)="onEdit(ds.craftspersonId)"><svg cIcon class="text-white" name="cil-pen"></svg></button>
-              <button type="button" class="btn btn-danger"><svg cIcon class="text-white" name="cil-trash"></svg></button>
+              <button type="button" class="btn btn-danger" (click)="onDelete(ds.craftspersonId)"><svg cIcon class="text-white" name="cil-trash"></svg></button>
             </td>
 
           </tr>
@@ -105,4 +105,11 @@
     <button (click)="toggleLiveDemo()" cButton color="secondary">Close</button>
     <button type="submit" cButton color="primary" (click)="onSaveCraftsperson()">Save changes</button>
   </c-modal-footer>
+</c-modal>
+
+<c-modal id="successAlert" [visible]="alertModalvisible" color="success">
+  <div class="d-flex justify-content-between align-items-center">
+    <span>{{ alertMessage }}</span>
+    <button (click)="toggleSuccessAlert()" class="btn-close"></button>
+  </div>
 </c-modal>
