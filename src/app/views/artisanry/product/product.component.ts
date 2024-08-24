@@ -1,98 +1,125 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, CarouselCaptionComponent, CarouselComponent, CarouselControlComponent, CarouselIndicatorsComponent, CarouselInnerComponent, CarouselItemComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, RowComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
+import { CommonHttpService } from 'src/app/service/common-http.service';
+import { SHARED_DEPENDENCIES } from 'src/app/shared-dependencies';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [
-    TableDirective,
-    TableColorDirective,
-    TableActiveDirective,
-    ButtonDirective,
-    IconDirective ,
-    PaginationComponent,
-    PageItemComponent,
-    PageLinkDirective,
-    RouterLink,
-    CardComponent,
-    CardHeaderComponent,
-    CardBodyComponent,
-    ModalComponent,
-    ModalHeaderComponent,
-    ModalTitleDirective,
-    ThemeDirective,
-    ButtonCloseDirective,
-    ModalBodyComponent,
-    ModalFooterComponent,
-    RowComponent,
-    ReactiveFormsModule,
-    CarouselComponent,
-    CarouselInnerComponent,
-    CarouselItemComponent,
-    CarouselControlComponent,
-    CarouselIndicatorsComponent,
-    CarouselCaptionComponent
-  ],
+  imports: [SHARED_DEPENDENCIES],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })
 export class ProductComponent {
 
-  readonly slides: any[][] = [];
-  readonly imageSrc: string[] = [
-    'assets/images/angular.jpg',
-    'assets/images/react.jpg',
-    'assets/images/vue.jpg',
-    'https://picsum.photos/id/1/800/400',
-    'https://picsum.photos/id/1026/800/400',
-    'https://picsum.photos/id/1031/800/400'
-  ];
-
   constructor(
-    private domSanitizer: DomSanitizer
+    private commonHttpService: CommonHttpService
   ) {}
 
+  formSearch = new FormControl(null);
+
+  formGroup = new FormGroup({
+    productId: new FormControl(null),
+    nameProduct: new FormControl(null),
+    description: new FormControl(null),
+    amount: new FormControl(null),
+    costPrice: new FormControl(null),
+    salePrice: new FormControl(null),
+    otherDetails: new FormControl(null),
+    craftspersonId: new FormControl(null),
+    materialId: new FormControl(null),
+  })
+
+  craftperson: any[] = []
+  materials: any[] = []
+  products: any[] = []
+
+  titleModalInsert = "Add product"
+
+
   ngOnInit() {
-    this.slides[0] = [
-      {
-        id: 0,
-        src: this.domSanitizer.bypassSecurityTrustUrl(this.imageSrc[0]),
-        title: 'First slide',
-        subtitle: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
-      },
-      {
-        id: 1,
-        src: this.domSanitizer.bypassSecurityTrustUrl(this.imageSrc[1]),
-        title: 'Second slide',
-        subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-      },
-      {
-        id: 2,
-        src: this.domSanitizer.bypassSecurityTrustUrl(this.imageSrc[2]),
-        title: 'Third slide',
-        subtitle: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
-      }
-    ];
+    this.getCraftperson()
+    this.getMaterials()
+    this.getProducts()
   }
 
-  public visible = false;
+  getCraftperson() {
+    this.commonHttpService.getCraftperson().subscribe({next: (res) => {
+      this.craftperson = res
+    }})
+  }
+
+  getMaterials() {
+    this.commonHttpService.getMaterial().subscribe({next: (res) => {
+      this.materials = res
+    }})
+  }
+
+  findProducts() {
+    this.commonHttpService.findProducts().subscribe({next: (res) => {
+
+    }})
+  }
+
+  getProducts() {
+    this.commonHttpService.getProducts(this.formSearch.value || "").subscribe({next: (res) => {
+      console.log("res",res)
+      this.products = res
+    }})
+  }
+
+  deleteProductById(id: number) {
+    this.commonHttpService.deleteProductById(id).subscribe({next: (res) => {
+      this.getProducts()
+    }})
+  }
+
+  onDelete(id: number) {
+    this.deleteProductById(id)
+  }
+
+  public isShowModal = false;
   toggleLiveDemo() {
-    this.visible = !this.visible;
+    this.isShowModal = !this.isShowModal;
   }
 
   openModalAddProduct() {
-    this.visible = true
+    this.formGroup.reset()
+    this.isShowModal = true
   }
 
   handleLiveDemoChange(event: any) {
-    this.visible = event;
+    this.isShowModal = event;
   }
 
   onItemChange($event: any): void {
     console.log('Carousel onItemChange', $event);
+  }
+
+  saveProduct() {
+    console.log(this.formGroup.value)
+    this.commonHttpService.saveProduct(this.formGroup.value).subscribe({next: (res) => {
+      console.log(res)
+      this.getProducts()
+      this.isShowModal = false
+    }, error: (err) => {
+      this.isShowModal = false
+    }})
+  }
+
+  onSearch() {
+    console.log(this.formSearch.value)
+    this.getProducts()
+  }
+
+  onEdit(product: any) {
+    this.formGroup.patchValue({...product })
+    this.formGroup.controls.craftspersonId.setValue(product.craftsperson.craftspersonId)
+    this.formGroup.controls.materialId.setValue(product.material.materialId)
+    this.isShowModal = true
   }
 }

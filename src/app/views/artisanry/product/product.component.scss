@@ -1,0 +1,26 @@
+
+
+.table-container-scroll {
+  overflow-x: auto;
+  margin-bottom: 20px;
+  position: relative;
+  scrollbar-color: #ffffff21 transparent;
+}
+
+.table-container-scroll:hover {
+  scrollbar-color: #44444421 transparent;
+}
+
+tr>th:first-child,tr>td:first-child {
+  position: sticky;
+  left: 0;
+}
+
+tr>th:last-child,tr>td:last-child {
+  position: sticky;
+  right: 0;
+}
+
+tr>td,tr>th{
+  vertical-align: middle
+}

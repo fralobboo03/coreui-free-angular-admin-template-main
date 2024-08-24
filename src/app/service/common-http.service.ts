@@ -44,11 +44,21 @@ export class CommonHttpService {
     return this.http.delete<void>(`${this.apiurl}/materials/del-mt-by-id/${id}`);
   }
 
-  getProducts(){
+  findProducts(){
     return this.http.get<any>(this.apiurl + "/products/find-all");
+  }
+
+  getProducts(text:string){
+    return this.http.post<any>(this.apiurl + "/products/get-products", {
+      text: text
+    });
   }
 
   saveProduct(req: any){
     return this.http.post<any>(this.apiurl + "/products/save",req);
+  }
+
+  deleteProductById(id: number){
+    return this.http.delete<any>(this.apiurl + `/products/delete-by-id/${id}`);
   }
 }
