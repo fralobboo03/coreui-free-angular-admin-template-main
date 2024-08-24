@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from '../../environments/environment';
-import { CraftspersonModel } from '../model/common.model';
+import { CraftspersonModel, MaterialModel } from '../model/common.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -26,6 +26,22 @@ export class CommonHttpService {
 
   deleteCraftsperson(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiurl}/craftspeople/del-by-id/${id}`);
+  }
+
+  getMaterial(){
+    return this.http.get<any>(this.apiurl + "/materials/find-all");
+  }
+
+  createMaterial(material: MaterialModel): Observable<MaterialModel> {
+    return this.http.post<MaterialModel>(`${this.apiurl}/materials/save-mt`, material);
+  }
+
+  updateMaterial(id: number, material: MaterialModel): Observable<MaterialModel> {
+    return this.http.put<MaterialModel>(`${this.apiurl}/materials/update-mt/${id}`, material);
+  }
+
+  deleteMaterial(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiurl}/materials/del-mt-by-id/${id}`);
   }
 
   getProducts(){

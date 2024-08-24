@@ -7,8 +7,18 @@ export interface CraftspersonModel {
   description: string | null;
 }
 
+export interface MaterialModel {
+  materialId: number | null;
+  nameMaterial: string | null;
+  typeMaterial: string | null;
+  source: string | null;
+  otherDetails: string | null;
+
+}
+
 
 export interface CriteriaRequest {
   craftspersonName: string,
   nameprodcut: string
 }
+
