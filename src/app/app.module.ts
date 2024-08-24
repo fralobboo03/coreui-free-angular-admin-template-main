@@ -1,25 +1,17 @@
-import { CardBodyComponent, CardComponent, CardHeaderComponent, ColComponent, RowComponent } from '@coreui/angular';
-import { CraftspersonComponent } from './views/artisanry/craftsperson/craftsperson.component';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AppComponent } from './app.component';
-import { BrowserModule } from '@angular/platform-browser';
 
+import { NgModule } from '@angular/core';
+// import { CraftspersonComponent } from './views/artisanry/craftsperson/craftsperson.component';
 
 
 @NgModule({
   declarations: [
-    // CraftspersonComponent
+
+  ],
+  exports: [
+
   ],
   imports: [
-    AppComponent,
-    CommonModule,
-    BrowserModule,
-    CardComponent,
-    CardHeaderComponent,
-    CardBodyComponent,
-    RowComponent,
-    ColComponent
+
   ],
   providers: [],
   bootstrap: [

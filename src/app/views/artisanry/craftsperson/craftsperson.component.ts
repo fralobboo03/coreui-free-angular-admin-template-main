@@ -6,36 +6,13 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators  } from '@angular/forms';
 import { IconDirective } from '@coreui/icons-angular';
 import { CommonHttpService } from '../../../service/common-http.service'
+import { AppModule } from 'src/app/app.module';
+import { SHARED_DEPENDENCIES } from '../../../shared-dependencies'
 // import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-craftsperson',
   standalone: true,
-  imports: [
-    CommonModule,
-    CardComponent,
-    CardHeaderComponent,
-    CardBodyComponent,
-    RowComponent,
-    ColComponent,
-    TableDirective,
-    TableColorDirective,
-    TableActiveDirective,
-    BorderDirective,
-    AlignDirective,
-    PaginationComponent,
-    PageItemComponent,
-    PageLinkDirective,
-    RouterLink,
-    ReactiveFormsModule,
-    ButtonCloseDirective,
-    ButtonDirective,
-    ModalBodyComponent,
-    ModalComponent,
-    ModalFooterComponent,
-    ModalHeaderComponent,
-    ModalTitleDirective,
-    IconDirective
-  ],
+  imports: [SHARED_DEPENDENCIES ],
   templateUrl: './craftsperson.component.html',
   styleUrl: './craftsperson.component.scss'
 })
