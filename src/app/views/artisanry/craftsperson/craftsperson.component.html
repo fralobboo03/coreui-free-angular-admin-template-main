@@ -107,9 +107,5 @@
   </c-modal-footer>
 </c-modal>
 
-<c-modal id="successAlert" [visible]="alertModalvisible" color="success">
-  <div class="d-flex justify-content-between align-items-center">
-    <span>{{ alertMessage }}</span>
-    <button (click)="toggleSuccessAlert()" class="btn-close"></button>
-  </div>
-</c-modal>
+<app-alert-modal #alertModal [visible]="alertModal.visible" [alertMessage]="alertMessage"></app-alert-modal>
+

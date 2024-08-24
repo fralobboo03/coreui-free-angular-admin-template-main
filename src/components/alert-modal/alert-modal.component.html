@@ -1,0 +1,13 @@
+<c-modal [id]="'Alert'" [visible]="visible">
+  <c-modal-header>
+    <h5 cModalTitle>แจ้งเตือน</h5>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="d-flex justify-content-between align-items-center p-2">
+      <span>{{ alertMessage }}</span>
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="closeModal()" type="button" class="btn btn-secondary">ตกลง</button>
+  </c-modal-footer>
+</c-modal>

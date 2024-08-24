@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { BorderDirective, AlignDirective, ColComponent, RowComponent, ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective } from '@coreui/angular';
 import { RouterLink } from '@angular/router';
 import { CraftspersonModel, CriteriaRequest } from '../../../model/common.model'
@@ -8,6 +8,7 @@ import { IconDirective } from '@coreui/icons-angular';
 import { CommonHttpService } from '../../../service/common-http.service'
 import { AppModule } from 'src/app/app.module';
 import { SHARED_DEPENDENCIES } from '../../../shared-dependencies'
+import { AlertModalComponent } from '@docs-components/alert-modal/alert-modal.component';
 // import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-craftsperson',
@@ -17,6 +18,8 @@ import { SHARED_DEPENDENCIES } from '../../../shared-dependencies'
   styleUrl: './craftsperson.component.scss'
 })
 export class CraftspersonComponent {
+
+  @ViewChild(AlertModalComponent) alertModal!: AlertModalComponent
   craftspersonModel: CraftspersonModel[] = [];
 
   searchForm: FormGroup = this.fb.group({
@@ -72,9 +75,10 @@ export class CraftspersonComponent {
 
   onDelete(id: any){
     if(id != null){
+      const CraftName = this.craftspersonModel.find(item => item.craftspersonId == id)
       this.commonHttpService.deleteCraftsperson(id).subscribe(res => {
         // console.log("delete res", res);
-        this.showSuccessMessage('ลบข้อมูล สำเร็จ');
+        this.showSuccessMessage('ลบข้อมูลช่าง: ' + CraftName?.craftspersonName + ' สำเร็จ');
         this.initCraftperson()
       }, error => {
 
@@ -99,6 +103,7 @@ export class CraftspersonComponent {
       console.log("insert", updatedCraftspersonReq)
       this.commonHttpService.createCraftsperson(updatedCraftspersonReq).subscribe(res => {
         // console.log("insert res", res)
+        this.showSuccessMessage('บันทึกข้อมูลช่างสำเร็จ');
         this.beforeSaveSuccess();
       })
 
@@ -108,6 +113,7 @@ export class CraftspersonComponent {
       if(formCtl.craftspersonId != null){
         this.commonHttpService.updateCraftsperson(formCtl.craftspersonId, updatedCraftspersonReq).subscribe(res => {
           // console.log("insert res", res)
+          this.showSuccessMessage('แก้ไขข้อมูลช่างสำเร็จ');
           this.beforeSaveSuccess();
         })
       }
@@ -134,17 +140,16 @@ export class CraftspersonComponent {
     this.visible = event;
   }
 
-  showSuccessMessage(message: string) {
+  async showSuccessMessage(message: string) {
     this.alertMessage = message;
-    this.alertModalvisible = true;
+    this.alertModal.visible = true;
 
-    // Hide alert after a few seconds
-    setTimeout(() => {
-      this.alertModalvisible = false;
-    }, 3000); // Hide after 3 seconds
+    await this.alertModal.waitForClose();
   }
 
   toggleSuccessAlert() {
     this.alertModalvisible = !this.alertModalvisible;
   }
+
+
 }
