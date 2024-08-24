@@ -100,3 +100,5 @@
     <button type="submit" cButton color="primary" (click)="onSaveMaterial()">Save changes</button>
   </c-modal-footer>
 </c-modal>
+
+<app-alert-modal #alertModal [visible]="alertModal.visible" [alertMessage]="alertMessage"></app-alert-modal>

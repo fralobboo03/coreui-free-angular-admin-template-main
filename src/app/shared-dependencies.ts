@@ -8,6 +8,8 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators  }
 import { IconDirective } from '@coreui/icons-angular';
 import { AlertModalComponent } from '../components/alert-modal/alert-modal.component'
 // import { CraftspersonComponent } from './views/artisanry/craftsperson/craftsperson.component';
+export { AlertModalComponent } from '../components/alert-modal/alert-modal.component';
+
 
 export const SHARED_DEPENDENCIES = [
   CommonModule,

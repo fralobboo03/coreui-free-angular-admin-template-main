@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AlertModalComponent } from '@docs-components/alert-modal/alert-modal.component';
 import { MaterialModel } from 'src/app/model/common.model';
 import { CommonHttpService } from 'src/app/service/common-http.service';
 import { SHARED_DEPENDENCIES } from 'src/app/shared-dependencies';
@@ -13,6 +14,7 @@ import { SHARED_DEPENDENCIES } from 'src/app/shared-dependencies';
 })
 export class MaterialsComponent {
 
+  @ViewChild(AlertModalComponent) alertModal!: AlertModalComponent
   materialModel: MaterialModel[] = [];
 
   visible = false;
@@ -66,6 +68,7 @@ export class MaterialsComponent {
       this.commonHttpService.deleteMaterial(id).subscribe(res => {
         // console.log("delete res", res);
         // this.showSuccessMessage('ลบข้อมูล สำเร็จ');
+        this.showSuccessMessage("ลบข้อมูลวัสดุสำเร็จ")
         this.initMaterial();
       }, error => {
 
@@ -89,6 +92,7 @@ export class MaterialsComponent {
       console.log("insert", updatedMaterialReq)
       this.commonHttpService.createMaterial(updatedMaterialReq).subscribe(res => {
         // console.log("insert res", res)
+        this.showSuccessMessage("บันทึกข้อมูลวัสดุสำเร็จ")
         this.beforeSaveSuccess();
       })
 
@@ -98,6 +102,7 @@ export class MaterialsComponent {
       if(formCtl.materialId != null){
         this.commonHttpService.updateMaterial(formCtl.materialId, updatedMaterialReq).subscribe(res => {
           // console.log("insert res", res)
+        this.showSuccessMessage("แก้ไขข้อมูลวัสดุสำเร็จ")
           this.beforeSaveSuccess();
         })
       }
@@ -118,5 +123,14 @@ export class MaterialsComponent {
     this.visible = event;
   }
 
+  async showSuccessMessage(message: string) {
+    this.alertMessage = message;
+    this.alertModal.visible = true;
 
+    await this.alertModal.waitForClose();
+  }
+
+  toggleSuccessAlert() {
+    this.alertModalvisible = !this.alertModalvisible;
+  }
 }
