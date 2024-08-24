@@ -29,6 +29,11 @@ export const navItems: INavData[] = [
     url: '/Default/artisanry/materials',
     iconComponent: { name: 'cil-color-fill' }
   },
+  {
+    name: 'Customer',
+    url: '/Default/artisanry/customer',
+    iconComponent: { name: 'cil-contact' }
+  },
 
   //template menu
   // {
