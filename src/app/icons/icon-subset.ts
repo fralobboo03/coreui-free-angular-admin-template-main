@@ -96,7 +96,8 @@ import {
   cilUserUnfollow,
   cilGroup,
   cilFingerprint,
-  cilColorFill
+  cilColorFill,
+  cilContact
 } from '@coreui/icons';
 
 import { signet } from './signet';
@@ -202,7 +203,8 @@ export const iconSubset = {
   signet,
   cilGroup,
   cilFingerprint,
-  cilColorFill
+  cilColorFill,
+  cilContact
 };
 
 export enum IconSubset {
@@ -305,6 +307,7 @@ export enum IconSubset {
   signet = 'signet',
   cilGroup = 'cilGroup',
   cilFingerprint = 'cilFingerprint',
-  cilColorFill = 'cilColorFill'
+  cilColorFill = 'cilColorFill',
+  cilContact = 'cilContact'
 }
 

@@ -13,7 +13,15 @@ export interface MaterialModel {
   typeMaterial: string | null;
   source: string | null;
   otherDetails: string | null;
+}
 
+export interface CustomerModel {
+  customerId: number | null;
+  customerName: string | null;
+  address: string | null;
+  contact: string | null;
+  history: string | null;
+  description: string | null;
 }
 
 

@@ -19,7 +19,7 @@ import { AlertModalComponent } from '@docs-components/alert-modal/alert-modal.co
 })
 export class CraftspersonComponent {
 
-  @ViewChild(AlertModalComponent) alertModal!: AlertModalComponent
+  @ViewChild(AlertModalComponent) alertModal!: AlertModalComponent;
   craftspersonModel: CraftspersonModel[] = [];
 
   searchForm: FormGroup = this.fb.group({
