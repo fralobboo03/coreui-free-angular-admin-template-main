@@ -30,8 +30,6 @@ export class ProductComponent {
     costPrice: new FormControl(null),
     salePrice: new FormControl(null),
     otherDetails: new FormControl(null),
-    craftspersonId: new FormControl(null),
-    materialId: new FormControl(null),
   })
 
   craftperson: any[] = []
@@ -118,8 +116,6 @@ export class ProductComponent {
 
   onEdit(product: any) {
     this.formGroup.patchValue({...product })
-    this.formGroup.controls.craftspersonId.setValue(product.craftsperson.craftspersonId)
-    this.formGroup.controls.materialId.setValue(product.material.materialId)
     this.isShowModal = true
   }
 }

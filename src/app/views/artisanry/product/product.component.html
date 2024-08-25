@@ -28,14 +28,12 @@
           <thead>
             <tr>
               <th scope="col" class="text-center">#</th>
-              <th scope="col" class="text-center">Name</th>
               <th scope="col" class="text-center">Image</th>
+              <th scope="col" class="text-center">Name</th>
               <th scope="col" class="text-center">Description</th>
               <th scope="col" class="text-center">Amount</th>
               <th scope="col" class="text-center">CostPrice</th>
               <th scope="col" class="text-center">SalePrice</th>
-              <th scope="col" class="text-center">Material</th>
-              <th scope="col" class="text-center">Craftsperson</th>
               <th scope="col" class="text-center">OtherDetails</th>
               <th scope="col" class="text-center">Action</th>
             </tr>
@@ -43,14 +41,12 @@
           <tbody>
             <tr *ngFor="let product of products;let i = index">
               <th scope="row" class="text-center">{{i+1}}</th>
-              <td class="text-center" >{{product.nameProduct}}</td>
               <td class="text-center" ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrmYzhiIPMuFAclFBdWDrWmwentg1zu2ujoA&s" alt="Description of Image" width="120" height="100"></td>
+              <td class="text-center" >{{product.nameProduct}}</td>
               <td class="text-center" >{{product.description}}</td>
               <td class="text-center" >{{product.amount}}</td>
               <td class="text-center" >{{product.costPrice}}</td>
               <td class="text-center" >{{product.salePrice}}</td>
-              <td class="text-center" >{{product.material.nameMaterial }}</td>
-              <td class="text-center" >{{product.craftsperson.craftspersonName}}</td>
               <td class="text-center" >{{product.otherDetails}}</td>
               <td class="text-center fixed-column" >
                 <button type="button" class="btn btn-info me-1"><i class="fa-solid fa-image text-white"></i></button>
@@ -95,20 +91,6 @@
   </c-modal-header>
   <c-modal-body>
     <form [formGroup]="formGroup">
-      <div class="mb-3">
-        <label class="form-label">craftsperson</label>
-        <select class="form-select" formControlName="craftspersonId" aria-label="Default select example">
-          <option selected [value]="null">Open this select craftsperson</option>
-          <option *ngFor="let craft of this.craftperson" [value]="craft.craftspersonId">{{craft.craftspersonName}}</option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">materials</label>
-        <select class="form-select" formControlName="materialId" aria-label="Default select example">
-          <option selected [value]="null">Open this select materials</option>
-          <option *ngFor="let material of this.materials" [value]="material.materialId">{{material.nameMaterial}}</option>
-        </select>
-      </div>
       <div class="mb-3">
         <label class="form-label">name</label>
         <input type="text" class="form-control" formControlName="nameProduct" placeholder="Enter name">
