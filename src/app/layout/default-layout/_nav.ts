@@ -15,6 +15,11 @@ export const navItems: INavData[] = [
     name: 'Artisanry'
   },
   {
+    name: 'Order',
+    url: '/Default/artisanry/order',
+    iconComponent: { name: 'cil-contact' }
+  },
+  {
     name: 'Craftsperson',
     url: '/Default/artisanry/craftsperson',
     iconComponent: { name: 'cil-group' }
@@ -33,7 +38,8 @@ export const navItems: INavData[] = [
     name: 'Customer',
     url: '/Default/artisanry/customer',
     iconComponent: { name: 'cil-contact' }
-  },
+  }
+
 
   //template menu
   // {
