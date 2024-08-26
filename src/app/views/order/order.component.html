@@ -1,0 +1,224 @@
+<div class="container">
+  <c-card class="mb-4">
+    <c-card-header class="header-card">
+      <strong>Material</strong>
+    </c-card-header>
+    <c-card-body>
+      <div class="row mb-3">
+        <div class="row justify-content-between">
+          <div class="col row">
+            <div class="col-auto">
+              <div style="width: 309px;">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 180px;display: inline-block;">
+                <button type="button" class="btn btn-primary me-1 text-white" style="padding: 2px 9px;height: 36px;margin-top: -6px;width: 110px;">
+                  <span>Search</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col" style="text-align: end;">
+            <button type="button" class="btn btn-success me-1 text-white" (click)="openModalAddOrder()">
+              <span>Add</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <table cTable>
+        <thead>
+          <tr>
+            <th scope="col" class="text-center" >#</th>
+            <th scope="col" class="text-center" >Name</th>
+            <th scope="col" class="text-center" >Type</th>
+            <th scope="col" class="text-center" >Source</th>
+            <th scope="col" class="text-center" >Otherdetail</th>
+            <th scope="col" class="text-center" >Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let ds of materialModel; let i = index">
+            <th scope="row" class="text-center">{{ i + 1 }}</th>
+            <td class="text-center">{{ds.nameMaterial}}</td>
+            <td class="text-center">{{ds.typeMaterial}}</td>
+            <td class="text-center">{{ds.source}}</td>
+            <td class="text-center">{{ds.otherDetails}}</td>
+            <td class="text-center">
+              <button type="button" class="btn btn-info me-1" (click)="onEdit(ds.materialId)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
+              <button type="button" class="btn btn-danger" (click)="onDelete(ds.materialId)"><i class="fa-solid fa-trash text-white"></i></button>
+            </td>
+          </tr> -->
+
+          <tr>
+            <th scope="row" class="text-center"> i + 1 </th>
+            <td class="text-center">ds.nameMaterial</td>
+            <td class="text-center">ds.typeMaterial</td>
+            <td class="text-center">ds.source</td>
+            <td class="text-center">ds.otherDetails</td>
+            <td class="text-center">
+              <button type="button" class="btn btn-info me-1"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
+              <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash text-white"></i></button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <div>
+        <c-pagination aria-label="Page navigation example" [size]="'sm'">
+          <c-page-item >
+            <a cPageLink [routerLink]="[]">Previous</a>
+          </c-page-item>
+          <c-page-item [active]="true">
+            <a cPageLink [routerLink]="[]">1</a>
+          </c-page-item>
+          <c-page-item>
+            <a cPageLink [routerLink]="[]">2</a>
+          </c-page-item>
+          <c-page-item>
+            <a cPageLink [routerLink]="[]">3</a>
+          </c-page-item>
+          <c-page-item>
+            <a cPageLink [routerLink]="[]">Next</a>
+          </c-page-item>
+        </c-pagination>
+      </div>
+    </c-card-body>
+  </c-card>
+</div>
+
+
+<!-- Modal หลัก -->
+<c-modal [size]="'xl'" id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header class="header-card-order-custom">
+    <h5 cModalTitle>Add Order</h5>
+    <button (click)="toggleLiveDemo()" cButtonClose></button>
+  </c-modal-header>
+
+  <c-modal-body>
+    <c-card class="mb-4">
+      <c-card-header class="header-card-order-custom">
+          <div class="row justify-content-between">
+            <div class="col">
+                <div style="width: 309px;">
+                  <strong>Order details</strong>
+                </div>
+            </div>
+            <div class="col" style="text-align: end;">
+              <button type="button" class="btn btn-success me-1 text-white" (click)="openProductListModal()">
+                <span>Add your product</span>
+              </button>
+            </div>
+          </div>
+
+      </c-card-header>
+      <c-card-body>
+        <!-- ตารางแสดงข้อมูล -->
+        <table cTable>
+          <thead>
+            <tr>
+              <th scope="col" class="text-center">#</th>
+              <th scope="col" class="text-center">Image</th>
+              <th scope="col" class="text-center">Name</th>
+              <th scope="col" class="text-center">Quantity</th>
+              <th scope="col" class="text-center">Price</th>
+              <th scope="col" class="text-center">Amount</th>
+              <th scope="col" class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let orderDt_dr of orderDt; let i = index">
+              <th scope="row" class="text-center">{{ i + 1 }}</th>
+              <td class="text-center"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrmYzhiIPMuFAclFBdWDrWmwentg1zu2ujoA&s" alt="Description of Image" width="120" height="100"></td>
+              <td class="text-center">{{orderDt_dr.product?.nameProduct}}</td>
+              <td class="text-center">{{orderDt_dr.quantity}}</td>
+              <td class="text-center">{{orderDt_dr.product?.salePrice}}</td>
+              <td class="text-center">{{orderDt_dr.product?.salePrice}}</td>
+              <td class="text-center">
+                <button type="button" class="btn btn-danger" (click)="removeOrder(orderDt_dr.product?.productId)"><i class="fa-solid fa-trash text-white"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div>
+          <c-pagination aria-label="Page navigation example" [size]="'sm'">
+            <c-page-item>
+              <a cPageLink [routerLink]="[]">Previous</a>
+            </c-page-item>
+            <c-page-item [active]="true">
+              <a cPageLink [routerLink]="[]">1</a>
+            </c-page-item>
+            <c-page-item>
+              <a cPageLink [routerLink]="[]">2</a>
+            </c-page-item>
+            <c-page-item>
+              <a cPageLink [routerLink]="[]">3</a>
+            </c-page-item>
+            <c-page-item>
+              <a cPageLink [routerLink]="[]">Next</a>
+            </c-page-item>
+          </c-pagination>
+        </div>
+      </c-card-body>
+    </c-card>
+
+    <!-- ฟอร์มการเพิ่มข้อมูล -->
+    <form [formGroup]="orderForm" (ngSubmit)="onSaveOrder()">
+      <!-- <div class="mb-3">
+        <label for="nameMaterial" class="form-label">Material Name</label>
+        <input type="text" class="form-control" id="nameMaterial" formControlName="nameMaterial" placeholder="Enter name">
+      </div>
+      <div class="mb-3">
+        <label for="typeMaterial" class="form-label">Type</label>
+        <input type="text" class="form-control" id="typeMaterial" formControlName="typeMaterial" placeholder="Enter type">
+      </div> -->
+      <div class="mb-3">
+        <label for="status" class="form-label">Status</label>
+        <input type="text" class="form-control" id="status" formControlName="status" placeholder="Enter status">
+      </div>
+      <div class="mb-3">
+        <label for="otherDetails" class="form-label">OtherDetails</label>
+        <textarea class="form-control" id="otherDetails" formControlName="otherDetails" rows="3" placeholder="Enter otherDetails"></textarea>
+      </div>
+    </form>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleLiveDemo()" cButton color="secondary">Close</button>
+    <button type="submit" cButton color="primary" (click)="onSaveOrder()">Save changes</button>
+  </c-modal-footer>
+</c-modal>
+
+<!-- Modal ซ้อน -->
+<c-modal class="second-modal-custom" [backdrop]="'static'" [alignment]="'center'" [size]="'lg'" id="productListModal" [visible]="productListModalvisible">
+  <c-modal-header class="second-modal-custom">
+    <h5 cModalTitle>Add Products</h5>
+  </c-modal-header>
+  <c-modal-body style="color: black;">
+    <p>รายการสินค้า</p>
+    <c-container>
+      <c-row>
+        <c-col *ngFor="let product of products" class="product-card-col">
+          <c-card class="product-card">
+            <div class="card-img-wrapper">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrmYzhiIPMuFAclFBdWDrWmwentg1zu2ujoA&s" alt="Description of Image" width="120" height="100">
+            </div>
+            <c-card-body class="text-center">
+              <h5 cCardTitle>{{product.nameProduct}}</h5>
+              <p cCardText>
+                ราคา: {{product.salePrice}}
+              </p>
+              <button cButton class="btn btn-primary" (click)="addToOrder(product.productId)"><i class="fa-solid fa-cart-plus"></i></button>
+            </c-card-body>
+          </c-card>
+        </c-col>
+      </c-row>
+    </c-container>
+  </c-modal-body>
+
+  <c-modal-footer>
+    <button (click)="closeProductListModal()" cButton color="secondary">Close</button>
+    <!-- <button type="button" cButton color="primary">Add selected products</button> -->
+  </c-modal-footer>
+</c-modal>
+
+<app-alert-modal #alertModal [visible]="alertModal.visible" [alertMessage]="alertMessage"></app-alert-modal>
