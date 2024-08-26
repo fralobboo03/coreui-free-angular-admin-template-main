@@ -24,6 +24,32 @@ export interface CustomerModel {
   description: string | null;
 }
 
+export interface Order {
+  orderId: number | null;
+  orderDate: string | null;
+  quantity: number | null;
+  status: string | null;
+  otherDetails: string | null;
+  orderDetails: OrderDetail[] | null;
+}
+
+export interface OrderDetail {
+  orderDetailId: number | null;
+  order: Order | null;
+  product: Product | null;
+  quantity: number;
+}
+
+export interface Product {
+  productId: number,
+  nameProduct: string | null,
+  description: string | null,
+  amount: number | null,
+  costPrice: number | null,
+  salePrice: number | null,
+  otherDetails: string
+}
+
 
 export interface CriteriaRequest {
   craftspersonName: string,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from '../../environments/environment';
-import { CraftspersonModel, MaterialModel } from '../model/common.model';
+import { CraftspersonModel, MaterialModel, Order } from '../model/common.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -60,5 +60,9 @@ export class CommonHttpService {
 
   deleteProductById(id: number){
     return this.http.delete<any>(this.apiurl + `/products/delete-by-id/${id}`);
+  }
+
+  saveOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(this.apiurl + "/orders/save", order);
   }
 }

@@ -11,13 +11,13 @@ export const navItems: INavData[] = [
     }
   },
   {
-    title: true,
-    name: 'Artisanry'
+    name: 'Order',
+    url: '/Default/order',
+    iconComponent: { name: 'cil-contact' }
   },
   {
-    name: 'Order',
-    url: '/Default/artisanry/order',
-    iconComponent: { name: 'cil-contact' }
+    title: true,
+    name: 'Artisanry'
   },
   {
     name: 'Craftsperson',
