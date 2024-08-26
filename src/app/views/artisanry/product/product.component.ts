@@ -36,7 +36,7 @@ export class ProductComponent {
   materials: any[] = []
   products: any[] = []
 
-  titleModalInsert = "Add product"
+  titleModalInsert = "Add Product"
 
 
   ngOnInit() {
@@ -86,6 +86,7 @@ export class ProductComponent {
   }
 
   openModalAddProduct() {
+    this.titleModalInsert = "Add Product"
     this.formGroup.reset()
     this.isShowModal = true
   }
@@ -115,6 +116,7 @@ export class ProductComponent {
   }
 
   onEdit(product: any) {
+    this.titleModalInsert = "Edit Product"
     this.formGroup.patchValue({...product })
     this.isShowModal = true
   }

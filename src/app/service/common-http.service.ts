@@ -61,4 +61,9 @@ export class CommonHttpService {
   deleteProductById(id: number){
     return this.http.delete<any>(this.apiurl + `/products/delete-by-id/${id}`);
   }
+
+  getCustomers(){
+    return this.http.get<any>(this.apiurl + `/customers/get-customers`);
+  }
+
 }
