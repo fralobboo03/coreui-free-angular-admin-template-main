@@ -4,8 +4,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, CarouselCaptionComponent, CarouselComponent, CarouselControlComponent, CarouselIndicatorsComponent, CarouselInnerComponent, CarouselItemComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, RowComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
+import { ProductImage } from 'src/app/model/common.model';
 import { CommonHttpService } from 'src/app/service/common-http.service';
 import { SHARED_DEPENDENCIES } from 'src/app/shared-dependencies';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product',
@@ -19,6 +21,8 @@ export class ProductComponent {
   constructor(
     private commonHttpService: CommonHttpService
   ) {}
+
+  pathImage = environment.urlService
 
   formSearch = new FormControl(null);
 
@@ -36,14 +40,56 @@ export class ProductComponent {
   materials: any[] = []
   products: any[] = []
 
-  titleModalInsert = "Add Product"
+  fileList: File[] = []
+  imageList:ProductImage[] = []
+  imageEditId: number | null = null;
+  imageType: "ADD" | "EDIT" = "ADD"
 
+
+  titleModalInsert = "Add Product"
+  public isShowModalImage = false;
 
   ngOnInit() {
     this.getCraftperson()
     this.getMaterials()
     this.getProducts()
   }
+
+  async onFilesSelected(event: any): Promise<void> {
+    // this.selectedFiles = Array.from(event.target.files);
+    console.log("onFilesSelected",event)
+
+
+    this.fileList.push(event.target.files[0])
+    const buffer = await event.target.files[0].arrayBuffer();
+      const blob = new Blob([buffer], { type: event.target.files[0].type });
+      const url = URL.createObjectURL(blob);
+    this.imageList.push({
+      imageId: 0,
+      image: url,
+      detailImage: '123',
+      otherDetails: '123',
+      file: event.target.files[0]
+    })
+  }
+
+  onUpload(fileUpdate: any): void {
+    fileUpdate.click()
+  }
+
+  onEditImage(image: ProductImage, fileUpdate: any) {
+    this.imageEditId = image.imageId
+    fileUpdate.click()
+  }
+
+  onDeleteImage(image: ProductImage, index: number) {
+    if (image.imageId != 0) {
+
+    } else {
+      this.imageList = this.imageList.filter((image, i) => i != index)
+    }
+  }
+
 
   getCraftperson() {
     this.commonHttpService.getCraftperson().subscribe({next: (res) => {
@@ -81,12 +127,14 @@ export class ProductComponent {
   }
 
   public isShowModal = false;
+
   toggleLiveDemo() {
     this.isShowModal = !this.isShowModal;
   }
 
   openModalAddProduct() {
     this.titleModalInsert = "Add Product"
+    this.imageType = "ADD"
     this.formGroup.reset()
     this.isShowModal = true
   }
@@ -99,9 +147,31 @@ export class ProductComponent {
     console.log('Carousel onItemChange', $event);
   }
 
+  onShowModalImage(product: any) {
+    this.isShowModalImage = true
+  }
+
+  toggleImage() {
+    this.isShowModalImage = !this.isShowModalImage;
+  }
+
+  handleImageChange(event: any) {
+    this.isShowModalImage = event;
+  }
+
   saveProduct() {
     console.log(this.formGroup.value)
-    this.commonHttpService.saveProduct(this.formGroup.value).subscribe({next: (res) => {
+    const formData = new FormData()
+    formData.append("productRequest",JSON.stringify(this.formGroup.value))
+    if (this.fileList.length != 0) {
+      for(let file of this.fileList) {
+        formData.append('files',file)
+      }
+    } else {
+      formData.append('files', new Blob([]));
+    }
+
+    this.commonHttpService.saveProduct(formData).subscribe({next: (res) => {
       console.log(res)
       this.getProducts()
       this.isShowModal = false
@@ -117,7 +187,9 @@ export class ProductComponent {
 
   onEdit(product: any) {
     this.titleModalInsert = "Edit Product"
+    this.imageType = "EDIT"
     this.formGroup.patchValue({...product })
     this.isShowModal = true
+    this.imageList = product.image
   }
 }

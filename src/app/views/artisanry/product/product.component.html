@@ -49,7 +49,6 @@
               <td class="text-center" >{{product.salePrice}}</td>
               <td class="text-center" >{{product.otherDetails}}</td>
               <td class="text-center fixed-column" >
-                <button type="button" class="btn btn-info me-1"><i class="fa-solid fa-image text-white"></i></button>
                 <button type="button" class="btn btn-info me-1" (click)="onEdit(product)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
                 <button type="button" class="btn btn-danger" (click)="deleteProductById(product.productId)"><i class="fa-solid fa-trash text-white"></i></button>
               </td>
@@ -90,6 +89,41 @@
     <button (click)="toggleLiveDemo()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
+    <div class="container mt-4 mb-3">
+      <div class="row justify-content-between mb-3">
+        <div></div>
+        <div class="text-end">
+          <input #fileUpdate type="file" style="display: none;" (change)="onFilesSelected($event)" class="form-control mb-3">
+          <button type="button" class="btn btn-success text-white" (click)="onUpload(fileUpdate)">+ <i class="fa-solid fa-image"></i></button>
+        </div>
+      </div>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let image of this.imageList; let i = index">
+          <div class="card h-100">
+            <img [src]="(image.imageId != 0)? pathImage+'/'+image.image: image.image" class="card-img-top image-item " alt="Image 1">
+            <div class="row" style="padding: 0 11px;">
+              <div *ngIf="this.imageType == 'EDIT'" class="col" style="padding: 0px;">
+                <button type="button" class="btn btn-primary image-btn" (click)="onEditImage(image,fileUpdate)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
+              </div>
+              <div class="col" style="padding: 0px;">
+                <button type="button" class="btn btn-danger image-btn" (click)="onDeleteImage(image,i)"><i class="fa-solid fa-trash text-white"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col">
+          <div class="card h-100">
+            <img src="assets/images/image-placeholder.svg" class="card-img-top image-item " alt="Image 1">
+            <div class="row" style="padding: 0 11px;">
+              <div class="col" style="padding: 0px;">
+                <input #fileUpdate type="file" style="display: none;" (change)="onFilesSelected($event)" class="form-control mb-3">
+                <button type="button" class="btn btn-success image-btn text-white" (click)="onUpload(fileUpdate)">+ <i class="fa-solid fa-image"></i></button>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
     <form [formGroup]="formGroup">
       <div class="mb-3">
         <label class="form-label">name</label>
@@ -116,6 +150,7 @@
         <input type="text" class="form-control" formControlName="otherDetails"  placeholder="Enter otherDetails">
       </div>
     </form>
+
   </c-modal-body>
   <c-modal-footer>
     <button (click)="toggleLiveDemo()" cButton color="secondary">

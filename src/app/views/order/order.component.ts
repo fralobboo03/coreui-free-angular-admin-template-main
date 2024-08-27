@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Order, OrderDetail, Product } from 'src/app/model/common.model';
+import { Order, OrderDetail, OrderDetailRequest, OrderRequest, Product } from 'src/app/model/common.model';
 import { CommonHttpService } from 'src/app/service/common-http.service';
 import { AlertModalComponent, SHARED_DEPENDENCIES } from 'src/app/shared-dependencies';
 
@@ -20,8 +20,8 @@ export class OrderComponent {
   productListModalvisible = false;
   alertMessage: string = '';
   products: Product[] = [];
-  orderDt: OrderDetail[]= [];
-  orderHd: Order = {
+  orderDt: OrderDetailRequest[]= [];
+  orderHd: OrderRequest = {
     orderId: null,
     orderDate: null,
     quantity: null,
@@ -39,9 +39,12 @@ export class OrderComponent {
     orderDetails: new FormControl<OrderDetail[] | null>(null)
   });
 
+  orders: Order[] = []
+
   constructor(private fb: FormBuilder, private commonHttpService: CommonHttpService) { }
 
   ngOnInit() {
+    this.getOrders()
   }
 
   openModalAddOrder(){
@@ -50,9 +53,15 @@ export class OrderComponent {
     this.visible = true
   }
 
+  getOrders() {
+    this.commonHttpService.getOrders().subscribe({next: (res) => {
+      this.orders = res
+    }})
+  }
+
   onSaveOrder(){
     const formCtl = this.orderForm.value;
-    const saveOrderReq: Order = {
+    const saveOrderReq: OrderRequest = {
       orderId: this.orderHd.orderId ?? null,
       orderDate: '2024-08-26',
       quantity: 0,
@@ -65,6 +74,8 @@ export class OrderComponent {
 
     this.commonHttpService.saveOrder(saveOrderReq).subscribe(res => {
       console.log(res);
+      this.getOrders()
+      this.visible = false
     })
   }
 
@@ -117,9 +128,8 @@ export class OrderComponent {
     const selected_product = this.products.find(item => item.productId == product_id);
     if(selected_product){
       if(!(this.orderDt.find(i => i.product?.productId == selected_product.productId))  || this.orderDt.length == 0){
-        const order_detail_ds: OrderDetail = {
+        const order_detail_ds: OrderDetailRequest = {
           orderDetailId: null,
-          order: this.orderHd,
           product: selected_product,
           quantity: 0
         }

@@ -27,32 +27,18 @@
         <thead>
           <tr>
             <th scope="col" class="text-center" >#</th>
-            <th scope="col" class="text-center" >Name</th>
-            <th scope="col" class="text-center" >Type</th>
-            <th scope="col" class="text-center" >Source</th>
-            <th scope="col" class="text-center" >Otherdetail</th>
+            <th scope="col" class="text-center" >OrderDate</th>
+            <th scope="col" class="text-center" >Status</th>
+            <th scope="col" class="text-center" >OtherDetails</th>
             <th scope="col" class="text-center" >Action</th>
           </tr>
         </thead>
         <tbody>
-          <!-- <tr *ngFor="let ds of materialModel; let i = index">
-            <th scope="row" class="text-center">{{ i + 1 }}</th>
-            <td class="text-center">{{ds.nameMaterial}}</td>
-            <td class="text-center">{{ds.typeMaterial}}</td>
-            <td class="text-center">{{ds.source}}</td>
-            <td class="text-center">{{ds.otherDetails}}</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-info me-1" (click)="onEdit(ds.materialId)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
-              <button type="button" class="btn btn-danger" (click)="onDelete(ds.materialId)"><i class="fa-solid fa-trash text-white"></i></button>
-            </td>
-          </tr> -->
-
-          <tr>
-            <th scope="row" class="text-center"> i + 1 </th>
-            <td class="text-center">ds.nameMaterial</td>
-            <td class="text-center">ds.typeMaterial</td>
-            <td class="text-center">ds.source</td>
-            <td class="text-center">ds.otherDetails</td>
+          <tr *ngFor="let order of this.orders; let i = index">
+            <th scope="row" class="text-center"> {{i + 1}} </th>
+            <td class="text-center">{{order.orderDate}}</td>
+            <td class="text-center">{{order.status}}</td>
+            <td class="text-center">{{order.otherDetails}}</td>
             <td class="text-center">
               <button type="button" class="btn btn-info me-1"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
               <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash text-white"></i></button>
@@ -93,24 +79,38 @@
   </c-modal-header>
 
   <c-modal-body>
-    <c-card class="mb-4">
-      <c-card-header class="header-card-order-custom">
-          <div class="row justify-content-between">
-            <div class="col">
-                <div style="width: 309px;">
-                  <strong>Order details</strong>
-                </div>
-            </div>
-            <div class="col" style="text-align: end;">
-              <button type="button" class="btn btn-success me-1 text-white" (click)="openProductListModal()">
-                <span>Add your product</span>
-              </button>
-            </div>
+       <!-- ฟอร์มการเพิ่มข้อมูล -->
+       <form [formGroup]="orderForm" (ngSubmit)="onSaveOrder()">
+        <!-- <div class="mb-3">
+          <label for="nameMaterial" class="form-label">Material Name</label>
+          <input type="text" class="form-control" id="nameMaterial" formControlName="nameMaterial" placeholder="Enter name">
+        </div>
+        <div class="mb-3">
+          <label for="typeMaterial" class="form-label">Type</label>
+          <input type="text" class="form-control" id="typeMaterial" formControlName="typeMaterial" placeholder="Enter type">
+        </div> -->
+        <div class="mb-3">
+          <label for="status" class="form-label">Status</label>
+          <input type="text" class="form-control" id="status" formControlName="status" placeholder="Enter status">
+        </div>
+        <div class="mb-3">
+          <label for="otherDetails" class="form-label">OtherDetails</label>
+          <textarea class="form-control" id="otherDetails" formControlName="otherDetails" rows="3" placeholder="Enter otherDetails"></textarea>
+        </div>
+      </form>
+      <div class="container">
+        <div class="row justify-content-between mb-3 mt-4">
+          <div class="col">
+              <div style="width: 309px;">
+                <strong>Order details</strong>
+              </div>
           </div>
-
-      </c-card-header>
-      <c-card-body>
-        <!-- ตารางแสดงข้อมูล -->
+          <div class="col" style="text-align: end;">
+            <button type="button" class="btn btn-success me-1 text-white" (click)="openProductListModal()">
+              <span>Add your product</span>
+            </button>
+          </div>
+        </div>
         <table cTable>
           <thead>
             <tr>
@@ -138,8 +138,6 @@
             </tr>
           </tbody>
         </table>
-
-        <!-- Pagination -->
         <div>
           <c-pagination aria-label="Page navigation example" [size]="'sm'">
             <c-page-item>
@@ -159,28 +157,14 @@
             </c-page-item>
           </c-pagination>
         </div>
-      </c-card-body>
-    </c-card>
+      </div>
 
-    <!-- ฟอร์มการเพิ่มข้อมูล -->
-    <form [formGroup]="orderForm" (ngSubmit)="onSaveOrder()">
-      <!-- <div class="mb-3">
-        <label for="nameMaterial" class="form-label">Material Name</label>
-        <input type="text" class="form-control" id="nameMaterial" formControlName="nameMaterial" placeholder="Enter name">
-      </div>
-      <div class="mb-3">
-        <label for="typeMaterial" class="form-label">Type</label>
-        <input type="text" class="form-control" id="typeMaterial" formControlName="typeMaterial" placeholder="Enter type">
-      </div> -->
-      <div class="mb-3">
-        <label for="status" class="form-label">Status</label>
-        <input type="text" class="form-control" id="status" formControlName="status" placeholder="Enter status">
-      </div>
-      <div class="mb-3">
-        <label for="otherDetails" class="form-label">OtherDetails</label>
-        <textarea class="form-control" id="otherDetails" formControlName="otherDetails" rows="3" placeholder="Enter otherDetails"></textarea>
-      </div>
-    </form>
+        <!-- ตารางแสดงข้อมูล -->
+
+        <!-- Pagination -->
+
+
+
   </c-modal-body>
   <c-modal-footer>
     <button (click)="toggleLiveDemo()" cButton color="secondary">Close</button>

@@ -32,10 +32,23 @@ export interface Order {
   otherDetails: string | null;
   orderDetails: OrderDetail[] | null;
 }
+export interface OrderRequest {
+  orderId: number | null;
+  orderDate: string | null;
+  quantity: number | null;
+  status: string | null;
+  otherDetails: string | null;
+  orderDetails: OrderDetailRequest[] | null;
+}
 
 export interface OrderDetail {
   orderDetailId: number | null;
   order: Order | null;
+  product: Product | null;
+  quantity: number;
+}
+export interface OrderDetailRequest {
+  orderDetailId: number | null;
   product: Product | null;
   quantity: number;
 }
@@ -47,7 +60,9 @@ export interface Product {
   amount: number | null,
   costPrice: number | null,
   salePrice: number | null,
-  otherDetails: string
+  otherDetails: string,
+  materialDetail: any[],
+  craftspersonDetail: any[]
 }
 
 
@@ -55,4 +70,13 @@ export interface CriteriaRequest {
   craftspersonName: string,
   nameprodcut: string
 }
+
+export interface ProductImage {
+  imageId: number,
+  image: string,
+  detailImage: string,
+  otherDetails: string
+  file: File
+}
+
 
