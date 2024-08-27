@@ -100,7 +100,8 @@
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col" *ngFor="let image of this.imageList; let i = index">
           <div class="card h-100">
-            <img [src]="(image.imageId != 0)? pathImage+'/'+image.image: image.image" class="card-img-top image-item " alt="Image 1">
+            <img #imgProduct [src]="(image.imageId != 0)? pathImage+'/'+image.image : image.image" class="card-img-top image-item " alt="Image 1">
+            <!-- <img #imgProduct [src]="image.image" class="card-img-top image-item " alt="Image 1"> -->
             <div class="row" style="padding: 0 11px;">
               <div *ngIf="this.imageType == 'EDIT'" class="col" style="padding: 0px;">
                 <button type="button" class="btn btn-primary image-btn" (click)="onEditImage(image,fileUpdate)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>

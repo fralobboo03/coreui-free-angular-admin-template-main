@@ -48,10 +48,18 @@ export class CommonHttpService {
     return this.http.get<any>(this.apiurl + "/products/find-all");
   }
 
+  productImagesUpdateFileById(id: number, formData: FormData){
+    return this.http.put<any>(this.apiurl + `/product-images/upload-file-by-id/${id}`,formData);
+  }
+
   getProducts(text:string){
     return this.http.post<any>(this.apiurl + "/products/get-products", {
       text: text
     });
+  }
+
+  getProductById(id: number){
+    return this.http.get<any>(this.apiurl + `/products/${id}`);
   }
 
   saveProduct(req: any){
