@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, CarouselCaptionComponent, CarouselComponent, CarouselControlComponent, CarouselIndicatorsComponent, CarouselInnerComponent, CarouselItemComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, RowComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
-import { ProductImage } from 'src/app/model/common.model';
+import { Product, ProductImage } from 'src/app/model/common.model';
 import { CommonHttpService } from 'src/app/service/common-http.service';
 import { SHARED_DEPENDENCIES } from 'src/app/shared-dependencies';
 import { environment } from 'src/environments/environment';
@@ -19,8 +19,10 @@ import { environment } from 'src/environments/environment';
 export class ProductComponent {
 
   constructor(
-    private commonHttpService: CommonHttpService
+    private commonHttpService: CommonHttpService,
   ) {}
+
+  @ViewChildren('imgProduct') imgProducts: QueryList<HTMLImageElement> | undefined;
 
   pathImage = environment.urlService
 
@@ -39,7 +41,6 @@ export class ProductComponent {
   craftperson: any[] = []
   materials: any[] = []
   products: any[] = []
-
   fileList: File[] = []
   imageList:ProductImage[] = []
   imageEditId: number | null = null;
@@ -58,19 +59,30 @@ export class ProductComponent {
   async onFilesSelected(event: any): Promise<void> {
     // this.selectedFiles = Array.from(event.target.files);
     console.log("onFilesSelected",event)
-
-
-    this.fileList.push(event.target.files[0])
     const buffer = await event.target.files[0].arrayBuffer();
-      const blob = new Blob([buffer], { type: event.target.files[0].type });
-      const url = URL.createObjectURL(blob);
-    this.imageList.push({
-      imageId: 0,
-      image: url,
-      detailImage: '123',
-      otherDetails: '123',
-      file: event.target.files[0]
-    })
+    const blob = new Blob([buffer], { type: event.target.files[0].type });
+    const url = URL.createObjectURL(blob);
+    if (this.imageType == "ADD") {
+      this.fileList.push(event.target.files[0])
+      this.imageList.push({
+        imageId: 0,
+        image: url,
+        detailImage: '123',
+        otherDetails: '123',
+        file: event.target.files[0]
+      })
+    } else if (this.imageType == "EDIT") {
+      const formData = new FormData()
+      formData.append("file", event.target.files[0])
+      this.commonHttpService.productImagesUpdateFileById(this.imageEditId || 0,formData).subscribe({next: (res) => {
+        console.log("productImagesUpdateFileById",res)
+        this.commonHttpService.getProductById(this.formGroup.controls.productId.value || 0).subscribe({next: (res : any) => {
+          this.imageList = res.image
+          console.log(this.imageList)
+          console.log("this.imgProducts",this.imgProducts)
+        }})
+      }, error: (err) => {}})
+    }
   }
 
   onUpload(fileUpdate: any): void {
@@ -136,6 +148,7 @@ export class ProductComponent {
     this.titleModalInsert = "Add Product"
     this.imageType = "ADD"
     this.formGroup.reset()
+    this.imageList = []
     this.isShowModal = true
   }
 
@@ -191,5 +204,9 @@ export class ProductComponent {
     this.formGroup.patchValue({...product })
     this.isShowModal = true
     this.imageList = product.image
+  }
+
+  getDate() {
+    return new Date().getTime()
   }
 }
