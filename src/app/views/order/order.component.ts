@@ -59,6 +59,13 @@ export class OrderComponent {
     }})
   }
 
+  onDeleteOrder(id: any){
+    this.commonHttpService.deleteOrder(id).subscribe(res => {
+      // console.log('Order_deleted', res);
+      this.getOrders();
+    })
+  }
+
   onSaveOrder(){
     const formCtl = this.orderForm.value;
     const saveOrderReq: OrderRequest = {
