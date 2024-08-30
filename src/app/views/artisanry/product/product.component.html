@@ -41,7 +41,7 @@
           <tbody>
             <tr *ngFor="let product of products;let i = index">
               <th scope="row" class="text-center">{{i+1}}</th>
-              <td class="text-center" ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrmYzhiIPMuFAclFBdWDrWmwentg1zu2ujoA&s" alt="Description of Image" width="120" height="100"></td>
+              <td class="text-center" ><img class="product-image" [src]="pathImage+'/'+product.image[0].image" alt="Description of Image" width="120" height="100" (click)="showModalImage(product.image)"></td>
               <td class="text-center" >{{product.nameProduct}}</td>
               <td class="text-center" >{{product.description}}</td>
               <td class="text-center" >{{product.amount}}</td>
@@ -83,7 +83,7 @@
 </div>
 
 
-<c-modal id="liveDemoModal" [visible]="isShowModal" (visibleChange)="handleLiveDemoChange($event)">
+<c-modal id="liveDemoModal" [backdrop]="'static'" [size]="'lg'" [visible]="isShowModal" (visibleChange)="handleLiveDemoChange($event)">
   <c-modal-header>
     <h5 cModalTitle>{{titleModalInsert}}</h5>
     <button (click)="toggleLiveDemo()" cButtonClose></button>
@@ -97,11 +97,10 @@
           <button type="button" class="btn btn-success text-white" (click)="onUpload(fileUpdate)">+ <i class="fa-solid fa-image"></i></button>
         </div>
       </div>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col" *ngFor="let image of this.imageList; let i = index">
-          <div class="card h-100">
-            <img #imgProduct [src]="(image.imageId != 0)? pathImage+'/'+image.image : image.image" class="card-img-top image-item " alt="Image 1">
-            <!-- <img #imgProduct [src]="image.image" class="card-img-top image-item " alt="Image 1"> -->
+      <div class="row row-cols-1 row-cols-md-5 g-4">
+        <div class="col-auto" *ngFor="let image of this.imageList; let i = index">
+          <div class="card h-100" style="width: 132px;">
+            <img #imgProduct [src]="(image.imageId != 0)? pathImage+'/'+image.image : image.image" (click)="onImageOne(image)" class="card-img-top image-item " style="cursor: pointer;">
             <div class="row" style="padding: 0 11px;">
               <div *ngIf="this.imageType == 'EDIT'" class="col" style="padding: 0px;">
                 <button type="button" class="btn btn-primary image-btn" (click)="onEditImage(image,fileUpdate)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
@@ -112,17 +111,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="col">
-          <div class="card h-100">
-            <img src="assets/images/image-placeholder.svg" class="card-img-top image-item " alt="Image 1">
-            <div class="row" style="padding: 0 11px;">
-              <div class="col" style="padding: 0px;">
-                <input #fileUpdate type="file" style="display: none;" (change)="onFilesSelected($event)" class="form-control mb-3">
-                <button type="button" class="btn btn-success image-btn text-white" (click)="onUpload(fileUpdate)">+ <i class="fa-solid fa-image"></i></button>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
     <form [formGroup]="formGroup">
@@ -159,4 +147,50 @@
     </button>
     <button cButton color="primary" (click)="saveProduct()">Save changes</button>
   </c-modal-footer>
+</c-modal>
+
+
+<c-modal id="imageModal" class="imageModal" [size]="'lg'" [visible]="isShowImage" (visibleChange)="handleImageModalChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Image</h5>
+    <button (click)="toggleImageModal()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="container mt-4 mb-3">
+      <div class="row justify-content-center">
+        <div class="col-auto" *ngFor="let imageModal of imageModalList">
+          <img
+          [src]="pathImage+'/'+imageModal.image"
+          alt="image"
+          class="d-block"
+          loading="lazy"
+          width="350" height="350">
+        </div>
+      </div>
+    </div>
+  </c-modal-body>
+</c-modal>
+
+
+<c-modal id="imageOneModal" [backdrop]="'static'" class="imageOne" [size]="'lg'" [visible]="isShowImageOne" (visibleChange)="handleImageOneModalChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Image</h5>
+    <button (click)="toggleImageOneModal()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="container mt-4 mb-3">
+      <img
+      [src]="(imageOne) ? pathImage+'/'+imageOne.image : ''"
+      alt="image"
+      class="d-block w-100"
+      loading="lazy"/>
+    </div>
+  </c-modal-body>
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <button (click)="toggleImageOneModal()" style="width: 200px;" class="mt-4 mb-4" cButton color="primary">
+        Close
+      </button>
+    </div>
+  </div>
 </c-modal>
