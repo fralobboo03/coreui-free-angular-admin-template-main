@@ -14,6 +14,7 @@ import { AlertModalComponent, SHARED_DEPENDENCIES } from 'src/app/shared-depende
 export class OrderComponent {
   @ViewChild(AlertModalComponent) alertModal!: AlertModalComponent;
 
+  isCloseEdit = false;
   visible = false;
   isInsert = true;
   alertModalvisible = false;
@@ -36,7 +37,7 @@ export class OrderComponent {
     quantity: new FormControl<number | null>(null),
     status:       new FormControl<string | null>(null),
     otherDetails: new FormControl<string | null>(null),
-    orderDetails: new FormControl<OrderDetail[] | null>(null)
+    orderDetails: new FormControl<OrderDetailRequest[] | null>(null)
   });
 
   orders: Order[] = []
@@ -56,6 +57,12 @@ export class OrderComponent {
   getOrders() {
     this.commonHttpService.getOrders().subscribe({next: (res) => {
       this.orders = res
+
+      if(this.isCloseEdit){
+        this.isCloseEdit = false;
+        this.toggleLiveDemo();
+      }
+
     }})
   }
 
@@ -103,7 +110,7 @@ export class OrderComponent {
 
     this.commonHttpService.saveOrder(saveOrderReq).subscribe(res => {
       console.log(res);
-      this.getOrders()
+      this.getOrders();
       this.visible = false
     })
   }
@@ -115,9 +122,9 @@ export class OrderComponent {
   onCloseEdit(){
     this.orderForm.reset();
     this.orderDt = [];
+    this.isCloseEdit = true;
+    this.getOrders();
 
-    this.getOrders;
-    this.toggleLiveDemo();
   }
 
   handleLiveDemoChange(event: any) {
