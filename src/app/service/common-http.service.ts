@@ -85,4 +85,8 @@ export class CommonHttpService {
   getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.apiurl + "/orders/get-orders");
   }
+
+  deleteOrder(id: number): Observable<void> {
+    return this.http.delete<void>(this.apiurl + `/orders/delete-by-id/${id}`);
+  }
 }
