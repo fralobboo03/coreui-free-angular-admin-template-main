@@ -40,7 +40,7 @@
             <td class="text-center">{{order.status}}</td>
             <td class="text-center">{{order.otherDetails}}</td>
             <td class="text-center">
-              <button type="button" class="btn btn-info me-1"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
+              <button type="button" class="btn btn-info me-1" (click)="onEditOrder(order.orderId)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
               <button type="button" class="btn btn-danger" (click)="onDeleteOrder(order.orderId)"><i class="fa-solid fa-trash text-white"></i></button>
             </td>
           </tr>
@@ -167,7 +167,7 @@
 
   </c-modal-body>
   <c-modal-footer>
-    <button (click)="toggleLiveDemo()" cButton color="secondary">Close</button>
+    <button (click)="onCloseEdit()" cButton color="secondary">Close</button>
     <button type="submit" cButton color="primary" (click)="onSaveOrder()">Save changes</button>
   </c-modal-footer>
 </c-modal>

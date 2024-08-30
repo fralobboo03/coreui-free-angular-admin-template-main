@@ -21,14 +21,14 @@ export class OrderComponent {
   alertMessage: string = '';
   products: Product[] = [];
   orderDt: OrderDetailRequest[]= [];
-  orderHd: OrderRequest = {
-    orderId: null,
-    orderDate: null,
-    quantity: null,
-    status: null,
-    otherDetails: null,
-    orderDetails: this.orderDt
-  };
+  // orderHd: OrderRequest = {
+  //   orderId: null,
+  //   orderDate: null,
+  //   quantity: null,
+  //   status: null,
+  //   otherDetails: null,
+  //   orderDetails: this.orderDt
+  // };
 
   orderForm = new FormGroup({
     orderId:   new FormControl<number | null>(null),
@@ -66,10 +66,32 @@ export class OrderComponent {
     })
   }
 
+  onEditOrder(order_id: any){
+    this.visible = true
+    console.log("this.orders", this.orders)
+    const seleted_order = this.orders.find(item => item.orderId == order_id)
+    console.log("seleted_order", seleted_order)
+    if(seleted_order){
+      this.orderForm.patchValue({
+        orderId: seleted_order.orderId,
+        orderDate: seleted_order.orderDate,
+        quantity: seleted_order.quantity,
+        status: seleted_order.status,
+        otherDetails: seleted_order.otherDetails,
+        orderDetails: seleted_order.orderDetails
+      });
+      if(seleted_order.orderDetails){
+        this.orderDt = seleted_order.orderDetails;
+        console.log("editOrder", this.orderDt)
+      }
+    }
+  }
+
   onSaveOrder(){
     const formCtl = this.orderForm.value;
+
     const saveOrderReq: OrderRequest = {
-      orderId: this.orderHd.orderId ?? null,
+      orderId: formCtl.orderId ?? null,
       orderDate: '2024-08-26',
       quantity: 0,
       status: formCtl.status ?? '',
@@ -90,6 +112,14 @@ export class OrderComponent {
     this.visible = !this.visible;
   }
 
+  onCloseEdit(){
+    this.orderForm.reset();
+    this.orderDt = [];
+
+    this.getOrders;
+    this.toggleLiveDemo();
+  }
+
   handleLiveDemoChange(event: any) {
     this.visible = event;
   }
@@ -101,12 +131,8 @@ export class OrderComponent {
   openProductListModal(){
     this.commonHttpService.getProducts("").subscribe({next: (res) => {
       if(res != null){
-
-        console.log("res",res)
         this.products = res
-        console.log("this.products",this.products)
         this.productListModalvisible = true;
-        // this.toggleProductListModalvisible();
       }else{
         console.log("product is null")
       }
