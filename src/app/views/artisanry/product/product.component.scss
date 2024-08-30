@@ -33,7 +33,7 @@ tr>td,tr>th{
 .image-btn {
   height: 29px;
   padding: 0px;
-  border-radius: 2px;
+  border-radius: 0px;
   width: 100%;
 }
 
@@ -41,4 +41,21 @@ tr>td,tr>th{
   height: 29px;
   padding: 0px;
   width: 53px;
+}
+
+img.product-image {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
+}
+
+.imageModal .modal-dialog {
+  max-width: 900px !important;
 }

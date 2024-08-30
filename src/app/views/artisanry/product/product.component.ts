@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, CarouselCaptionComponent, CarouselComponent, CarouselControlComponent, CarouselIndicatorsComponent, CarouselInnerComponent, CarouselItemComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, RowComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
+import { firstValueFrom } from 'rxjs';
 import { Product, ProductImage } from 'src/app/model/common.model';
 import { CommonHttpService } from 'src/app/service/common-http.service';
 import { SHARED_DEPENDENCIES } from 'src/app/shared-dependencies';
@@ -20,6 +21,7 @@ export class ProductComponent {
 
   constructor(
     private commonHttpService: CommonHttpService,
+    private domSanitizer: DomSanitizer
   ) {}
 
   @ViewChildren('imgProduct') imgProducts: QueryList<HTMLImageElement> | undefined;
@@ -45,10 +47,14 @@ export class ProductComponent {
   imageList:ProductImage[] = []
   imageEditId: number | null = null;
   imageType: "ADD" | "EDIT" = "ADD"
+  imageModalList: any[] = []
+  imageOne!: ProductImage;
 
 
   titleModalInsert = "Add Product"
   public isShowModalImage = false;
+  public isShowImage = false;
+  public isShowImageOne = false;
 
   ngOnInit() {
     this.getCraftperson()
@@ -74,18 +80,29 @@ export class ProductComponent {
     } else if (this.imageType == "EDIT") {
       const formData = new FormData()
       formData.append("file", event.target.files[0])
-      this.commonHttpService.productImagesUpdateFileById(this.imageEditId || 0,formData).subscribe({next: (res) => {
-        console.log("productImagesUpdateFileById",res)
-        this.commonHttpService.getProductById(this.formGroup.controls.productId.value || 0).subscribe({next: (res : any) => {
-          this.imageList = res.image
-          console.log(this.imageList)
-          console.log("this.imgProducts",this.imgProducts)
+      if (this.imageEditId == 0) {
+        this.commonHttpService.productImagesUpdateFileByProductId(this.formGroup.controls.productId.value || 0 ,formData).subscribe({next: (res) => {
+          this.commonHttpService.getProductById(this.formGroup.controls.productId.value || 0).subscribe({next: (res : any) => {
+            this.imageList = res.image
+            this.getProducts()
+          }})
         }})
-      }, error: (err) => {}})
+      } else {
+        this.commonHttpService.productImagesUpdateFileById(this.imageEditId || 0,formData).subscribe({next: (res) => {
+          console.log("productImagesUpdateFileById",res)
+          this.commonHttpService.getProductById(this.formGroup.controls.productId.value || 0).subscribe({next: (res : any) => {
+            this.imageList = res.image
+            this.getProducts()
+          }})
+        }, error: (err) => {}})
+      }
+
+
     }
   }
 
   onUpload(fileUpdate: any): void {
+    this.imageEditId = 0
     fileUpdate.click()
   }
 
@@ -172,6 +189,22 @@ export class ProductComponent {
     this.isShowModalImage = event;
   }
 
+  toggleImageModal() {
+    this.isShowImage = !this.isShowImage;
+  }
+
+  handleImageModalChange(event: any) {
+    this.isShowImage = event;
+  }
+
+  toggleImageOneModal() {
+    this.isShowImageOne = !this.isShowImageOne;
+  }
+
+  handleImageOneModalChange(event: any) {
+    this.isShowImageOne = event;
+  }
+
   saveProduct() {
     console.log(this.formGroup.value)
     const formData = new FormData()
@@ -208,5 +241,18 @@ export class ProductComponent {
 
   getDate() {
     return new Date().getTime()
+  }
+
+  showModalImage(images: ProductImage[]) {
+    console.log("image",images)
+    this.imageModalList = images
+    this.isShowImage = true
+
+
+  }
+
+  onImageOne(image: ProductImage) {
+    this.imageOne = image
+    this.isShowImageOne = true
   }
 }
