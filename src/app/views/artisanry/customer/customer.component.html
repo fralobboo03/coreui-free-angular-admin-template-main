@@ -36,16 +36,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row" class="text-center">i+1</th>
-            <td class="text-center">Name</td>
-            <td class="text-center">Address</td>
-            <td class="text-center">Contact</td>
-            <td class="text-center">History</td>
-            <td class="text-center">Description</td>
+          <tr *ngFor="let ds of customerModel; let i = index">
+            <th scope="row" class="text-center">{{i+1}}</th>
+            <td class="text-center">{{ds.customerName}}</td>
+            <td class="text-center">{{ds.address}}</td>
+            <td class="text-center">{{ds.contact}}</td>
+            <td class="text-center">{{ds.history}}</td>
+            <td class="text-center">{{ds.description}}</td>
             <td class="text-center">
-              <button type="button" class="btn btn-info me-1"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
-              <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash text-white"></i></button>
+              <button type="button" (click)="onEdit(ds.customerId)" class="btn btn-info me-1"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
+              <button type="button" (click)="onDelete(ds.customerId)" class="btn btn-danger"><i class="fa-solid fa-trash text-white"></i></button>
             </td>
           </tr>
         </tbody>
@@ -82,26 +82,26 @@
     <button (click)="toggleLiveDemo()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <form>
+    <form [formGroup]="customerForm"> <!-- เพิ่ม formGroup binding -->
       <div class="mb-3">
         <label class="form-label">Name</label>
-        <input type="text" class="form-control" placeholder="Enter name">
+        <input type="text" class="form-control" placeholder="Enter name" formControlName="customerName"> <!-- formControlName -->
       </div>
       <div class="mb-3">
         <label class="form-label">Address</label>
-        <input type="text" class="form-control" placeholder="Enter Address">
+        <input type="text" class="form-control" placeholder="Enter Address" formControlName="address"> <!-- formControlName -->
       </div>
       <div class="mb-3">
         <label class="form-label">Contact</label>
-        <input type="text" class="form-control" placeholder="Enter Contact">
+        <input type="text" class="form-control" placeholder="Enter Contact" formControlName="contact"> <!-- formControlName -->
       </div>
       <div class="mb-3">
         <label class="form-label">History</label>
-        <input type="text" class="form-control" placeholder="Enter History">
+        <input type="text" class="form-control" placeholder="Enter History" formControlName="history"> <!-- formControlName -->
       </div>
       <div class="mb-3">
         <label class="form-label">Description</label>
-        <input type="text" class="form-control" placeholder="Enter Description">
+        <input type="text" class="form-control" placeholder="Enter Description" formControlName="description"> <!-- formControlName -->
       </div>
     </form>
   </c-modal-body>
@@ -109,6 +109,7 @@
     <button (click)="toggleLiveDemo()" cButton color="secondary">
       Close
     </button>
-    <button cButton color="primary">Save changes</button>
+    <button cButton color="primary" (click)="onSave()">Save changes</button> <!-- เพิ่ม onSave -->
   </c-modal-footer>
 </c-modal>
+

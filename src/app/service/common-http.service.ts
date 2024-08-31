@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from '../../environments/environment';
-import { CraftspersonModel, MaterialModel, Order, OrderRequest } from '../model/common.model';
+import { CraftspersonModel, CustomerModel, MaterialModel, Order, OrderRequest } from '../model/common.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -74,10 +74,6 @@ export class CommonHttpService {
     return this.http.delete<any>(this.apiurl + `/products/delete-by-id/${id}`);
   }
 
-  getCustomers(){
-    return this.http.get<any>(this.apiurl + `/customers/get-customers`);
-  }
-
   saveOrder(order: OrderRequest): Observable<Order> {
     return this.http.post<Order>(this.apiurl + "/orders/save", order);
   }
@@ -92,5 +88,21 @@ export class CommonHttpService {
 
   deleteOrderDetailByID(id: number): Observable<void> {
     return this.http.delete<void>(this.apiurl + `/orders/delete-order-dt-by-id/${id}`);
+  }
+
+  getCustomer(){
+    return this.http.get<any>(this.apiurl + "/customers/get-customers");
+  }
+
+  createCustomer(customer: CustomerModel): Observable<CustomerModel> {
+    return this.http.post<CustomerModel>(`${this.apiurl}/customers/save-ctm`, customer);
+  }
+
+  updateCustomer(id: number, customer: CustomerModel): Observable<CustomerModel> {
+    return this.http.put<CustomerModel>(`${this.apiurl}/customers/update-ctm/${id}`, customer);
+  }
+
+  deleteMCustomer(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiurl}/customers/delete-ctm-by-id/${id}`);
   }
 }
