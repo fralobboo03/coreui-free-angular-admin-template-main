@@ -192,10 +192,14 @@ export class OrderComponent {
     this.alertModalvisible = !this.alertModalvisible;
   }
 
-  removeOrder(product_id: any){
-    const index = this.orderDt.findIndex(item => item.product?.productId == product_id);
-    if(index != -1){
-      this.orderDt.splice(index, 1)
-    }
+  removeOrder(orderDetailId: any,product_id: any){
+    this.commonHttpService.deleteOrderDetailByID(orderDetailId).subscribe(res =>{
+      const index = this.orderDt.findIndex(item => item.product?.productId == product_id);
+      if(index != -1){
+        this.orderDt.splice(index, 1)
+      }
+      this.getOrders();
+    })
   }
+
 }

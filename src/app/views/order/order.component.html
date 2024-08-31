@@ -133,7 +133,7 @@
               <td class="text-center">{{orderDt_dr.product?.salePrice}}</td>
               <td class="text-center">{{orderDt_dr.product?.salePrice}}</td>
               <td class="text-center">
-                <button type="button" class="btn btn-danger" (click)="removeOrder(orderDt_dr.product?.productId)"><i class="fa-solid fa-trash text-white"></i></button>
+                <button type="button" class="btn btn-danger" (click)="removeOrder(orderDt_dr.orderDetailId, orderDt_dr.product?.productId)"><i class="fa-solid fa-trash text-white"></i></button>
               </td>
             </tr>
           </tbody>
