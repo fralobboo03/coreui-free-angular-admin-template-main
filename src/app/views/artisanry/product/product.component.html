@@ -125,17 +125,19 @@
         </div>
         <div class="col-auto">
           <button type="button" (click)="addCraftspersonDetail()" class="btn btn-success me-1 text-white">
-            <span>+  <svg cIcon class="me-2" name="cil-group"></svg></span>
+            <span  >+  <svg cIcon class="me-2" name="cil-group"></svg></span>
           </button>
         </div>
       </div>
       <table cTable>
         <tbody>
           <tr *ngFor="let craftsperson of craftspersonList; let i = index">
-            <th scope="row" class="text-left"> {{i + 1}} </th>
+            <td style="width: 40px;" scope="row" class="text-left"> {{i + 1}} </td>
             <td>{{craftsperson.craftsperson.craftspersonName}}</td>
-            <td class="text-end">
-              <button type="button" class="btn btn-danger" ><i class="fa-solid fa-trash text-white"></i></button>
+            <td  style="width: 76px;">
+              <span class="icon-add-delete" (click)="onDeleteCraftsperson(craftsperson.craftspersonDetailId)">
+                x
+              </span>
             </td>
           </tr>
           <tr *ngIf="craftspersonList.length == 0">
@@ -151,17 +153,19 @@
         </div>
         <div class="col-auto">
           <button type="button" (click)="addMaterialDetail()" class="btn btn-success me-1 text-white">
-            <span>+  <svg cIcon class="me-2" name="cil-color-fill"></svg></span>
+            <span >+  <svg cIcon class="me-2" name="cil-color-fill"></svg></span>
           </button>
         </div>
       </div>
       <table cTable>
         <tbody>
           <tr *ngFor="let material of materialList; let i = index">
-            <th scope="row" class="text-left" > {{i + 1}} </th>
+            <td style="width: 40px;" scope="row" class="text-left" > {{i + 1}} </td>
             <td>{{material.material.nameMaterial}}</td>
-            <td class="text-end">
-              <button type="button" class="btn btn-danger" ><i class="fa-solid fa-trash text-white"></i></button>
+            <td style="width: 76px;">
+              <span class="icon-add-delete" (click)="onDeleteMaterial(material.materialDetailId)">
+                x
+              </span>
             </td>
           </tr>
           <tr *ngIf="materialList.length == 0">
@@ -270,4 +274,28 @@
     </button>
     <button cButton color="primary" (click)="saveMaterialDetail()">Add</button>
   </c-modal-footer>
+</c-modal>
+
+
+<c-modal id="imageOneModal" [backdrop]="'static'" class="imageOne" [size]="'lg'" [visible]="isShowImageOne" (visibleChange)="handleImageOneModalChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Image</h5>
+    <button (click)="toggleImageOneModal()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="container mt-4 mb-3">
+      <img
+      [src]="(imageOne) ? pathImage+'/'+imageOne.image : ''"
+      alt="image"
+      class="d-block w-100"
+      loading="lazy"/>
+    </div>
+  </c-modal-body>
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <button (click)="toggleImageOneModal()" style="width: 200px;" class="mt-4 mb-4" cButton color="primary">
+        Close
+      </button>
+    </div>
+  </div>
 </c-modal>

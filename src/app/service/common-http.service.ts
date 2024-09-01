@@ -28,6 +28,10 @@ export class CommonHttpService {
     return this.http.delete<void>(`${this.apiurl}/craftspeople/del-by-id/${id}`);
   }
 
+  deleteCraftspersonDetailById(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiurl}/craftspeople/delete-detail-by-id/${id}`);
+  }
+
   getMaterial(){
     return this.http.get<any>(this.apiurl + "/materials/find-all");
   }
@@ -42,6 +46,10 @@ export class CommonHttpService {
 
   deleteMaterial(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiurl}/materials/del-mt-by-id/${id}`);
+  }
+
+  deleteMaterialDetailById(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiurl}/materials/delete-detail-by-id/${id}`);
   }
 
   findProducts(){
@@ -72,6 +80,10 @@ export class CommonHttpService {
 
   deleteProductById(id: number){
     return this.http.delete<any>(this.apiurl + `/products/delete-by-id/${id}`);
+  }
+
+  deleteProductImageById(id: number){
+    return this.http.delete<any>(this.apiurl + `/product-images/${id}`);
   }
 
   saveOrder(order: OrderRequest): Observable<Order> {

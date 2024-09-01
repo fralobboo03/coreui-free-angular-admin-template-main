@@ -120,9 +120,15 @@ export class ProductComponent {
     fileUpdate.click()
   }
 
-  onDeleteImage(image: ProductImage, index: number) {
+  onDeleteImage(image: ProductImage, index: number, ) {
+    console.log("onDeleteImage")
     if (image.imageId != 0) {
-
+      this.commonHttpService.deleteProductImageById(image.imageId).subscribe({next: (res) => {
+        this.commonHttpService.getProductById(this.formGroup.controls.productId.value || 0).subscribe({next: (res) => {
+          this.imageList = res.image
+          this.getProducts()
+        }})
+      }})
     } else {
       this.imageList = this.imageList.filter((image, i) => i != index)
     }
@@ -286,6 +292,7 @@ export class ProductComponent {
   }
 
   onImageOne(image: ProductImage) {
+    console.log("image",image)
     this.imageOne = image
     this.isShowImageOne = true
   }
@@ -318,4 +325,22 @@ export class ProductComponent {
     this.isShowMaterialDetail = false
   }
 
+  onDeleteCraftsperson(craftspersonDetailId: number) {
+    this.commonHttpService.deleteCraftspersonDetailById(craftspersonDetailId).subscribe({next: (res) => {
+      this.commonHttpService.getProductById(this.formGroup.controls.productId.value || 0).subscribe({next: (res: Product) => {
+        console.log(res)
+        this.craftspersonList = res.craftspersonDetail
+        this.getProducts()
+      }})
+    }})
+  }
+
+  onDeleteMaterial(materialDetailId: number) {
+    this.commonHttpService.deleteMaterialDetailById(materialDetailId).subscribe({next: (res) => {
+      this.commonHttpService.getProductById(this.formGroup.controls.productId.value || 0).subscribe({next: (res: Product) => {
+        this.materialList = res.materialDetail
+        this.getProducts()
+      }})
+    }})
+  }
 }

@@ -59,3 +59,25 @@ img.product-image {
 .imageModal .modal-dialog {
   max-width: 900px !important;
 }
+
+.icon-add-item {
+  color: #00a000;
+  cursor: pointer;
+}
+
+.icon-add-delete {
+  display: block;
+  color: #d31200;
+  cursor: pointer;
+  font-size: 21px;
+  transition: transform 0.3s ease-in-out;
+  text-align: center;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
+}
