@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, CarouselCaptionComponent, CarouselComponent, CarouselControlComponent, CarouselIndicatorsComponent, CarouselInnerComponent, CarouselItemComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, RowComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
 import { firstValueFrom } from 'rxjs';
-import { Product, ProductImage } from 'src/app/model/common.model';
+import { CraftspersonDetail, CraftspersonModel, MaterialDetail, MaterialModel, Product, ProductImage } from 'src/app/model/common.model';
 import { CommonHttpService } from 'src/app/service/common-http.service';
 import { SHARED_DEPENDENCIES } from 'src/app/shared-dependencies';
 import { environment } from 'src/environments/environment';
@@ -40,8 +40,8 @@ export class ProductComponent {
     otherDetails: new FormControl(null),
   })
 
-  craftperson: any[] = []
-  materials: any[] = []
+  craftperson: CraftspersonModel[] = []
+  materials: MaterialModel[] = []
   products: any[] = []
   fileList: File[] = []
   imageList:ProductImage[] = []
@@ -50,11 +50,18 @@ export class ProductComponent {
   imageModalList: any[] = []
   imageOne!: ProductImage;
 
+  craftspersonList:CraftspersonDetail[] = []
+  materialList: MaterialDetail[] = []
 
   titleModalInsert = "Add Product"
   public isShowModalImage = false;
   public isShowImage = false;
   public isShowImageOne = false;
+  public isShowCraftspersonDetail = false;
+  public isShowMaterialDetail = false;
+
+  craftspersonForm = new FormControl(null)
+  materialForm = new FormControl(null)
 
   ngOnInit() {
     this.getCraftperson()
@@ -63,42 +70,44 @@ export class ProductComponent {
   }
 
   async onFilesSelected(event: any): Promise<void> {
-    // this.selectedFiles = Array.from(event.target.files);
-    console.log("onFilesSelected",event)
-    const buffer = await event.target.files[0].arrayBuffer();
-    const blob = new Blob([buffer], { type: event.target.files[0].type });
-    const url = URL.createObjectURL(blob);
-    if (this.imageType == "ADD") {
-      this.fileList.push(event.target.files[0])
-      this.imageList.push({
-        imageId: 0,
-        image: url,
-        detailImage: '123',
-        otherDetails: '123',
-        file: event.target.files[0]
-      })
-    } else if (this.imageType == "EDIT") {
-      const formData = new FormData()
-      formData.append("file", event.target.files[0])
-      if (this.imageEditId == 0) {
-        this.commonHttpService.productImagesUpdateFileByProductId(this.formGroup.controls.productId.value || 0 ,formData).subscribe({next: (res) => {
-          this.commonHttpService.getProductById(this.formGroup.controls.productId.value || 0).subscribe({next: (res : any) => {
-            this.imageList = res.image
-            this.getProducts()
+    try {
+      console.log("onFilesSelected",event)
+      const buffer = await event.target.files[0].arrayBuffer();
+      const blob = new Blob([buffer], { type: event.target.files[0].type });
+      const url = URL.createObjectURL(blob);
+      if (this.imageType == "ADD") {
+        this.fileList.push(event.target.files[0])
+        this.imageList.push({
+          imageId: 0,
+          image: url,
+          detailImage: '123',
+          otherDetails: '123',
+          file: event.target.files[0]
+        })
+      } else if (this.imageType == "EDIT") {
+        const formData = new FormData()
+        formData.append("file", event.target.files[0])
+        if (this.imageEditId == 0) {
+          this.commonHttpService.productImagesUpdateFileByProductId(this.formGroup.controls.productId.value || 0 ,formData).subscribe({next: (res) => {
+            this.commonHttpService.getProductById(this.formGroup.controls.productId.value || 0).subscribe({next: (res : any) => {
+              this.imageList = res.image
+              this.getProducts()
+            }})
           }})
-        }})
-      } else {
-        this.commonHttpService.productImagesUpdateFileById(this.imageEditId || 0,formData).subscribe({next: (res) => {
-          console.log("productImagesUpdateFileById",res)
-          this.commonHttpService.getProductById(this.formGroup.controls.productId.value || 0).subscribe({next: (res : any) => {
-            this.imageList = res.image
-            this.getProducts()
-          }})
-        }, error: (err) => {}})
+        } else {
+          this.commonHttpService.productImagesUpdateFileById(this.imageEditId || 0,formData).subscribe({next: (res) => {
+            console.log("productImagesUpdateFileById",res)
+            this.commonHttpService.getProductById(this.formGroup.controls.productId.value || 0).subscribe({next: (res : any) => {
+              this.imageList = res.image
+              this.getProducts()
+            }})
+          }, error: (err) => {}})
+        }
       }
-
-
+    } catch (error) {
+      console.log(error)
     }
+
   }
 
   onUpload(fileUpdate: any): void {
@@ -166,6 +175,8 @@ export class ProductComponent {
     this.imageType = "ADD"
     this.formGroup.reset()
     this.imageList = []
+    this.craftspersonList = []
+    this.materialList = []
     this.isShowModal = true
   }
 
@@ -205,6 +216,22 @@ export class ProductComponent {
     this.isShowImageOne = event;
   }
 
+  toggleCraftspersonDetailModal() {
+    this.isShowCraftspersonDetail = !this.isShowCraftspersonDetail;
+  }
+
+  handleCraftspersonDetailodalChange(event: any) {
+    this.isShowCraftspersonDetail = event;
+  }
+
+  toggleMaterialDetailModal() {
+    this.isShowMaterialDetail = !this.isShowMaterialDetail;
+  }
+
+  handleMaterialDetailModalChange(event: any) {
+    this.isShowMaterialDetail = event;
+  }
+
   saveProduct() {
     console.log(this.formGroup.value)
     const formData = new FormData()
@@ -216,6 +243,9 @@ export class ProductComponent {
     } else {
       formData.append('files', new Blob([]));
     }
+
+    formData.append('craftspersonList', JSON.stringify(this.craftspersonList));
+    formData.append('materialList', JSON.stringify(this.materialList));
 
     this.commonHttpService.saveProduct(formData).subscribe({next: (res) => {
       console.log(res)
@@ -237,6 +267,10 @@ export class ProductComponent {
     this.formGroup.patchValue({...product })
     this.isShowModal = true
     this.imageList = product.image
+    console.log("product.craftspersonDetail",product.craftspersonDetail)
+    console.log("product.materialDetail",product.materialDetail)
+    this.craftspersonList = product.craftspersonDetail || []
+    this.materialList = product.materialDetail || []
   }
 
   getDate() {
@@ -255,4 +289,33 @@ export class ProductComponent {
     this.imageOne = image
     this.isShowImageOne = true
   }
+
+  addCraftspersonDetail() {
+    this.isShowCraftspersonDetail = true
+    this.getCraftperson()
+  }
+
+  addMaterialDetail() {
+    this.isShowMaterialDetail = true
+    this.getMaterials()
+  }
+
+  saveCraftspersonDetail() {
+    const craftsperson = this.craftperson.filter(craf => craf.craftspersonId == this.craftspersonForm.value)[0]
+    this.craftspersonList.push({
+      craftspersonDetailId: 0,
+      craftsperson: craftsperson,
+    })
+    this.isShowCraftspersonDetail = false
+  }
+
+  saveMaterialDetail() {
+    const material = this.materials.filter(mater => mater.materialId == this.materialForm.value)[0]
+    this.materialList.push({
+      materialDetailId: 0,
+      material: material
+    })
+    this.isShowMaterialDetail = false
+  }
+
 }

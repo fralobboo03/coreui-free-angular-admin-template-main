@@ -60,6 +60,7 @@ export interface Product {
   amount: number | null,
   costPrice: number | null,
   salePrice: number | null,
+  image: any,
   otherDetails: string,
   materialDetail: any[],
   craftspersonDetail: any[]
@@ -77,6 +78,18 @@ export interface ProductImage {
   detailImage: string,
   otherDetails: string
   file: File
+}
+
+export interface CraftspersonDetail {
+  craftspersonDetailId: number,
+  product?: Product,
+  craftsperson: CraftspersonModel,
+}
+
+export interface MaterialDetail {
+  materialDetailId: number,
+  product?: Product,
+  material: MaterialModel,
 }
 
 

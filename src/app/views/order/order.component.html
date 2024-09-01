@@ -127,7 +127,7 @@
 
             <tr *ngFor="let orderDt_dr of orderDt; let i = index">
               <th scope="row" class="text-center">{{ i + 1 }}</th>
-              <td class="text-center"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrmYzhiIPMuFAclFBdWDrWmwentg1zu2ujoA&s" alt="Description of Image" width="120" height="100"></td>
+              <td class="text-center"><img [src]="(orderDt_dr.product?.image.length > 0) ? pathImage+'/'+orderDt_dr.product?.image[0].image : ''" alt="Description of Image" width="120" height="100"></td>
               <td class="text-center">{{orderDt_dr.product?.nameProduct}}</td>
               <td class="text-center">{{orderDt_dr.quantity}}</td>
               <td class="text-center">{{orderDt_dr.product?.salePrice}}</td>
@@ -184,7 +184,7 @@
         <c-col *ngFor="let product of products" class="product-card-col">
           <c-card class="product-card">
             <div class="card-img-wrapper">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrmYzhiIPMuFAclFBdWDrWmwentg1zu2ujoA&s" alt="Description of Image" width="120" height="100">
+              <img [src]="(product?.image.length > 0) ? pathImage+'/'+product?.image[0].image : ''" alt="Description of Image" width="120" height="100">
             </div>
             <c-card-body class="text-center">
               <h5 cCardTitle>{{product.nameProduct}}</h5>

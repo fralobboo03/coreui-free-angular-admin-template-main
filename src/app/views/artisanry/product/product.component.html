@@ -41,7 +41,7 @@
           <tbody>
             <tr *ngFor="let product of products;let i = index">
               <th scope="row" class="text-center">{{i+1}}</th>
-              <td class="text-center" ><img class="product-image" [src]="pathImage+'/'+product.image[0].image" alt="Description of Image" width="120" height="100" (click)="showModalImage(product.image)"></td>
+              <td class="text-center" ><img class="product-image" [src]="(product.image.length > 0) ? pathImage+'/'+product.image[0].image : ''" alt="Description of Image" width="120" height="100" (click)="showModalImage(product.image)"></td>
               <td class="text-center" >{{product.nameProduct}}</td>
               <td class="text-center" >{{product.description}}</td>
               <td class="text-center" >{{product.amount}}</td>
@@ -98,6 +98,11 @@
         </div>
       </div>
       <div class="row row-cols-1 row-cols-md-5 g-4">
+        <div *ngIf="this.imageList.length == 0" class="col-auto" >
+          <div class="card h-100" style="width: 132px;">
+            <img src="assets/images/image-placeholder.svg" class="card-img-top image-item " (click)="onUpload(fileUpdate)" style="cursor: pointer;" alt="Description of Image">
+          </div>
+        </div>
         <div class="col-auto" *ngFor="let image of this.imageList; let i = index">
           <div class="card h-100" style="width: 132px;">
             <img #imgProduct [src]="(image.imageId != 0)? pathImage+'/'+image.image : image.image" (click)="onImageOne(image)" class="card-img-top image-item " style="cursor: pointer;">
@@ -112,6 +117,58 @@
           </div>
         </div>
       </div>
+    </div>
+    <div>
+      <div class="row justify-content-between">
+        <div class="col-auto">
+          <h5>Craftsperson</h5>
+        </div>
+        <div class="col-auto">
+          <button type="button" (click)="addCraftspersonDetail()" class="btn btn-success me-1 text-white">
+            <span>+  <svg cIcon class="me-2" name="cil-group"></svg></span>
+          </button>
+        </div>
+      </div>
+      <table cTable>
+        <tbody>
+          <tr *ngFor="let craftsperson of craftspersonList; let i = index">
+            <th scope="row" class="text-left"> {{i + 1}} </th>
+            <td>{{craftsperson.craftsperson.craftspersonName}}</td>
+            <td class="text-end">
+              <button type="button" class="btn btn-danger" ><i class="fa-solid fa-trash text-white"></i></button>
+            </td>
+          </tr>
+          <tr *ngIf="craftspersonList.length == 0">
+            <td [colSpan]="3" class="text-center">ไม่มีข้อมูล</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="row justify-content-between">
+        <div class="col-auto">
+          <h5>Materials</h5>
+        </div>
+        <div class="col-auto">
+          <button type="button" (click)="addMaterialDetail()" class="btn btn-success me-1 text-white">
+            <span>+  <svg cIcon class="me-2" name="cil-color-fill"></svg></span>
+          </button>
+        </div>
+      </div>
+      <table cTable>
+        <tbody>
+          <tr *ngFor="let material of materialList; let i = index">
+            <th scope="row" class="text-left" > {{i + 1}} </th>
+            <td>{{material.material.nameMaterial}}</td>
+            <td class="text-end">
+              <button type="button" class="btn btn-danger" ><i class="fa-solid fa-trash text-white"></i></button>
+            </td>
+          </tr>
+          <tr *ngIf="materialList.length == 0">
+            <td [colSpan]="3" class="text-center">ไม่มีข้อมูล</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <form [formGroup]="formGroup">
       <div class="mb-3">
@@ -172,25 +229,45 @@
 </c-modal>
 
 
-<c-modal id="imageOneModal" [backdrop]="'static'" class="imageOne" [size]="'lg'" [visible]="isShowImageOne" (visibleChange)="handleImageOneModalChange($event)">
+<c-modal id="craftspersonDetail" [backdrop]="'static'" class="imageOne" [size]="'lg'" [visible]="isShowCraftspersonDetail" (visibleChange)="handleCraftspersonDetailodalChange($event)">
   <c-modal-header>
-    <h5 cModalTitle>Image</h5>
-    <button (click)="toggleImageOneModal()" cButtonClose></button>
+    <h5 cModalTitle>Craftsperson</h5>
+    <button (click)="toggleCraftspersonDetailModal()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <div class="container mt-4 mb-3">
-      <img
-      [src]="(imageOne) ? pathImage+'/'+imageOne.image : ''"
-      alt="image"
-      class="d-block w-100"
-      loading="lazy"/>
+      <select class="form-select" [formControl]="craftspersonForm" aria-label="Default select example">
+        <option selected [value]="null">select craftsperson</option>
+        <option *ngFor="let craf of craftperson" [value]="craf.craftspersonId">{{craf.craftspersonName}}</option>
+      </select>
     </div>
   </c-modal-body>
-  <div class="row justify-content-center">
-    <div class="col-auto">
-      <button (click)="toggleImageOneModal()" style="width: 200px;" class="mt-4 mb-4" cButton color="primary">
-        Close
-      </button>
+  <c-modal-footer>
+    <button (click)="toggleCraftspersonDetailModal()" cButton color="secondary">
+      Close
+    </button>
+    <button cButton color="primary" (click)="saveCraftspersonDetail()">Add</button>
+  </c-modal-footer>
+</c-modal>
+
+
+<c-modal id="materialDetail" [backdrop]="'static'" class="imageOne" [size]="'lg'" [visible]="isShowMaterialDetail" (visibleChange)="handleMaterialDetailModalChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Material</h5>
+    <button (click)="toggleMaterialDetailModal()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="container mt-4 mb-3">
+      <select class="form-select" [formControl]="materialForm" aria-label="Default select example">
+        <option selected [value]="null">Open this select material</option>
+        <option *ngFor="let material of materials" [value]="material.materialId">{{material.nameMaterial}}</option>>
+      </select>
     </div>
-  </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleMaterialDetailModal()" cButton color="secondary">
+      Close
+    </button>
+    <button cButton color="primary" (click)="saveMaterialDetail()">Add</button>
+  </c-modal-footer>
 </c-modal>

@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Order, OrderDetail, OrderDetailRequest, OrderRequest, Product } from 'src/app/model/common.model';
 import { CommonHttpService } from 'src/app/service/common-http.service';
 import { AlertModalComponent, SHARED_DEPENDENCIES } from 'src/app/shared-dependencies';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-order',
@@ -22,6 +23,7 @@ export class OrderComponent {
   alertMessage: string = '';
   products: Product[] = [];
   orderDt: OrderDetailRequest[]= [];
+  pathImage = environment.urlService
   // orderHd: OrderRequest = {
   //   orderId: null,
   //   orderDate: null,
