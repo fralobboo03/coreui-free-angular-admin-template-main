@@ -1,7 +1,7 @@
 <div class="container">
   <c-card class="mb-4">
     <c-card-header class="header-card">
-      <strong>Material</strong>
+      <strong>การสั่งซื้อผลิตภัณฑ์จักรสาน </strong>
     </c-card-header>
     <c-card-body>
       <div class="row mb-3">
@@ -27,9 +27,9 @@
         <thead>
           <tr>
             <th scope="col" class="text-center" >#</th>
-            <th scope="col" class="text-center" >OrderDate</th>
+            <th scope="col" class="text-center" >วันที่สั่งซื้อ</th>
             <th scope="col" class="text-center" >สถานะ</th>
-            <th scope="col" class="text-center" >OtherDetails</th>
+            <th scope="col" class="text-center" >รายละเอียด</th>
             <th scope="col" class="text-center" ></th>
           </tr>
         </thead>
@@ -131,10 +131,7 @@
               <td class="text-center">{{orderDt_dr.product?.nameProduct}}</td>
               <!-- <td class="text-center">{{orderDt_dr.quantity}}</td> -->
               <td class="text-center align-middle">
-                <div class="input-group text-center">
-                  <!-- <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary" type="button" (click)="decrement(orderDt_dr.orderDetailId)">-</button>
-                  </div> -->
+                <div class="d-flex justify-content-center align-items-center">
                   <input
                     type="number"
                     class="form-control text-center"
@@ -142,9 +139,6 @@
                     (ngModelChange)="onInputChange(orderDt_dr.orderDetailId, $event)"
                     min="0"
                   >
-                  <!-- <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" (click)="increment(orderDt_dr.orderDetailId)">+</button>
-                  </div> -->
                 </div>
               </td>
               <td class="text-center">{{orderDt_dr.product?.salePrice}}</td>
