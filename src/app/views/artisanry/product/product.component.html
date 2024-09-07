@@ -1,7 +1,7 @@
 <div class="container">
   <c-card>
     <c-card-header class="header-card">
-      <strong>Product</strong>
+      <strong>ตารางผลิตภัณฑ์จักสาน</strong>
     </c-card-header>
     <c-card-body>
       <div class="row mb-3">
@@ -11,14 +11,14 @@
               <div style="width: 309px;">
                 <input class="form-control me-2" type="search" [formControl]="formSearch" placeholder="Search" aria-label="Search" style="width: 180px;display: inline-block;">
                 <button type="button" class="btn btn-primary me-1 text-white" (click)="onSearch()"  style="padding: 2px 9px;height: 36px;margin-top: -6px;width: 110px;">
-                  <span>Search</span>
+                  <span>ค้นหา</span>
                 </button>
               </div>
             </div>
           </div>
           <div class="col" style="text-align: end;">
             <button type="button" class="btn btn-success me-1 text-white" (click)="openModalAddProduct()">
-              <span>Add</span>
+              <span>เพิ่ม</span>
             </button>
           </div>
         </div>
@@ -28,14 +28,15 @@
           <thead>
             <tr>
               <th scope="col" class="text-center">#</th>
-              <th scope="col" class="text-center">Image</th>
-              <th scope="col" class="text-center">Name</th>
-              <th scope="col" class="text-center">Description</th>
-              <th scope="col" class="text-center">Amount</th>
-              <th scope="col" class="text-center">CostPrice</th>
-              <th scope="col" class="text-center">SalePrice</th>
-              <th scope="col" class="text-center">OtherDetails</th>
-              <th scope="col" class="text-center">Action</th>
+              <th scope="col" class="text-center">รูป</th>
+              <th scope="col" class="text-center">ชื่อ</th>
+              <th scope="col" class="text-center">รายละเอียด</th>
+              <th scope="col" class="text-center">ชนิดของวัสดุ</th>
+              <th scope="col" class="text-center">ราคาต้นทุน</th>
+              <th scope="col" class="text-center">ราคาขาย</th>
+              <th scope="col" class="text-center">รหัสช่างจักสาน</th>
+              <th scope="col" class="text-center">รายละเอียดอื่นๆ</th>
+              <th scope="col" class="text-center"></th>
             </tr>
           </thead>
           <tbody>
@@ -46,6 +47,7 @@
               <td class="text-center" >{{product.description}}</td>
               <td class="text-center" >{{product.amount}}</td>
               <td class="text-center" >{{product.costPrice}}</td>
+              <td class="text-center" >{{product.salePrice}}</td>
               <td class="text-center" >{{product.salePrice}}</td>
               <td class="text-center" >{{product.otherDetails}}</td>
               <td class="text-center fixed-column" >
@@ -60,7 +62,7 @@
       <div>
         <c-pagination aria-label="Page navigation example" [size]="'sm'">
           <c-page-item >
-            <a cPageLink [routerLink]="[]">Previous</a>
+            <a cPageLink [routerLink]="[]">ก่อนหน้า</a>
           </c-page-item>
           <c-page-item [active]="true">
             <a cPageLink [routerLink]="[]">1</a>
@@ -72,7 +74,7 @@
             <a cPageLink [routerLink]="[]">3</a>
           </c-page-item>
           <c-page-item>
-            <a cPageLink [routerLink]="[]">Next</a>
+            <a cPageLink [routerLink]="[]">ถัดไป</a>
           </c-page-item>
         </c-pagination>
       </div>
@@ -121,7 +123,7 @@
     <div>
       <div class="row justify-content-between">
         <div class="col-auto">
-          <h5>Craftsperson</h5>
+          <h5>ช่างจักสาน</h5>
         </div>
         <div class="col-auto">
           <button type="button" (click)="addCraftspersonDetail()" class="btn btn-success me-1 text-white">
@@ -147,7 +149,7 @@
     <div>
       <div class="row justify-content-between">
         <div class="col-auto">
-          <h5>Materials</h5>
+          <h5>วัสดุ</h5>
         </div>
         <div class="col-auto">
           <button type="button" (click)="addMaterialDetail()" class="btn btn-success me-1 text-white">
@@ -172,44 +174,44 @@
     </div>
     <form [formGroup]="formGroup">
       <div class="mb-3">
-        <label class="form-label">name</label>
-        <input type="text" class="form-control" formControlName="nameProduct" placeholder="Enter name">
+        <label class="form-label">ชื่อ</label>
+        <input type="text" class="form-control" formControlName="nameProduct" placeholder="ชื่อ">
       </div>
       <div class="mb-3">
-        <label class="form-label">description</label>
-        <textarea class="form-control" formControlName="description" placeholder="Enter description"></textarea>
+        <label class="form-label">รายละเอียด</label>
+        <textarea class="form-control" formControlName="description" placeholder="รายละเอียด"></textarea>
       </div>
       <div class="mb-3">
-        <label class="form-label">amount</label>
-        <input type="text" class="form-control" formControlName="amount" placeholder="Enter amount">
+        <label class="form-label">จำนวน</label>
+        <input type="text" class="form-control" formControlName="amount" placeholder="จำนวน">
       </div>
       <div class="mb-3">
-        <label class="form-label">costPrice</label>
-        <input type="text" class="form-control" formControlName="costPrice" placeholder="Enter costPrice">
+        <label class="form-label">ราคาต้นทุน</label>
+        <input type="text" class="form-control" formControlName="costPrice" placeholder="ราคาต้นทุน">
       </div>
       <div class="mb-3">
-        <label class="form-label">salePrice</label>
-        <input type="text" class="form-control" formControlName="salePrice" placeholder="Enter salePrice">
+        <label class="form-label">ราคาขาย</label>
+        <input type="text" class="form-control" formControlName="salePrice" placeholder="ราคาขาย">
       </div>
       <div class="mb-3">
-        <label class="form-label">otherDetails</label>
-        <input type="text" class="form-control" formControlName="otherDetails"  placeholder="Enter otherDetails">
+        <label class="form-label">รายละเอียดอื่นๆ</label>
+        <input type="text" class="form-control" formControlName="otherDetails"  placeholder="รายละเอียดอื่นๆ">
       </div>
     </form>
 
   </c-modal-body>
   <c-modal-footer>
     <button (click)="toggleLiveDemo()" cButton color="secondary">
-      Close
+      ยกเลิก
     </button>
-    <button cButton color="primary" (click)="saveProduct()">Save changes</button>
+    <button cButton color="primary" (click)="saveProduct()">บันทึก</button>
   </c-modal-footer>
 </c-modal>
 
 
 <c-modal id="imageModal" class="imageModal" [size]="'lg'" [visible]="isShowImage" (visibleChange)="handleImageModalChange($event)">
   <c-modal-header>
-    <h5 cModalTitle>Image</h5>
+    <h5 cModalTitle>รูป</h5>
     <button (click)="toggleImageModal()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
@@ -231,43 +233,43 @@
 
 <c-modal id="craftspersonDetail" [backdrop]="'static'" class="imageOne" [size]="'lg'" [visible]="isShowCraftspersonDetail" (visibleChange)="handleCraftspersonDetailodalChange($event)">
   <c-modal-header>
-    <h5 cModalTitle>Craftsperson</h5>
+    <h5 cModalTitle>ช่างจักสาน</h5>
     <button (click)="toggleCraftspersonDetailModal()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <div class="container mt-4 mb-3">
       <select class="form-select" [formControl]="craftspersonForm" aria-label="Default select example">
-        <option selected [value]="null">select craftsperson</option>
+        <option selected [value]="null">เลื่อก</option>
         <option *ngFor="let craf of craftperson" [value]="craf.craftspersonId">{{craf.craftspersonName}}</option>
       </select>
     </div>
   </c-modal-body>
   <c-modal-footer>
     <button (click)="toggleCraftspersonDetailModal()" cButton color="secondary">
-      Close
+      ยกเลิก
     </button>
-    <button cButton color="primary" (click)="saveCraftspersonDetail()">Add</button>
+    <button cButton color="primary" (click)="saveCraftspersonDetail()">เพิ่ม</button>
   </c-modal-footer>
 </c-modal>
 
 
 <c-modal id="materialDetail" [backdrop]="'static'" class="imageOne" [size]="'lg'" [visible]="isShowMaterialDetail" (visibleChange)="handleMaterialDetailModalChange($event)">
   <c-modal-header>
-    <h5 cModalTitle>Material</h5>
+    <h5 cModalTitle>วัสดุ</h5>
     <button (click)="toggleMaterialDetailModal()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <div class="container mt-4 mb-3">
       <select class="form-select" [formControl]="materialForm" aria-label="Default select example">
-        <option selected [value]="null">Open this select material</option>
+        <option selected [value]="null">เลือก</option>
         <option *ngFor="let material of materials" [value]="material.materialId">{{material.nameMaterial}}</option>>
       </select>
     </div>
   </c-modal-body>
   <c-modal-footer>
     <button (click)="toggleMaterialDetailModal()" cButton color="secondary">
-      Close
+      ยกเลิก
     </button>
-    <button cButton color="primary" (click)="saveMaterialDetail()">Add</button>
+    <button cButton color="primary" (click)="saveMaterialDetail()">เพิ่ม</button>
   </c-modal-footer>
 </c-modal>

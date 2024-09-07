@@ -1,7 +1,7 @@
 <div class="container">
   <c-card class="mb-4">
     <c-card-header class="header-card">
-      <strong>Craftperson</strong>
+      <strong>ตารางช่างจักสาน</strong>
     </c-card-header>
     <c-card-body>
       <div class="row mb-3">
@@ -9,16 +9,16 @@
           <div class="col row">
             <div class="col-auto">
               <div style="width: 309px;">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 180px;display: inline-block;">
+                <input class="form-control me-2" type="search" placeholder="ค้นหา" aria-label="Search" style="width: 180px;display: inline-block;">
                 <button type="button" class="btn btn-primary me-1 text-white" style="padding: 2px 9px;height: 36px;margin-top: -6px;width: 110px;">
-                  <span>Search</span>
+                  <span>ค้นหา</span>
                 </button>
               </div>
             </div>
           </div>
           <div class="col" style="text-align: end;">
             <button type="button" class="btn btn-success me-1 text-white" (click)="openModalAddProduct()">
-              <span>Add</span>
+              <span>เพิ่ม</span>
             </button>
           </div>
         </div>
@@ -27,12 +27,12 @@
         <thead>
           <tr>
             <th scope="col" class="text-center" >#</th>
-            <th scope="col" class="text-center" >Name</th>
-            <th scope="col" class="text-center" >Address</th>
-            <th scope="col" class="text-center" >Contact</th>
-            <th scope="col" class="text-center" >History</th>
-            <th scope="col" class="text-center" >Description</th>
-            <th scope="col" class="text-center" >Action</th>
+            <th scope="col" class="text-center" >ชื่อ</th>
+            <th scope="col" class="text-center" >ที่อยู่</th>
+            <th scope="col" class="text-center" >ติดต่อ</th>
+            <th scope="col" class="text-center" >ประวัติความเป็นมา</th>
+            <th scope="col" class="text-center" >รายละเอียด</th>
+            <th scope="col" class="text-center" ></th>
           </tr>
         </thead>
         <tbody>
@@ -53,7 +53,7 @@
       <div>
         <c-pagination aria-label="Page navigation example" [size]="'sm'">
           <c-page-item >
-            <a cPageLink [routerLink]="[]">Previous</a>
+            <a cPageLink [routerLink]="[]">ก่อนหน้า</a>
           </c-page-item>
           <c-page-item [active]="true">
             <a cPageLink [routerLink]="[]">1</a>
@@ -65,7 +65,7 @@
             <a cPageLink [routerLink]="[]">3</a>
           </c-page-item>
           <c-page-item>
-            <a cPageLink [routerLink]="[]">Next</a>
+            <a cPageLink [routerLink]="[]">ถัดไป</a>
           </c-page-item>
         </c-pagination>
       </div>
@@ -75,36 +75,36 @@
 
 <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
   <c-modal-header>
-    <h5 cModalTitle>Add Craftsperson</h5>
+    <h5 cModalTitle>เพิ่มช่างจักสาน</h5>
     <button (click)="toggleLiveDemo()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <form [formGroup]="craftspersonForm" (ngSubmit)="onSaveCraftsperson()">
       <div class="mb-3">
-        <label for="craftsperson_name" class="form-label">Craftsperson Name</label>
-        <input type="text" class="form-control" id="craftspersonName" formControlName="craftspersonName" placeholder="Enter name">
+        <label for="craftsperson_name" class="form-label">ชื่อ</label>
+        <input type="text" class="form-control" id="craftspersonName" formControlName="craftspersonName" placeholder="ชื่อ">
       </div>
       <div class="mb-3">
-        <label for="address" class="form-label">Address</label>
-        <input type="text" class="form-control" id="address" formControlName="address" placeholder="Enter address">
+        <label for="address" class="form-label">ที่อยู่</label>
+        <input type="text" class="form-control" id="address" formControlName="address" placeholder="ที่อยู่">
       </div>
       <div class="mb-3">
-        <label for="contact" class="form-label">Contact</label>
-        <input type="text" class="form-control" id="contact" formControlName="contact" placeholder="Enter contact number">
+        <label for="contact" class="form-label">ติดต่อ</label>
+        <input type="text" class="form-control" id="contact" formControlName="contact" placeholder="ติดต่อ">
       </div>
       <div class="mb-3">
-        <label for="history" class="form-label">History</label>
-        <textarea class="form-control" id="history" formControlName="history" rows="3" placeholder="Enter history"></textarea>
+        <label for="history" class="form-label">ประวัติความเป็นมา</label>
+        <textarea class="form-control" id="history" formControlName="history" rows="3" placeholder="ประวัติความเป็นมา"></textarea>
       </div>
       <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" formControlName="description" rows="3" placeholder="Enter description"></textarea>
+        <label for="description" class="form-label">รายละเอียด</label>
+        <textarea class="form-control" id="description" formControlName="description" rows="3" placeholder="รายละเอียด"></textarea>
       </div>
     </form>
   </c-modal-body>
   <c-modal-footer>
-    <button (click)="toggleLiveDemo()" cButton color="secondary">Close</button>
-    <button type="submit" cButton color="primary" (click)="onSaveCraftsperson()">Save changes</button>
+    <button (click)="toggleLiveDemo()" cButton color="secondary">ยกเลิก</button>
+    <button type="submit" cButton color="primary" (click)="onSaveCraftsperson()">บันทึก</button>
   </c-modal-footer>
 </c-modal>
 

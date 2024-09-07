@@ -53,7 +53,7 @@ export class ProductComponent {
   craftspersonList:CraftspersonDetail[] = []
   materialList: MaterialDetail[] = []
 
-  titleModalInsert = "Add Product"
+  titleModalInsert = "เพิ่มผลิตภัณฑ์จักรสาน"
   public isShowModalImage = false;
   public isShowImage = false;
   public isShowImageOne = false;
@@ -171,7 +171,7 @@ export class ProductComponent {
   }
 
   openModalAddProduct() {
-    this.titleModalInsert = "Add Product"
+    this.titleModalInsert = "เพิ่มผลิตภัณฑ์จักรสาน"
     this.imageType = "ADD"
     this.formGroup.reset()
     this.imageList = []
@@ -262,7 +262,7 @@ export class ProductComponent {
   }
 
   onEdit(product: any) {
-    this.titleModalInsert = "Edit Product"
+    this.titleModalInsert = "แก้ไขผลิตภัณฑ์จักรสาน"
     this.imageType = "EDIT"
     this.formGroup.patchValue({...product })
     this.isShowModal = true
