@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BorderDirective, AlignDirective, ColComponent, RowComponent, ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective, CarouselCaptionComponent, CarouselComponent, CarouselControlComponent, CarouselIndicatorsComponent, CarouselInnerComponent, CarouselItemComponent, ContainerComponent, ListGroupDirective, ListGroupItemDirective } from '@coreui/angular';
 import { RouterLink } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators  } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators  } from '@angular/forms';
 import { IconDirective } from '@coreui/icons-angular';
 import { AlertModalComponent } from '../components/alert-modal/alert-modal.component'
 // import { CraftspersonComponent } from './views/artisanry/craftsperson/craftsperson.component';
@@ -46,5 +46,6 @@ export const SHARED_DEPENDENCIES = [
   AlertModalComponent,
   ContainerComponent,
   ListGroupDirective,
-  ListGroupItemDirective
+  ListGroupItemDirective,
+  FormsModule
 ];

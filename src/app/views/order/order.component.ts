@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 export class OrderComponent {
   @ViewChild(AlertModalComponent) alertModal!: AlertModalComponent;
 
+  value: number = 1;
   isCloseEdit = false;
   visible = false;
   isInsert = true;
@@ -202,6 +203,27 @@ export class OrderComponent {
       }
       this.getOrders();
     })
+  }
+
+  increment(orderdt_id: any) {
+    let seleted_order = this.orderDt.find(item => item.orderDetailId == orderdt_id)
+    if(seleted_order != undefined && seleted_order.quantity != undefined){
+      seleted_order.quantity += 1;
+    }
+  }
+
+  decrement(orderdt_id: any) {
+    let seleted_order = this.orderDt.find(item => item.orderDetailId == orderdt_id)
+    if(seleted_order != undefined && seleted_order.quantity != undefined){
+      seleted_order.quantity -= 1;
+    }
+  }
+
+  onInputChange(orderdt_id: any, newValue: any){
+    let seleted_order = this.orderDt.find(item => item.orderDetailId == orderdt_id)
+    if(seleted_order != undefined && seleted_order.quantity != undefined){
+      seleted_order.quantity = newValue;
+    }
   }
 
 }
