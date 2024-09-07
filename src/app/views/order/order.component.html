@@ -129,7 +129,24 @@
               <th scope="row" class="text-center">{{ i + 1 }}</th>
               <td class="text-center"><img [src]="(orderDt_dr.product?.image.length > 0) ? pathImage+'/'+orderDt_dr.product?.image[0].image : ''" alt="Description of Image" width="120" height="100"></td>
               <td class="text-center">{{orderDt_dr.product?.nameProduct}}</td>
-              <td class="text-center">{{orderDt_dr.quantity}}</td>
+              <!-- <td class="text-center">{{orderDt_dr.quantity}}</td> -->
+              <td class="text-center align-middle">
+                <div class="input-group text-center">
+                  <!-- <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary" type="button" (click)="decrement(orderDt_dr.orderDetailId)">-</button>
+                  </div> -->
+                  <input
+                    type="number"
+                    class="form-control text-center"
+                    [(ngModel)]="orderDt_dr.quantity"
+                    (ngModelChange)="onInputChange(orderDt_dr.orderDetailId, $event)"
+                    min="0"
+                  >
+                  <!-- <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" (click)="increment(orderDt_dr.orderDetailId)">+</button>
+                  </div> -->
+                </div>
+              </td>
               <td class="text-center">{{orderDt_dr.product?.salePrice}}</td>
               <td class="text-center">{{orderDt_dr.product?.salePrice}}</td>
               <td class="text-center">
