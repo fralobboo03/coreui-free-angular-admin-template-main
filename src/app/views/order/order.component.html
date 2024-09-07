@@ -11,14 +11,14 @@
               <div style="width: 309px;">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 180px;display: inline-block;">
                 <button type="button" class="btn btn-primary me-1 text-white" style="padding: 2px 9px;height: 36px;margin-top: -6px;width: 110px;">
-                  <span>Search</span>
+                  <span>ค้นหา</span>
                 </button>
               </div>
             </div>
           </div>
           <div class="col" style="text-align: end;">
             <button type="button" class="btn btn-success me-1 text-white" (click)="openModalAddOrder()">
-              <span>Add</span>
+              <span>เพิ่ม</span>
             </button>
           </div>
         </div>
@@ -28,9 +28,9 @@
           <tr>
             <th scope="col" class="text-center" >#</th>
             <th scope="col" class="text-center" >OrderDate</th>
-            <th scope="col" class="text-center" >Status</th>
+            <th scope="col" class="text-center" >สถานะ</th>
             <th scope="col" class="text-center" >OtherDetails</th>
-            <th scope="col" class="text-center" >Action</th>
+            <th scope="col" class="text-center" ></th>
           </tr>
         </thead>
         <tbody>
@@ -50,7 +50,7 @@
       <div>
         <c-pagination aria-label="Page navigation example" [size]="'sm'">
           <c-page-item >
-            <a cPageLink [routerLink]="[]">Previous</a>
+            <a cPageLink [routerLink]="[]">ก่อนหน้า</a>
           </c-page-item>
           <c-page-item [active]="true">
             <a cPageLink [routerLink]="[]">1</a>
@@ -62,7 +62,7 @@
             <a cPageLink [routerLink]="[]">3</a>
           </c-page-item>
           <c-page-item>
-            <a cPageLink [routerLink]="[]">Next</a>
+            <a cPageLink [routerLink]="[]">ถัดไป</a>
           </c-page-item>
         </c-pagination>
       </div>
@@ -74,7 +74,7 @@
 <!-- Modal หลัก -->
 <c-modal [size]="'xl'" id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
   <c-modal-header class="header-card-order-custom">
-    <h5 cModalTitle>Add Order</h5>
+    <h5 cModalTitle>เพิ่มคำสั่งซื้อ</h5>
     <button (click)="toggleLiveDemo()" cButtonClose></button>
   </c-modal-header>
 
@@ -90,7 +90,7 @@
           <input type="text" class="form-control" id="typeMaterial" formControlName="typeMaterial" placeholder="Enter type">
         </div> -->
         <div class="mb-3">
-          <label for="status" class="form-label">Status</label>
+          <label for="status" class="form-label">สถานะ</label>
           <input type="text" class="form-control" id="status" formControlName="status" placeholder="Enter status">
         </div>
         <div class="mb-3">
@@ -102,12 +102,12 @@
         <div class="row justify-content-between mb-3 mt-4">
           <div class="col">
               <div style="width: 309px;">
-                <strong>Order details</strong>
+                <strong>รายการผลิตภัณฑ์</strong>
               </div>
           </div>
           <div class="col" style="text-align: end;">
             <button type="button" class="btn btn-success me-1 text-white" (click)="openProductListModal()">
-              <span>Add your product</span>
+              <span>เพิ่มผลิตภัณฑ์</span>
             </button>
           </div>
         </div>
@@ -115,12 +115,12 @@
           <thead>
             <tr>
               <th scope="col" class="text-center">#</th>
-              <th scope="col" class="text-center">Image</th>
-              <th scope="col" class="text-center">Name</th>
-              <th scope="col" class="text-center">Quantity</th>
-              <th scope="col" class="text-center">Price</th>
+              <th scope="col" class="text-center">รูป</th>
+              <th scope="col" class="text-center">ชื่อผลิตภัณฑ์</th>
+              <th scope="col" class="text-center">จำนวน</th>
+              <th scope="col" class="text-center">ราคา</th>
               <th scope="col" class="text-center">Amount</th>
-              <th scope="col" class="text-center">Action</th>
+              <th scope="col" class="text-center"></th>
             </tr>
           </thead>
           <tbody>
@@ -141,7 +141,7 @@
         <div>
           <c-pagination aria-label="Page navigation example" [size]="'sm'">
             <c-page-item>
-              <a cPageLink [routerLink]="[]">Previous</a>
+              <a cPageLink [routerLink]="[]">ก่อนหน้า</a>
             </c-page-item>
             <c-page-item [active]="true">
               <a cPageLink [routerLink]="[]">1</a>
@@ -153,7 +153,7 @@
               <a cPageLink [routerLink]="[]">3</a>
             </c-page-item>
             <c-page-item>
-              <a cPageLink [routerLink]="[]">Next</a>
+              <a cPageLink [routerLink]="[]">ถัดไป</a>
             </c-page-item>
           </c-pagination>
         </div>
@@ -175,7 +175,7 @@
 <!-- Modal ซ้อน -->
 <c-modal class="second-modal-custom" [backdrop]="'static'" [alignment]="'center'" [size]="'lg'" id="productListModal" [visible]="productListModalvisible">
   <c-modal-header class="second-modal-custom">
-    <h5 cModalTitle>Add Products</h5>
+    <h5 cModalTitle>เพิ่มผลิตภัณฑ์จักสาน</h5>
   </c-modal-header>
   <c-modal-body style="color: black;">
     <p>รายการสินค้า</p>
@@ -200,7 +200,7 @@
   </c-modal-body>
 
   <c-modal-footer>
-    <button (click)="closeProductListModal()" cButton color="secondary">Close</button>
+    <button (click)="closeProductListModal()" cButton color="secondary">ปิด</button>
     <!-- <button type="button" cButton color="primary">Add selected products</button> -->
   </c-modal-footer>
 </c-modal>

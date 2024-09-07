@@ -1,7 +1,7 @@
 <div class="container">
   <c-card class="mb-4">
     <c-card-header class="header-card">
-      <strong>Material</strong>
+      <strong>ตารางวัสดุสำหรับจักสาน</strong>
     </c-card-header>
     <c-card-body>
       <div class="row mb-3">
@@ -9,16 +9,16 @@
           <div class="col row">
             <div class="col-auto">
               <div style="width: 309px;">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 180px;display: inline-block;">
+                <input class="form-control me-2" type="search" placeholder="ค้นหา" aria-label="Search" style="width: 180px;display: inline-block;">
                 <button type="button" class="btn btn-primary me-1 text-white" style="padding: 2px 9px;height: 36px;margin-top: -6px;width: 110px;">
-                  <span>Search</span>
+                  <span>ค้นหา</span>
                 </button>
               </div>
             </div>
           </div>
           <div class="col" style="text-align: end;">
             <button type="button" class="btn btn-success me-1 text-white" (click)="openModalAddProduct()">
-              <span>Add</span>
+              <span>เพิ่ม</span>
             </button>
           </div>
         </div>
@@ -27,16 +27,18 @@
         <thead>
           <tr>
             <th scope="col" class="text-center" >#</th>
-            <th scope="col" class="text-center" >Name</th>
-            <th scope="col" class="text-center" >Type</th>
-            <th scope="col" class="text-center" >Source</th>
-            <th scope="col" class="text-center" >Otherdetail</th>
-            <th scope="col" class="text-center" >Action</th>
+            <th scope="col" class="text-center" >รหัสวัสดุ</th>
+            <th scope="col" class="text-center" >ชื่อวัสดุ</th>
+            <th scope="col" class="text-center" >ประเภท</th>
+            <th scope="col" class="text-center" >แหล่งที่มา</th>
+            <th scope="col" class="text-center" >ราคา</th>
+            <th scope="col" class="text-center" ></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let ds of materialModel; let i = index">
             <th scope="row" class="text-center">{{ i + 1 }}</th>
+            <td class="text-center">{{ds.materialId}}</td>
             <td class="text-center">{{ds.nameMaterial}}</td>
             <td class="text-center">{{ds.typeMaterial}}</td>
             <td class="text-center">{{ds.source}}</td>
@@ -51,7 +53,7 @@
       <div>
         <c-pagination aria-label="Page navigation example" [size]="'sm'">
           <c-page-item >
-            <a cPageLink [routerLink]="[]">Previous</a>
+            <a cPageLink [routerLink]="[]">ก่อนหน้า</a>
           </c-page-item>
           <c-page-item [active]="true">
             <a cPageLink [routerLink]="[]">1</a>
@@ -63,7 +65,7 @@
             <a cPageLink [routerLink]="[]">3</a>
           </c-page-item>
           <c-page-item>
-            <a cPageLink [routerLink]="[]">Next</a>
+            <a cPageLink [routerLink]="[]">ถัดไป</a>
           </c-page-item>
         </c-pagination>
       </div>
@@ -73,32 +75,32 @@
 
 <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
   <c-modal-header>
-    <h5 cModalTitle>Add Material</h5>
+    <h5 cModalTitle>เพิ่มวัสดุสำหรับจักสาน</h5>
     <button (click)="toggleLiveDemo()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <form [formGroup]="materialForm" (ngSubmit)="onSaveMaterial()">
       <div class="mb-3">
-        <label for="nameMaterial" class="form-label">Material Name</label>
-        <input type="text" class="form-control" id="nameMaterial" formControlName="nameMaterial" placeholder="Enter name">
+        <label for="nameMaterial" class="form-label">ชื่อวัสดุ</label>
+        <input type="text" class="form-control" id="nameMaterial" formControlName="nameMaterial" placeholder="ชื่อวัสดุ">
       </div>
       <div class="mb-3">
-        <label for="typeMaterial" class="form-label">Type</label>
-        <input type="text" class="form-control" id="typeMaterial" formControlName="typeMaterial" placeholder="Enter type">
+        <label for="typeMaterial" class="form-label">ประเภท</label>
+        <input type="text" class="form-control" id="typeMaterial" formControlName="typeMaterial" placeholder="ประเภท">
       </div>
       <div class="mb-3">
-        <label for="source" class="form-label">Source</label>
-        <input type="text" class="form-control" id="source" formControlName="source" placeholder="Enter source">
+        <label for="source" class="form-label">แหล่งที่มา</label>
+        <input type="text" class="form-control" id="source" formControlName="source" placeholder="แหล่งที่มา">
       </div>
       <div class="mb-3">
-        <label for="otherDetails" class="form-label">OtherDetails</label>
-        <textarea class="form-control" id="otherDetails" formControlName="otherDetails" rows="3" placeholder="Enter otherDetails"></textarea>
+        <label for="otherDetails" class="form-label">ราคา</label>
+        <textarea class="form-control" id="otherDetails" formControlName="otherDetails" rows="3" placeholder="ราคา"></textarea>
       </div>
     </form>
   </c-modal-body>
   <c-modal-footer>
-    <button (click)="toggleLiveDemo()" cButton color="secondary">Close</button>
-    <button type="submit" cButton color="primary" (click)="onSaveMaterial()">Save changes</button>
+    <button (click)="toggleLiveDemo()" cButton color="secondary">ยกเลิก</button>
+    <button type="submit" cButton color="primary" (click)="onSaveMaterial()">บันทึก</button>
   </c-modal-footer>
 </c-modal>
 

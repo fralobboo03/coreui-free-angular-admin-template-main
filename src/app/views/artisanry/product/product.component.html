@@ -9,7 +9,7 @@
           <div class="col row">
             <div class="col-auto">
               <div style="width: 309px;">
-                <input class="form-control me-2" type="search" [formControl]="formSearch" placeholder="Search" aria-label="Search" style="width: 180px;display: inline-block;">
+                <input class="form-control me-2" type="search" [formControl]="formSearch" placeholder="ค้นหา" aria-label="Search" style="width: 180px;display: inline-block;">
                 <button type="button" class="btn btn-primary me-1 text-white" (click)="onSearch()"  style="padding: 2px 9px;height: 36px;margin-top: -6px;width: 110px;">
                   <span>ค้นหา</span>
                 </button>
@@ -29,13 +29,12 @@
             <tr>
               <th scope="col" class="text-center">#</th>
               <th scope="col" class="text-center">รูป</th>
-              <th scope="col" class="text-center">ชื่อ</th>
+              <th scope="col" class="text-center">รหัสผลิตภัณฑ์</th>
+              <th scope="col" class="text-center">ชื่อผลิตภัณฑ์</th>
               <th scope="col" class="text-center">รายละเอียด</th>
               <th scope="col" class="text-center">ชนิดของวัสดุ</th>
-              <th scope="col" class="text-center">ราคาต้นทุน</th>
-              <th scope="col" class="text-center">ราคาขาย</th>
+              <th scope="col" class="text-center">ราคา</th>
               <th scope="col" class="text-center">รหัสช่างจักสาน</th>
-              <th scope="col" class="text-center">รายละเอียดอื่นๆ</th>
               <th scope="col" class="text-center"></th>
             </tr>
           </thead>
@@ -43,13 +42,20 @@
             <tr *ngFor="let product of products;let i = index">
               <th scope="row" class="text-center">{{i+1}}</th>
               <td class="text-center" ><img class="product-image" [src]="(product.image.length > 0) ? pathImage+'/'+product.image[0].image : ''" alt="Description of Image" width="120" height="100" (click)="showModalImage(product.image)"></td>
+              <td class="text-center" >{{product.productId}}</td>
               <td class="text-center" >{{product.nameProduct}}</td>
               <td class="text-center" >{{product.description}}</td>
+              <td class="text-center" >
+                <div *ngFor="let material of product.materialDetail">
+                  {{material.material.nameMaterial}}
+                </div>
+              </td>
               <td class="text-center" >{{product.amount}}</td>
-              <td class="text-center" >{{product.costPrice}}</td>
-              <td class="text-center" >{{product.salePrice}}</td>
-              <td class="text-center" >{{product.salePrice}}</td>
-              <td class="text-center" >{{product.otherDetails}}</td>
+              <td class="text-center" >
+                <div *ngFor="let craftsperson of product.craftspersonDetail">
+                  {{craftsperson.craftsperson.craftspersonId}}
+                </div>
+              </td>
               <td class="text-center fixed-column" >
                 <button type="button" class="btn btn-info me-1" (click)="onEdit(product)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
                 <button type="button" class="btn btn-danger" (click)="deleteProductById(product.productId)"><i class="fa-solid fa-trash text-white"></i></button>
