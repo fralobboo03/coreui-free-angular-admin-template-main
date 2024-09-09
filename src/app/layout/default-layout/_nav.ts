@@ -11,7 +11,7 @@ export const navItems: INavData[] = [
     }
   },
   {
-    name: 'Order',
+    name: 'สั่งซื้อผลิตภัณฑ์จักรสาน',
     url: '/Default/order',
     iconComponent: { name: 'cil-contact' }
   },
@@ -20,25 +20,25 @@ export const navItems: INavData[] = [
     name: 'Artisanry'
   },
   {
-    name: 'Craftsperson',
+    name: 'ช่างจักสาน',
     url: '/Default/artisanry/craftsperson',
     iconComponent: { name: 'cil-group' }
   },
   {
-    name: 'Product',
+    name: 'ผลิตภัณฑ์จักสาน',
     url: '/Default/artisanry/product',
     iconComponent: { name: 'cil-fingerprint' }
   },
   {
-    name: 'Materials',
+    name: 'วัสดุสำหรับจักสาน',
     url: '/Default/artisanry/materials',
     iconComponent: { name: 'cil-color-fill' }
   },
   {
-    name: 'Customer',
+    name: 'ลูกค้า',
     url: '/Default/artisanry/customer',
     iconComponent: { name: 'cil-contact' }
-  }
+  },
 
 
   //template menu
