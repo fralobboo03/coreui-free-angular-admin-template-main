@@ -5,15 +5,16 @@ import { RouterLink } from '@angular/router';
 import { ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, CarouselCaptionComponent, CarouselComponent, CarouselControlComponent, CarouselIndicatorsComponent, CarouselInnerComponent, CarouselItemComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, RowComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
 import { firstValueFrom } from 'rxjs';
-import { CraftspersonDetail, CraftspersonModel, MaterialDetail, MaterialModel, Product, ProductImage } from 'src/app/model/common.model';
+import { CraftspersonDetail, CraftspersonModel, MaterialDetail, MaterialModel, Pagination, Product, ProductImage } from 'src/app/model/common.model';
 import { CommonHttpService } from 'src/app/service/common-http.service';
 import { SHARED_DEPENDENCIES } from 'src/app/shared-dependencies';
 import { environment } from 'src/environments/environment';
+import {PaginationManageComponent} from "../../../component/pagination-manage/pagination-manage.component"
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [SHARED_DEPENDENCIES],
+  imports: [SHARED_DEPENDENCIES,PaginationManageComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })
@@ -52,6 +53,12 @@ export class ProductComponent {
 
   craftspersonList:CraftspersonDetail[] = []
   materialList: MaterialDetail[] = []
+
+  pagination: Pagination = {
+    page: 1,
+    size: 10,
+    totalPage: 0
+  }
 
   titleModalInsert = "เพิ่มผลิตภัณฑ์จักรสาน"
   public isShowModalImage = false;
@@ -110,6 +117,11 @@ export class ProductComponent {
 
   }
 
+  changePage(page: any) {
+    this.pagination.page = page
+    this.getProducts()
+  }
+
   onUpload(fileUpdate: any): void {
     this.imageEditId = 0
     fileUpdate.click()
@@ -154,9 +166,10 @@ export class ProductComponent {
   }
 
   getProducts() {
-    this.commonHttpService.getProducts(this.formSearch.value || "").subscribe({next: (res) => {
+    this.commonHttpService.getProducts(this.formSearch.value || "", this.pagination.page, this.pagination.size).subscribe({next: (res) => {
       console.log("res",res)
-      this.products = res
+      this.products = res.data
+      this.pagination.totalPage = res.totalPage
     }})
   }
 

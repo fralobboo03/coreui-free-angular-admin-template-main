@@ -1,0 +1,11 @@
+<c-pagination aria-label="Page navigation example" [size]="'sm'">
+  <c-page-item >
+    <a cPageLink>ก่อนหน้า</a>
+  </c-page-item>
+  <c-page-item *ngFor="let pageItem of listPage" [active]="pageItem.active" (click)="onPage(pageItem)">
+    <a cPageLink>{{pageItem.page}}</a>
+  </c-page-item>
+  <c-page-item (click)="next()">
+    <a cPageLink>ถัดไป</a>
+  </c-page-item>
+</c-pagination>

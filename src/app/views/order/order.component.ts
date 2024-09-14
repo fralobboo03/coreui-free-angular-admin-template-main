@@ -139,7 +139,7 @@ export class OrderComponent {
   // }
 
   openProductListModal(){
-    this.commonHttpService.getProducts("").subscribe({next: (res) => {
+    this.commonHttpService.findProducts().subscribe({next: (res) => {
       if(res != null){
         this.products = res
         this.productListModalvisible = true;
