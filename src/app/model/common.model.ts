@@ -93,3 +93,8 @@ export interface MaterialDetail {
 }
 
 
+export interface Pagination {
+  page: number,
+  size: number,
+  totalPage: number
+}
