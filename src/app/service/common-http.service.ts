@@ -65,9 +65,11 @@ export class CommonHttpService {
   }
 
   getProducts(text:string){
-    return this.http.post<any>(this.apiurl + "/products/get-products", {
-      text: text
-    });
+    // return this.http.post<any>(this.apiurl + "/products/get-products", {
+    //   text: text
+    // });
+
+    return this.http.get<any>(this.apiurl + "/products/find-all");
   }
 
   getProductById(id: number){

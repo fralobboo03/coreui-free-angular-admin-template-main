@@ -1,0 +1,126 @@
+
+> coreui-free-angular-admin-template@5.2.5 start
+> ng serve --host=0.0.0.0 --disable-host-check --port 4210
+
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+The "disableHostCheck" option will not be used because it is not supported by the "@angular-devkit/build-angular:application" builder.
+❯ Building...
+✔ Building...
+Initial chunk files                 | Names                   |  Raw size
+styles.css                          | styles                  | 380.96 kB | 
+polyfills.js                        | polyfills               |  93.00 kB | 
+main.js                             | main                    |  37.84 kB | 
+chunk-NWFND637.js                   | -                       |  19.98 kB | 
+chunk-EOVL6L2T.js                   | -                       |   4.80 kB | 
+chunk-FML4G5KZ.js                   | -                       |   2.64 kB | 
+
+                                    | Initial total           | 539.23 kB
+
+Lazy chunk files                    | Names                   |  Raw size
+tables.component-UPB2AQ2K.js        | tables-component        | 128.03 kB | 
+cards.component-OZZAALXS.js         | cards-component         | 109.58 kB | 
+navs.component-AK5DL2N7.js          | navs-component          |  51.03 kB | 
+button-groups.component-V2PBS7N6.js | button-groups-component |  49.59 kB | 
+modals.component-ZLBAFPWC.js        | modals-component        |  48.36 kB | 
+product.component-NZD75XRH.js       | product-component       |  48.13 kB | 
+checks-radios.component-Y7VHAKW3.js | checks-radios-component |  46.65 kB | 
+list-groups.component-VGMCHF7F.js   | list-groups-component   |  41.31 kB | 
+buttons.component-IC6IO4PS.js       | buttons-component       |  41.04 kB | 
+carousels.component-P3P7YITW.js     | carousels-component     |  36.96 kB | 
+input-groups.component-S63IKOEG.js  | input-groups-component  |  36.80 kB | 
+widgets.component-KS3QETAP.js       | widgets-component       |  36.70 kB | 
+validation.component-XSTAXUGY.js    | validation-component    |  36.45 kB | 
+dashboard.component-SGEZPTKV.js     | dashboard-component     |  34.68 kB | 
+dropdowns.component-7K7VO7BL.js     | dropdowns-component     |  32.45 kB | 
+...and 44 more lazy chunks files. Use "--verbose" to show all the files.
+
+Application bundle generation complete. [17.232 seconds]
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://localhost:4210/
+  ➜  Network: http://172.17.0.11:4210/
+
+> coreui-free-angular-admin-template@5.2.5 start
+> ng serve --host=0.0.0.0 --disable-host-check --port 4210
+
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+The "disableHostCheck" option will not be used because it is not supported by the "@angular-devkit/build-angular:application" builder.
+❯ Building...
+✔ Building...
+Initial chunk files                 | Names                   |  Raw size
+styles.css                          | styles                  | 380.96 kB | 
+polyfills.js                        | polyfills               |  93.00 kB | 
+main.js                             | main                    |  37.84 kB | 
+chunk-NWFND637.js                   | -                       |  19.98 kB | 
+chunk-EOVL6L2T.js                   | -                       |   4.80 kB | 
+chunk-FML4G5KZ.js                   | -                       |   2.64 kB | 
+
+                                    | Initial total           | 539.23 kB
+
+Lazy chunk files                    | Names                   |  Raw size
+tables.component-UPB2AQ2K.js        | tables-component        | 128.03 kB | 
+cards.component-OZZAALXS.js         | cards-component         | 109.58 kB | 
+navs.component-AK5DL2N7.js          | navs-component          |  51.03 kB | 
+button-groups.component-V2PBS7N6.js | button-groups-component |  49.59 kB | 
+modals.component-ZLBAFPWC.js        | modals-component        |  48.36 kB | 
+product.component-NZD75XRH.js       | product-component       |  48.13 kB | 
+checks-radios.component-Y7VHAKW3.js | checks-radios-component |  46.65 kB | 
+list-groups.component-VGMCHF7F.js   | list-groups-component   |  41.31 kB | 
+buttons.component-IC6IO4PS.js       | buttons-component       |  41.04 kB | 
+carousels.component-P3P7YITW.js     | carousels-component     |  36.96 kB | 
+input-groups.component-S63IKOEG.js  | input-groups-component  |  36.80 kB | 
+widgets.component-KS3QETAP.js       | widgets-component       |  36.70 kB | 
+validation.component-XSTAXUGY.js    | validation-component    |  36.45 kB | 
+dashboard.component-SGEZPTKV.js     | dashboard-component     |  34.68 kB | 
+dropdowns.component-7K7VO7BL.js     | dropdowns-component     |  32.45 kB | 
+...and 44 more lazy chunks files. Use "--verbose" to show all the files.
+
+Application bundle generation complete. [20.690 seconds]
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://localhost:4210/
+  ➜  Network: http://172.17.0.12:4210/
+
+> coreui-free-angular-admin-template@5.2.5 start
+> ng serve --host=0.0.0.0 --disable-host-check --port 4210
+
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+The "disableHostCheck" option will not be used because it is not supported by the "@angular-devkit/build-angular:application" builder.
+❯ Building...
+✔ Building...
+Initial chunk files                 | Names                   |  Raw size
+styles.css                          | styles                  | 380.96 kB | 
+polyfills.js                        | polyfills               |  93.00 kB | 
+main.js                             | main                    |  37.84 kB | 
+chunk-NWFND637.js                   | -                       |  19.98 kB | 
+chunk-EOVL6L2T.js                   | -                       |   4.80 kB | 
+chunk-FML4G5KZ.js                   | -                       |   2.64 kB | 
+
+                                    | Initial total           | 539.23 kB
+
+Lazy chunk files                    | Names                   |  Raw size
+tables.component-UPB2AQ2K.js        | tables-component        | 128.03 kB | 
+cards.component-OZZAALXS.js         | cards-component         | 109.58 kB | 
+navs.component-AK5DL2N7.js          | navs-component          |  51.03 kB | 
+button-groups.component-V2PBS7N6.js | button-groups-component |  49.59 kB | 
+modals.component-ZLBAFPWC.js        | modals-component        |  48.36 kB | 
+product.component-NZD75XRH.js       | product-component       |  48.13 kB | 
+checks-radios.component-Y7VHAKW3.js | checks-radios-component |  46.65 kB | 
+list-groups.component-VGMCHF7F.js   | list-groups-component   |  41.31 kB | 
+buttons.component-IC6IO4PS.js       | buttons-component       |  41.04 kB | 
+carousels.component-P3P7YITW.js     | carousels-component     |  36.96 kB | 
+input-groups.component-S63IKOEG.js  | input-groups-component  |  36.80 kB | 
+widgets.component-KS3QETAP.js       | widgets-component       |  36.70 kB | 
+validation.component-XSTAXUGY.js    | validation-component    |  36.45 kB | 
+dashboard.component-SGEZPTKV.js     | dashboard-component     |  34.68 kB | 
+dropdowns.component-7K7VO7BL.js     | dropdowns-component     |  32.45 kB | 
+...and 44 more lazy chunks files. Use "--verbose" to show all the files.
+
+Application bundle generation complete. [20.436 seconds]
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://localhost:4210/
+  ➜  Network: http://172.17.0.14:4210/
