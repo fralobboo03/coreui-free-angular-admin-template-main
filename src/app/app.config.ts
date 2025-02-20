@@ -14,6 +14,7 @@ import { IconSetService } from '@coreui/icons-angular';
 import { routes } from './app.routes';
 import { CommonHttpService } from './service/common-http.service';
 import { provideHttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 // import { CraftspersonComponent } from './views/artisanry/craftsperson/craftsperson.component';
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,7 +29,7 @@ export const appConfig: ApplicationConfig = {
       withEnabledBlockingInitialNavigation(),
       withViewTransitions()
     ),
-    importProvidersFrom(SidebarModule, DropdownModule),
+    importProvidersFrom(SidebarModule, DropdownModule,),
     IconSetService,
     CommonHttpService,
     // HttpClient,

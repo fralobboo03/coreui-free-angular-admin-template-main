@@ -1,4 +1,5 @@
 
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 // import { CraftspersonComponent } from './views/artisanry/craftsperson/craftsperson.component';
 
@@ -11,7 +12,7 @@ import { NgModule } from '@angular/core';
 
   ],
   imports: [
-
+    CommonModule
   ],
   providers: [],
   bootstrap: [

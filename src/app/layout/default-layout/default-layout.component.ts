@@ -50,6 +50,17 @@ function isOverflown(element: HTMLElement) {
 })
 export class DefaultLayoutComponent {
   public navItems = navItems;
+  listNotToken: any[] = [
+    '/Default/order',
+    '/Default/artisanry/customer'
+  ] 
+  ngOnInit(): void {
+    const accessToken = sessionStorage.getItem("accessToken")
+    console.log("accessToken",accessToken)
+    if (accessToken == null) {
+      this.navItems = navItems.filter(navItems => !this.listNotToken.includes(navItems.url) )
+    }
+  }
 
   onScrollbarUpdate($event: any) {
     // if ($event.verticalUsed) {

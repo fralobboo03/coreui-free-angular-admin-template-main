@@ -27,7 +27,7 @@
                 </c-input-group>
                 <c-row>
                   <c-col xs="6">
-                    <button [routerLink]="['/Default/dashboard']" [routerLinkActive]="'active'" cButton class="px-4" color="primary">
+                    <button [routerLinkActive]="'active'" cButton class="px-4" color="primary" (click)="login()">
                       Login
                     </button>
                   </c-col>

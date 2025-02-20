@@ -22,8 +22,8 @@ import {
   TextColorDirective,
   ThemeDirective
 } from '@coreui/angular';
-import { NgStyle, NgTemplateOutlet } from '@angular/common';
-import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IconDirective } from '@coreui/icons-angular';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { delay, filter, map, tap } from 'rxjs/operators';
@@ -32,7 +32,7 @@ import { delay, filter, map, tap } from 'rxjs/operators';
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
   standalone: true,
-  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle]
+  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle,CommonModule]
 })
 export class DefaultHeaderComponent extends HeaderComponent {
 
@@ -52,7 +52,9 @@ export class DefaultHeaderComponent extends HeaderComponent {
     return this.colorModes.find(mode=> mode.name === currentMode)?.icon ?? 'cilSun';
   });
 
-  constructor() {
+  constructor(
+    private router:Router
+  ) {
     super();
     this.#colorModeService.localStorageItemName.set('coreui-free-angular-admin-template-theme-default');
     this.#colorModeService.eventName.set('ColorSchemeChange');
@@ -146,5 +148,20 @@ export class DefaultHeaderComponent extends HeaderComponent {
     { id: 3, title: 'Add new layouts', value: 75, color: 'info' },
     { id: 4, title: 'Angular Version', value: 100, color: 'success' }
   ];
+
+  public isToken: boolean = false
+
+  ngOnInit(): void {
+    const accessToken = sessionStorage.getItem("accessToken")
+    console.log("accessToken",accessToken)
+    if (accessToken != null) {
+      this.isToken = true
+    }
+  }
+
+  logout() {
+    sessionStorage.removeItem("accessToken")
+    this.router.navigate([""])
+  }
 
 }

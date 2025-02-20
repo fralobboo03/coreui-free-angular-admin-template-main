@@ -166,7 +166,7 @@ export class ProductComponent {
   }
 
   getProducts() {
-    this.commonHttpService.getProducts(this.formSearch.value || "", this.pagination.page, this.pagination.size).subscribe({next: (res) => {
+    this.commonHttpService.getProductsPage(this.formSearch.value || "", this.pagination.page, this.pagination.size).subscribe({next: (res) => {
       console.log("res",res)
       this.products = res.data
       this.pagination.totalPage = res.totalPage

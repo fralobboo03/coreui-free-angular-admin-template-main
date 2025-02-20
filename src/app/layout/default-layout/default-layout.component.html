@@ -13,6 +13,7 @@
     
   </c-sidebar-header>
 
+  <div class="mt-5"></div>
   <ng-scrollbar #scrollbar="ngScrollbar" (updated)="onScrollbarUpdate(scrollbar.state)" class="overflow" pointerEventsMethod="scrollbar" visibility="hover">
     <c-sidebar-nav #overflow [navItems]="navItems" dropdownMode="close" compact />
   </ng-scrollbar>

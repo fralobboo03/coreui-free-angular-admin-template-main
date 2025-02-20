@@ -1,17 +1,17 @@
 import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
+  // {
+  //   name: 'Dashboard',
+  //   url: '/Default/dashboard',
+  //   iconComponent: { name: 'cil-speedometer' },
+  //   badge: {
+  //     color: 'info',
+  //     text: 'NEW'
+  //   }
+  // },
   {
-    name: 'Dashboard',
-    url: '/Default/dashboard',
-    iconComponent: { name: 'cil-speedometer' },
-    badge: {
-      color: 'info',
-      text: 'NEW'
-    }
-  },
-  {
-    name: 'สั่งซื้อผลิตภัณฑ์จักรสาน',
+    name: 'สั่งจอง',
     url: '/Default/order',
     iconComponent: { name: 'cil-contact' }
   },
