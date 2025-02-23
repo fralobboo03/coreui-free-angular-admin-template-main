@@ -15,6 +15,12 @@ export class CommonHttpService {
   getCraftperson(){
     return this.http.get<any>(this.apiurl + "/craftspeople/find-all");
   }
+  
+  getCraftpersonPagination(text:string, page: number, size: number){
+    return this.http.post<any>(this.apiurl + `/craftspeople/get-Craftsperson?page=${page}&size=${size}`,{
+      text: text
+    });
+  }
 
   createCraftsperson(craftsperson: CraftspersonModel): Observable<CraftspersonModel> {
     return this.http.post<CraftspersonModel>(`${this.apiurl}/craftspeople/save`, craftsperson);

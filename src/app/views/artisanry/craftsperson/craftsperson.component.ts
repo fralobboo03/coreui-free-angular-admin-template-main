@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { BorderDirective, AlignDirective, ColComponent, RowComponent, ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, PageItemComponent, PageLinkDirective, PaginationComponent, TableActiveDirective, TableColorDirective, TableDirective, ThemeDirective } from '@coreui/angular';
 import { RouterLink } from '@angular/router';
-import { CraftspersonModel, CriteriaRequest } from '../../../model/common.model'
+import { CraftspersonModel, CriteriaRequest, Pagination } from '../../../model/common.model'
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators  } from '@angular/forms';
 import { IconDirective } from '@coreui/icons-angular';
@@ -9,11 +9,12 @@ import { CommonHttpService } from '../../../service/common-http.service'
 import { AppModule } from 'src/app/app.module';
 import { SHARED_DEPENDENCIES } from '../../../shared-dependencies'
 import { AlertModalComponent } from '@docs-components/alert-modal/alert-modal.component';
+import { PaginationManageComponent } from 'src/app/component/pagination-manage/pagination-manage.component';
 // import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-craftsperson',
   standalone: true,
-  imports: [SHARED_DEPENDENCIES ],
+  imports: [SHARED_DEPENDENCIES ,PaginationManageComponent],
   templateUrl: './craftsperson.component.html',
   styleUrl: './craftsperson.component.scss'
 })
@@ -26,6 +27,8 @@ export class CraftspersonComponent {
     craftsperson_name: ['']
   });
 
+  formSearch = new FormControl(null);
+  
   craftspersonForm = new FormGroup({
     craftspersonId: new FormControl<number | null>(null),
     craftspersonName: new FormControl<string | null>(null),
@@ -45,6 +48,12 @@ export class CraftspersonComponent {
   alertModalvisible = false;
   alertMessage: string = '';
 
+  pagination: Pagination = {
+    page: 1,
+    size: 10,
+    totalPage: 0
+  }
+
   constructor(private fb: FormBuilder, private commonHttpService: CommonHttpService) { }
 
   ngOnInit() {
@@ -52,9 +61,14 @@ export class CraftspersonComponent {
   }
 
   initCraftperson(){
-    this.commonHttpService.getCraftperson().subscribe(res => {
-      this.craftspersonModel = res;
+    this.commonHttpService.getCraftpersonPagination(this.formSearch.value || "", this.pagination.page, this.pagination.size).subscribe(res => {
+      this.craftspersonModel = res.data;
+      this.pagination.totalPage = res.totalPage
     })
+  }
+
+  search() {
+    this.initCraftperson()
   }
 
   onEdit(id: any){
@@ -151,5 +165,8 @@ export class CraftspersonComponent {
     this.alertModalvisible = !this.alertModalvisible;
   }
 
-
+  changePage(page: any) {
+    this.pagination.page = page
+    this.initCraftperson()
+  }
 }

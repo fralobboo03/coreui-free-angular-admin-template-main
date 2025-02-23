@@ -9,8 +9,8 @@
           <div class="col row">
             <div class="col-auto">
               <div style="width: 309px;">
-                <input class="form-control me-2" type="search" placeholder="ค้นหา" aria-label="Search" style="width: 180px;display: inline-block;">
-                <button type="button" class="btn btn-primary me-1 text-white" style="padding: 2px 9px;height: 36px;margin-top: -6px;width: 110px;">
+                <input class="form-control me-2" type="search" [formControl]="formSearch" placeholder="ค้นหา" aria-label="Search" style="width: 180px;display: inline-block;">
+                <button type="button" class="btn btn-primary me-1 text-white" style="padding: 2px 9px;height: 36px;margin-top: -6px;width: 110px;" (click)="search()">
                   <span>ค้นหา</span>
                 </button>
               </div>
@@ -51,23 +51,7 @@
         </tbody>
       </table>
       <div>
-        <c-pagination aria-label="Page navigation example" [size]="'sm'">
-          <c-page-item >
-            <a cPageLink [routerLink]="[]">ก่อนหน้า</a>
-          </c-page-item>
-          <c-page-item [active]="true">
-            <a cPageLink [routerLink]="[]">1</a>
-          </c-page-item>
-          <c-page-item>
-            <a cPageLink [routerLink]="[]">2</a>
-          </c-page-item>
-          <c-page-item>
-            <a cPageLink [routerLink]="[]">3</a>
-          </c-page-item>
-          <c-page-item>
-            <a cPageLink [routerLink]="[]">ถัดไป</a>
-          </c-page-item>
-        </c-pagination>
+        <app-pagination-manage [page]="pagination.page" [totalPage]="pagination.totalPage" [size]="pagination.size" (changePage)="changePage($event)"></app-pagination-manage>
       </div>
     </c-card-body>
   </c-card>

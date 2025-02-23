@@ -63,4 +63,19 @@ export class PaginationManageComponent {
     this.page++
     this.changePage.emit(this.page)
   }
+
+  previous() {
+    if ((this.page - 1) < 1) {
+      return
+    }
+    this.listPage.forEach((page: any) => {
+      if (page.page == (this.page - 1)) {
+        page.active = true
+      } else {
+        page.active = false
+      }
+    })
+    this.page--
+    this.changePage.emit(this.page)
+  }
 }
