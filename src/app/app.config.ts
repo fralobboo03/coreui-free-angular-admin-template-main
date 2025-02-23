@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, Provider } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   provideRouter,
@@ -13,9 +13,13 @@ import { DropdownModule, SidebarModule } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { routes } from './app.routes';
 import { CommonHttpService } from './service/common-http.service';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpInterceptorService } from './service/http-interceptor.service';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 // import { CraftspersonComponent } from './views/artisanry/craftsperson/craftsperson.component';
+export const InterceptorProvider: Provider =
+  { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true };
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes,
@@ -34,6 +38,7 @@ export const appConfig: ApplicationConfig = {
     CommonHttpService,
     // HttpClient,
     provideAnimations(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
+    InterceptorProvider
   ],
 };

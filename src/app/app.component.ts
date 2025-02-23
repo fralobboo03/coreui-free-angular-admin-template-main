@@ -30,7 +30,5 @@ export class AppComponent implements OnInit {
         return;
       }
     });
-    const accessToken = sessionStorage.getItem("accessToken")
-    console.log("accessToken",accessToken)
   }
 }

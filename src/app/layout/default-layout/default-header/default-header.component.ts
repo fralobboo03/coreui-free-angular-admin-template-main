@@ -161,7 +161,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   logout() {
     sessionStorage.removeItem("accessToken")
-    this.router.navigate([""])
+    window.location.reload()
   }
 
 }

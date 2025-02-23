@@ -1,36 +1,54 @@
-<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center">
+<div class="bg-light dark:bg-transparent d-flex flex-row align-items-center" style="margin-top: 20%;">
   <c-container>
     <c-row class="justify-content-center">
       <c-col lg="7" md="9" xl="6">
         <c-card class="mx-4">
           <c-card-body class="p-4">
-            <form cForm>
+            <form cForm [formGroup]="formGroup">
               <h1>Register</h1>
               <p class="text-body-secondary">Create your account</p>
               <c-input-group class="mb-3">
-                <span cInputGroupText>
+                <span cInputGroupText [ngClass]="{'input-validate': formGroup.get('username')?.invalid && formGroup.get('username')?.touched}">
                   <svg cIcon name="cilUser"></svg>
                 </span>
-                <input autoComplete="name" cFormControl placeholder="Username" />
+                <input autoComplete="name" cFormControl formControlName="username" placeholder="Username" [ngClass]="{'input-validate': formGroup.get('username')?.invalid && formGroup.get('username')?.touched}"/>
               </c-input-group>
+              <p *ngIf="formGroup.get('username')?.invalid && formGroup.get('username')?.touched && formGroup.get('username')?.errors?.['required']" class="validate">
+                Please enter your username
+              </p>
               <c-input-group class="mb-3">
-                <span cInputGroupText>&#64;</span>
-                <input autoComplete="email" cFormControl placeholder="Email" />
+                <span cInputGroupText [ngClass]="{'input-validate': formGroup.get('email')?.invalid && formGroup.get('email')?.touched}">&#64;</span>
+                <input autoComplete="email" cFormControl formControlName="email" placeholder="Email" [ngClass]="{'input-validate': formGroup.get('email')?.invalid && formGroup.get('email')?.touched}"/>
               </c-input-group>
+              <p *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched && formGroup.get('email')?.errors?.['required']" class="validate">
+                Please enter your email
+              </p>
               <c-input-group class="mb-3">
-                <span cInputGroupText>
+                <span cInputGroupText [ngClass]="{'input-validate': formGroup.get('password')?.invalid && formGroup.get('password')?.touched}">
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
-                <input autoComplete="new-password" cFormControl placeholder="Password" type="password" />
+                <input autoComplete="new-password" cFormControl formControlName="password" placeholder="Password" type="password" [ngClass]="{'input-validate': formGroup.get('password')?.invalid && formGroup.get('password')?.touched}"/>
               </c-input-group>
+              <p *ngIf="formGroup.get('password')?.invalid && formGroup.get('password')?.touched && formGroup.get('password')?.errors?.['required']" class="validate">
+                Please enter your password
+              </p>
+              <p *ngIf="formGroup.get('password')?.invalid && formGroup.get('password')?.touched && formGroup.get('password')?.errors?.['minlength']" class="validate">
+                must be at least 6 characters
+              </p>
               <c-input-group class="mb-4">
-                <span cInputGroupText>
+                <span cInputGroupText [ngClass]="{'input-validate': formGroup.get('confirmPassword')?.invalid && formGroup.get('confirmPassword')?.touched}">
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
-                <input autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
+                <input autoComplete="new-password" cFormControl formControlName="confirmPassword" placeholder="Repeat password" type="password" [ngClass]="{'input-validate': formGroup.get('confirmPassword')?.invalid && formGroup.get('confirmPassword')?.touched}"/>
               </c-input-group>
+              <p *ngIf="formGroup.get('confirmPassword')?.invalid && formGroup.get('confirmPassword')?.touched && formGroup.get('confirmPassword')?.errors?.['required']" class="validate">
+                Please enter your confirmPassword
+              </p>
+              <p *ngIf="formGroup.get('confirmPassword')?.invalid && formGroup.get('confirmPassword')?.touched && formGroup.get('confirmPassword')?.errors?.['minlength']" class="validate">
+                must be at least 6 characters
+              </p>
               <div class="d-grid">
-                <button cButton color="success">Create Account</button>
+                <button cButton color="success" (click)="register()">Create Account</button>
               </div>
             </form>
           </c-card-body>
@@ -38,4 +56,10 @@
       </c-col>
     </c-row>
   </c-container>
+</div>
+
+<div class="d-flex justify-content-center">
+  <button cButton class="px-4 mt-4 btn-black" color="secondary" (click)="back()">
+    Back
+  </button>
 </div>

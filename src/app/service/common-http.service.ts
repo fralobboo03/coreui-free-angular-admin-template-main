@@ -125,4 +125,16 @@ export class CommonHttpService {
   deleteMCustomer(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiurl}/customers/delete-ctm-by-id/${id}`);
   }
+
+  login(username: string, password: string): Observable<void> {
+    return this.http.post<void>(`${this.apiurl}/authenticate/login`, {
+      username: username,
+      password: password
+    });
+  }
+
+  register(formRegister: any) {
+    return this.http.post<void>(`${this.apiurl}/authenticate/register`, formRegister);
+  }
+  
 }
