@@ -1,14 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AlertModalComponent } from '@docs-components/alert-modal/alert-modal.component';
-import { MaterialModel } from 'src/app/model/common.model';
+import { PaginationManageComponent } from 'src/app/component/pagination-manage/pagination-manage.component';
+import { MaterialModel, Pagination } from 'src/app/model/common.model';
 import { CommonHttpService } from 'src/app/service/common-http.service';
 import { SHARED_DEPENDENCIES } from 'src/app/shared-dependencies';
 
 @Component({
   selector: 'app-materials',
   standalone: true,
-  imports: [SHARED_DEPENDENCIES],
+  imports: [SHARED_DEPENDENCIES,PaginationManageComponent],
   templateUrl: './materials.component.html',
   styleUrl: './materials.component.scss'
 })
@@ -29,16 +30,28 @@ export class MaterialsComponent {
     source:       new FormControl<string | null>(null),
     otherDetails: new FormControl<string | null>(null)
   });
+  isLogin: Boolean = false;
+  pagination: Pagination = {
+    page: 1,
+    size: 10,
+    totalPage: 0
+  }
+  formSearch = new FormControl(null);
 
   constructor(private fb: FormBuilder, private commonHttpService: CommonHttpService) { }
 
   ngOnInit() {
     this.initMaterial();
+    const token = localStorage.getItem("accessToken")
+    if (token != null) {
+      this.isLogin = true
+    }
   }
 
   initMaterial(){
-    this.commonHttpService.getMaterial().subscribe(res => {
-      this.materialModel = res;
+    this.commonHttpService.getMaterialPagination(this.formSearch.value || "", this.pagination.page, this.pagination.size).subscribe(res => {
+      this.materialModel = res.data;
+      this.pagination.totalPage = res.totalPage
     })
   }
 
@@ -132,5 +145,14 @@ export class MaterialsComponent {
 
   toggleSuccessAlert() {
     this.alertModalvisible = !this.alertModalvisible;
+  }
+
+  changePage(page: any) {
+    this.pagination.page = page
+    this.initMaterial()
+  }
+
+  search() {
+    this.initMaterial()
   }
 }

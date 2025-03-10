@@ -43,7 +43,7 @@ export class LoginComponent {
   ) { }
 
   ngOnInit() {
-    let accessToken = sessionStorage.getItem('accessToken')
+    let accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
       this.router.navigate(["/"])
     }
@@ -61,7 +61,7 @@ export class LoginComponent {
     }
     const controls = this.formGroup.controls
     this.commonService.login(controls.username.value || "", controls.password.value || "").subscribe({next: (res: any) => {
-      sessionStorage.setItem("accessToken", res.accessToken)
+      localStorage.setItem("accessToken", res.accessToken)
       this.router.navigate(["Default","artisanry","product"])
     } , error: (err) => {
       alert("ผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")

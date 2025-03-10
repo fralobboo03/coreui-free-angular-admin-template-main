@@ -16,7 +16,7 @@ tr>th:first-child,tr>td:first-child {
   left: 0;
 }
 
-tr>th:last-child,tr>td:last-child {
+tr>th.fixed-column:last-child,tr>td.fixed-column:last-child {
   position: sticky;
   right: 0;
 }

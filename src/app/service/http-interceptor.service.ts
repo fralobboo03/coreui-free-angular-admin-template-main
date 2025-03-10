@@ -12,7 +12,7 @@ export class HttpInterceptorService implements HttpInterceptor{
     private router: Router
   ) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const accessToken = sessionStorage.getItem("accessToken")
+    const accessToken = localStorage.getItem("accessToken")
     let headers = req.headers
     if (accessToken) {
       headers = headers.set('Authorization', `Bearer ${accessToken}`);

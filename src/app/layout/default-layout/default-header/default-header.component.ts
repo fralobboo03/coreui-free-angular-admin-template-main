@@ -152,7 +152,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   public isToken: boolean = false
 
   ngOnInit(): void {
-    const accessToken = sessionStorage.getItem("accessToken")
+    const accessToken = localStorage.getItem("accessToken")
     console.log("accessToken",accessToken)
     if (accessToken != null) {
       this.isToken = true
@@ -160,7 +160,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   }
 
   logout() {
-    sessionStorage.removeItem("accessToken")
+    localStorage.removeItem("accessToken")
     window.location.reload()
   }
 

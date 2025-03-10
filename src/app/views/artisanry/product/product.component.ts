@@ -69,11 +69,16 @@ export class ProductComponent {
 
   craftspersonForm = new FormControl(null)
   materialForm = new FormControl(null)
+  isLogin: Boolean = false;
 
   ngOnInit() {
     this.getCraftperson()
     this.getMaterials()
     this.getProducts()
+    const token = localStorage.getItem("accessToken")
+    if (token != null) {
+      this.isLogin = true
+    }
   }
 
   async onFilesSelected(event: any): Promise<void> {

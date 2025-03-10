@@ -55,7 +55,7 @@ export class DefaultLayoutComponent {
     '/Default/artisanry/customer'
   ] 
   ngOnInit(): void {
-    const accessToken = sessionStorage.getItem("accessToken")
+    const accessToken = localStorage.getItem("accessToken")
     console.log("accessToken",accessToken)
     if (accessToken == null) {
       this.navItems = navItems.filter(navItems => !this.listNotToken.includes(navItems.url) )

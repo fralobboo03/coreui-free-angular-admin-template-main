@@ -42,6 +42,10 @@ export class CommonHttpService {
     return this.http.get<any>(this.apiurl + "/materials/find-all");
   }
 
+  getMaterialPagination(text:string, page: number, size: number){
+    return this.http.post<any>(this.apiurl + `/materials/get-material?page=${page}&size=${size}`,{text});
+  }
+
   createMaterial(material: MaterialModel): Observable<MaterialModel> {
     return this.http.post<MaterialModel>(`${this.apiurl}/materials/save-mt`, material);
   }

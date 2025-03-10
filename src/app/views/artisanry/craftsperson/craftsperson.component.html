@@ -16,7 +16,7 @@
               </div>
             </div>
           </div>
-          <div class="col" style="text-align: end;">
+          <div *ngIf="isLogin" class="col" style="text-align: end;">
             <button type="button" class="btn btn-success me-1 text-white" (click)="openModalAddProduct()">
               <span>เพิ่ม</span>
             </button>
@@ -43,7 +43,7 @@
             <td class="text-center">{{ds.contact}}</td>
             <td class="text-center">{{ds.history}}</td>
             <td class="text-center">{{ds.description}}</td>
-            <td class="text-center">
+            <td *ngIf="isLogin" class="text-center">
               <button type="button" class="btn btn-info me-1" (click)="onEdit(ds.craftspersonId)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
               <button type="button" class="btn btn-danger" (click)="onDelete(ds.craftspersonId)"><i class="fa-solid fa-trash text-white"></i></button>
             </td>

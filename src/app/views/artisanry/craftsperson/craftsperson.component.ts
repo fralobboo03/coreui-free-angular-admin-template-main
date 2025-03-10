@@ -53,11 +53,16 @@ export class CraftspersonComponent {
     size: 10,
     totalPage: 0
   }
+  isLogin: Boolean = false;
 
   constructor(private fb: FormBuilder, private commonHttpService: CommonHttpService) { }
 
   ngOnInit() {
     this.initCraftperson();
+    const token = localStorage.getItem("accessToken")
+    if (token != null) {
+      this.isLogin = true
+    }
   }
 
   initCraftperson(){

@@ -16,7 +16,7 @@
               </div>
             </div>
           </div>
-          <div class="col" style="text-align: end;">
+          <div *ngIf="isLogin" class="col" style="text-align: end;">
             <button type="button" class="btn btn-success me-1 text-white" (click)="openModalAddProduct()">
               <span>เพิ่ม</span>
             </button>
@@ -35,7 +35,7 @@
               <th scope="col" class="text-center">ชนิดของวัสดุ</th>
               <th scope="col" class="text-center">ราคา</th>
               <th scope="col" class="text-center">รหัสช่างจักสาน</th>
-              <th scope="col" class="text-center"></th>
+              <th scope="col" class="text-center" *ngIf="isLogin"></th>
             </tr>
           </thead>
           <tbody>
@@ -56,7 +56,7 @@
                   {{craftsperson.craftsperson.craftspersonId}}
                 </div>
               </td>
-              <td class="text-center fixed-column" >
+              <td  *ngIf="isLogin" class="text-center fixed-column" >
                 <button type="button" class="btn btn-info me-1" (click)="onEdit(product)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
                 <button type="button" class="btn btn-danger" (click)="deleteProductById(product.productId)"><i class="fa-solid fa-trash text-white"></i></button>
               </td>
