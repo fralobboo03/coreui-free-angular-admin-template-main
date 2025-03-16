@@ -7,8 +7,10 @@ import { RouterLink } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators  } from '@angular/forms';
 import { IconDirective } from '@coreui/icons-angular';
 import { AlertModalComponent } from '../components/alert-modal/alert-modal.component'
+import { ModalConfrimComponent } from '../app/component/modal-confrim/modal-confrim.component';
 // import { CraftspersonComponent } from './views/artisanry/craftsperson/craftsperson.component';
 export { AlertModalComponent } from '../components/alert-modal/alert-modal.component';
+export { ModalConfrimComponent } from '../app/component/modal-confrim/modal-confrim.component';
 
 
 export const SHARED_DEPENDENCIES = [
@@ -44,6 +46,7 @@ export const SHARED_DEPENDENCIES = [
   CarouselIndicatorsComponent,
   CarouselCaptionComponent,
   AlertModalComponent,
+  ModalConfrimComponent,
   ContainerComponent,
   ListGroupDirective,
   ListGroupItemDirective,

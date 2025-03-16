@@ -52,7 +52,8 @@ export class DefaultLayoutComponent {
   public navItems = navItems;
   listNotToken: any[] = [
     '/Default/order',
-    '/Default/artisanry/customer'
+    '/Default/artisanry/customer',
+    '/Default/artisanry/materials'
   ] 
   ngOnInit(): void {
     const accessToken = localStorage.getItem("accessToken")

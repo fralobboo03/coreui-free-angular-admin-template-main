@@ -17,7 +17,7 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Artisanry'
+    name: 'เมนู'
   },
   {
     name: 'ช่างจักสาน',

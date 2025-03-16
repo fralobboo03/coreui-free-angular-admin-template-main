@@ -42,6 +42,6 @@ export class RegisterComponent {
   }
 
   back() {
-    this.router.navigate(["/login"])
+    this.router.navigate(["/"])
   }
 }

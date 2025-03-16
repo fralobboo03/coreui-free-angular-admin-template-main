@@ -29,20 +29,20 @@
             <tr>
               <th scope="col" class="text-center">#</th>
               <th scope="col" class="text-center">รูป</th>
-              <th scope="col" class="text-center">รหัสผลิตภัณฑ์</th>
+              <th *ngIf="isLogin" scope="col" class="text-center">รหัสผลิตภัณฑ์</th>
               <th scope="col" class="text-center">ชื่อผลิตภัณฑ์</th>
               <th scope="col" class="text-center">รายละเอียด</th>
               <th scope="col" class="text-center">ชนิดของวัสดุ</th>
               <th scope="col" class="text-center">ราคา</th>
               <th scope="col" class="text-center">รหัสช่างจักสาน</th>
-              <th scope="col" class="text-center" *ngIf="isLogin"></th>
+              <th *ngIf="isLogin" scope="col" class="text-center" ></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let product of products;let i = index">
               <th scope="row" class="text-center">{{(pagination.page - 1) * pagination.size + (i + 1)}}</th>
               <td class="text-center" ><img class="product-image" [src]="(product.image.length > 0) ? pathImage+'/'+product.image[0].image : ''" alt="Description of Image" width="120" height="100" (click)="showModalImage(product.image)"></td>
-              <td class="text-center" >{{product.productId}}</td>
+              <td *ngIf="isLogin" class="text-center" >{{product.productId}}</td>
               <td class="text-center" >{{product.nameProduct}}</td>
               <td class="text-center" >{{product.description}}</td>
               <td class="text-center" >

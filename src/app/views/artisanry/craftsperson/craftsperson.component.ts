@@ -10,6 +10,8 @@ import { AppModule } from 'src/app/app.module';
 import { SHARED_DEPENDENCIES } from '../../../shared-dependencies'
 import { AlertModalComponent } from '@docs-components/alert-modal/alert-modal.component';
 import { PaginationManageComponent } from 'src/app/component/pagination-manage/pagination-manage.component';
+import { firstValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment';
 // import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-craftsperson',
@@ -35,8 +37,11 @@ export class CraftspersonComponent {
     address: new FormControl<string | null>(null),
     contact: new FormControl<string | null>(null),
     history: new FormControl<string | null>(null),
-    description: new FormControl<string | null>(null)
+    description: new FormControl<string | null>(null),
+    email: new FormControl<string | null>(null),
   });
+
+  fileUpdate: File | null = null
 
   criteriaReq: CriteriaRequest = {
     craftspersonName: '',
@@ -47,6 +52,9 @@ export class CraftspersonComponent {
   isInsert = true;
   alertModalvisible = false;
   alertMessage: string = '';
+  messageConfrim: string = '';
+  isShowModalConfrim: boolean = false;
+  deleteId: any = null
 
   pagination: Pagination = {
     page: 1,
@@ -54,6 +62,9 @@ export class CraftspersonComponent {
     totalPage: 0
   }
   isLogin: Boolean = false;
+  imgUrlInit:string = 'assets/images/image-placeholder.svg'
+  imgUrl:string = this.imgUrlInit
+  pathImage = environment.urlService
 
   constructor(private fb: FormBuilder, private commonHttpService: CommonHttpService) { }
 
@@ -87,22 +98,29 @@ export class CraftspersonComponent {
         address: selected_craftpersonModel.address,
         contact: selected_craftpersonModel.contact,
         history: selected_craftpersonModel.history,
-        description: selected_craftpersonModel.description
+        description: selected_craftpersonModel.description,
+        email: selected_craftpersonModel.email
       });
+      this.imgUrl =  this.pathImage +"/"+ (selected_craftpersonModel.image ?? "")
     }
   }
 
   onDelete(id: any){
-    if(id != null){
-      const CraftName = this.craftspersonModel.find(item => item.craftspersonId == id)
-      this.commonHttpService.deleteCraftsperson(id).subscribe(res => {
+    this.deleteId = id
+    const CraftName = this.craftspersonModel.find(item => item.craftspersonId == this.deleteId)
+    this.messageConfrim = `ต้องการลบ ${CraftName?.craftspersonName} ใช่ไหม`
+    this.isShowModalConfrim = true
+  }
+
+  deleteById() {
+    if(this.deleteId != null){
+      const CraftName = this.craftspersonModel.find(item => item.craftspersonId == this.deleteId)
+      this.commonHttpService.deleteCraftsperson(this.deleteId).subscribe(res => {
         // console.log("delete res", res);
         this.showSuccessMessage('ลบข้อมูลช่าง: ' + CraftName?.craftspersonName + ' สำเร็จ');
         this.initCraftperson()
       }, error => {
-
       })
-
     }
   }
 
@@ -114,14 +132,22 @@ export class CraftspersonComponent {
       address: formCtl.address ?? '',
       contact: formCtl.contact ?? '',
       history: formCtl.history ?? '',
-      description: formCtl.description ?? ''
+      description: formCtl.description ?? '',
+      email: formCtl.email ?? ''
     };
 
     if(this.isInsert){
       //insert
       console.log("insert", updatedCraftspersonReq)
-      this.commonHttpService.createCraftsperson(updatedCraftspersonReq).subscribe(res => {
+      this.commonHttpService.createCraftsperson(updatedCraftspersonReq).subscribe(async (res: CraftspersonModel) => {
         // console.log("insert res", res)
+        const formData: FormData = new FormData();
+        let id: string = (res.craftspersonId) ? res.craftspersonId?.toString() : ""
+        formData.append("id", id);
+        if (this.fileUpdate) {
+          formData.append("file", this.fileUpdate);
+        }
+        const resup = await firstValueFrom(this.commonHttpService.craftspersonUpdateImage(formData))
         this.showSuccessMessage('บันทึกข้อมูลช่างสำเร็จ');
         this.beforeSaveSuccess();
       })
@@ -130,8 +156,15 @@ export class CraftspersonComponent {
       //update
       console.log("update", updatedCraftspersonReq)
       if(formCtl.craftspersonId != null){
-        this.commonHttpService.updateCraftsperson(formCtl.craftspersonId, updatedCraftspersonReq).subscribe(res => {
+        this.commonHttpService.updateCraftsperson(formCtl.craftspersonId, updatedCraftspersonReq).subscribe(async res => {
           // console.log("insert res", res)
+          const formData: FormData = new FormData();
+          let id: string = (res.craftspersonId) ? res.craftspersonId?.toString() : ""
+          formData.append("id", id);
+          if (this.fileUpdate) {
+            formData.append("file", this.fileUpdate);
+          }
+          const resup = await firstValueFrom(this.commonHttpService.craftspersonUpdateImage(formData))
           this.showSuccessMessage('แก้ไขข้อมูลช่างสำเร็จ');
           this.beforeSaveSuccess();
         })
@@ -153,6 +186,7 @@ export class CraftspersonComponent {
     this.isInsert = true;
     this.craftspersonForm.reset();
     this.visible = true
+    this.imgUrl = this.imgUrlInit
   }
 
   handleLiveDemoChange(event: any) {
@@ -173,5 +207,32 @@ export class CraftspersonComponent {
   changePage(page: any) {
     this.pagination.page = page
     this.initCraftperson()
+  }
+
+  async onFilesSelected(event: any): Promise<void> {
+    try {
+      console.log("onFilesSelected",event)
+      const buffer = await event.target.files[0].arrayBuffer();
+      const blob = new Blob([buffer], { type: event.target.files[0].type });
+      const url = URL.createObjectURL(blob);
+      this.imgUrl = url
+      this.fileUpdate = event.target.files[0]
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onUpload(fileUpdate: any): void {
+    fileUpdate.click()
+  }
+
+  async onModalEvent(event: any) {
+    console.log("event",event)
+    if (event == true) {
+      await this.deleteById()
+      this.isShowModalConfrim = false
+    } else {
+      this.isShowModalConfrim = false
+    }
   }
 }

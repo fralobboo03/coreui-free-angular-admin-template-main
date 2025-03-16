@@ -23,24 +23,24 @@
           </div>
         </div>
       </div>
-      <table cTable>
+      <!-- <table cTable>
         <thead>
           <tr>
             <th scope="col" class="text-center" >#</th>
             <th scope="col" class="text-center" >ชื่อ</th>
-            <th scope="col" class="text-center" >ที่อยู่</th>
-            <th scope="col" class="text-center" >ติดต่อ</th>
+            <th *ngIf="isLogin" scope="col" class="text-center" >ที่อยู่</th>
+            <th *ngIf="isLogin" scope="col" class="text-center" >ติดต่อ</th>
             <th scope="col" class="text-center" >ประวัติความเป็นมา</th>
             <th scope="col" class="text-center" >รายละเอียด</th>
-            <th scope="col" class="text-center" style="width: 104px;"></th>
+            <th *ngIf="isLogin" scope="col" class="text-center" style="width: 104px;"></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let ds of craftspersonModel; let i = index">
             <th scope="row" class="text-center">{{ i + 1 }}</th>
             <td class="text-center">{{ds.craftspersonName}}</td>
-            <td class="text-center">{{ds.address}}</td>
-            <td class="text-center">{{ds.contact}}</td>
+            <td *ngIf="isLogin" class="text-center">{{ds.address}}</td>
+            <td *ngIf="isLogin" class="text-center">{{ds.contact}}</td>
             <td class="text-center">{{ds.history}}</td>
             <td class="text-center">{{ds.description}}</td>
             <td *ngIf="isLogin" class="text-center">
@@ -49,7 +49,47 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
+      <div class="mb-3">
+        <div class="card mb-2" style="width: 100%; position: relative;" *ngFor="let ds of craftspersonModel; let i = index">
+          <div class="card-body craft">
+            <div class="d-flex">
+              <div class="craft-image">
+                <img *ngIf="ds.image" [src]="pathImage +'/'+ ds.image" alt="">
+                <img *ngIf="ds.image == null" [src]="imgUrlInit" alt="">
+              </div>
+              <div class="d-flex flex-column">
+                <h4>{{ds.craftspersonName}}</h4>
+                <p>{{ds.history}}</p>
+                <p class="mt-2 mb-2">{{ds.description}}</p>
+                <div *ngIf="isLogin" class="d-flex">
+                  <p class="icon-craft">
+                    <i class="fa-solid fa-map-pin me-1" style="color: #2b6ce2;"></i>
+                  </p>
+                  <p>{{ds.address}}</p>
+                </div>
+                <div class="d-flex">
+                  <p class="icon-craft">
+                    <i class="fa-solid fa-envelope me-1 icon-craft" style="color: #2b6ce2;"></i>
+                  </p>
+                  <p>{{ds.email}}</p>
+                </div>
+                <div *ngIf="isLogin" class="d-flex">
+                  <p class="icon-craft">
+                    <i class="fa-solid fa-phone me-1 icon-craft" style="color: #2b6ce2;"></i>
+                  </p>
+                  <p>{{ds.contact}}</p>
+                </div>
+                <div class="craft-action" *ngIf="isLogin">
+                  <button type="button" class="btn btn-info me-1" (click)="onEdit(ds.craftspersonId)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
+                  <button type="button" class="btn btn-danger" (click)="onDelete(ds.craftspersonId)"><i class="fa-solid fa-trash text-white"></i></button>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+      </div>
       <div>
         <app-pagination-manage [page]="pagination.page" [totalPage]="pagination.totalPage" [size]="pagination.size" (changePage)="changePage($event)"></app-pagination-manage>
       </div>
@@ -60,12 +100,23 @@
 <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
   <c-modal-header>
     <h5 cModalTitle>เพิ่มช่างจักสาน</h5>
-    <button (click)="toggleLiveDemo()" cButtonClose></button>
+    <button (click)="toggleLiveDemo()" type="button" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <form [formGroup]="craftspersonForm" (ngSubmit)="onSaveCraftsperson()">
+      <div class="mb-3 d-flex justify-content-center">
+        <div class="card h-100" style="width: 170px;">
+          <input #fileUpdate type="file" style="display: none;" (change)="onFilesSelected($event)" class="form-control mb-3">
+          <img [src]="imgUrl" class="card-img-top image-item " (click)="onUpload(fileUpdate)" style="cursor: pointer;" alt="Description of Image">
+          <div class="row" style="padding: 0 11px;">
+            <div class="col" style="padding: 0px;">
+              <button type="button" class="btn btn-primary image-btn" (click)="onUpload(fileUpdate)"><i class="fa-solid fa-pencil-square-o text-white"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="mb-3">
-        <label for="craftsperson_name" class="form-label">ชื่อ</label>
+        <label for="craftsperson_name" class="form-label">ชื่อ-สกุล</label>
         <input type="text" class="form-control" id="craftspersonName" formControlName="craftspersonName" placeholder="ชื่อ">
       </div>
       <div class="mb-3">
@@ -73,8 +124,12 @@
         <input type="text" class="form-control" id="address" formControlName="address" placeholder="ที่อยู่">
       </div>
       <div class="mb-3">
-        <label for="contact" class="form-label">ติดต่อ</label>
-        <input type="text" class="form-control" id="contact" formControlName="contact" placeholder="ติดต่อ">
+        <label for="contact" class="form-label">เบอร์โทรศัพท์</label>
+        <input type="text" class="form-control" id="contact" formControlName="contact" placeholder="เบอร์โทรศัพท์">
+      </div>
+      <div class="mb-3">
+        <label for="history" class="form-label">อีเมล์</label>
+        <input class="form-control" type="email" id="email" formControlName="email" placeholder="อีเมล์">
       </div>
       <div class="mb-3">
         <label for="history" class="form-label">ประวัติความเป็นมา</label>
@@ -94,3 +149,4 @@
 
 <app-alert-modal #alertModal [visible]="alertModal.visible" [alertMessage]="alertMessage"></app-alert-modal>
 
+<app-modal-confrim [visible]="isShowModalConfrim" [alertMessage]="messageConfrim" [btnConfrimText]="'ลบข้อมูล'" (onEventModal)="onModalEvent($event)"></app-modal-confrim>

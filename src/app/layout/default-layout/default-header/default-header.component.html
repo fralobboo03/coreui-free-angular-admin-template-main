@@ -41,15 +41,18 @@
       <a cNavLink routerLink="/login">
         Login
       </a>
+      <a cNavLink routerLink="/register">
+        Register
+      </a>
     </c-header-nav>
     <c-header-nav class="mx-0" *ngIf="isToken">
       <ng-container *ngTemplateOutlet="userDropdown" />
     </c-header-nav>
 
   </c-container>
-  <c-container [fluid]="true" class="px-4">
+  <!-- <c-container [fluid]="true" class="px-4">
     <c-breadcrumb-router />
-  </c-container>
+  </c-container> -->
 </ng-container>
 <!--</c-header>-->
 

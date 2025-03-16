@@ -26,6 +26,10 @@ export class CommonHttpService {
     return this.http.post<CraftspersonModel>(`${this.apiurl}/craftspeople/save`, craftsperson);
   }
 
+  craftspersonUpdateImage(formData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiurl}/craftspeople/update-image`, formData);
+  }
+
   updateCraftsperson(id: number, craftsperson: CraftspersonModel): Observable<CraftspersonModel> {
     return this.http.put<CraftspersonModel>(`${this.apiurl}/craftspeople/update/${id}`, craftsperson);
   }

@@ -5,6 +5,8 @@ export interface CraftspersonModel {
   contact: string | null;
   history: string | null;
   description: string | null;
+  email: string | null;
+  image?: string |null
 }
 
 export interface MaterialModel {

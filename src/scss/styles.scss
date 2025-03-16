@@ -65,3 +65,14 @@ i.fa-solid {
   border-color: red;
 }
 
+.bth-close-modal {
+  margin: calc(-0.5 * var(--cui-modal-header-padding-y)) 
+        calc(-0.5 * var(--cui-modal-header-padding-x)) 
+        calc(-0.5 * var(--cui-modal-header-padding-y)) 
+        auto;
+  border: none;
+  background: none;
+  font-size: 28px;
+  color: #4c4c4c;
+  margin-right: -3px;
+}
